@@ -2,6 +2,7 @@ package org.milaifontanals.wikiloc.model;
 
 import java.awt.Image;
 import java.util.Objects;
+import java.util.regex.Pattern;
 import org.milaifontanals.wikiloc.exception.WikilocModelException;
 
 /**
@@ -50,17 +51,16 @@ public class Usuari {
     }
 
     public void setEmail(String email) {
-        if(!isValidEmailAddress(email)){
+        if(!patternMatches(email,"^(.+)@(\\S+)$")){
             throw new WikilocModelException("L'usuari ha de tenir obligatòriament un correu vàlid");
         }
         this.email = email;
     }
     
-    public boolean isValidEmailAddress(String email) {
-        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-        java.util.regex.Matcher m = p.matcher(email);
-        return m.matches();
+    public static boolean patternMatches(String emailAddress, String regexPattern) {
+        return Pattern.compile(regexPattern)
+          .matcher(emailAddress)
+          .matches();
     }
 
     public Image getFoto() {
