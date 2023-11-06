@@ -33,8 +33,8 @@ public class CrearCompte extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel_iniciarSessio = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPasswordField = new javax.swing.JPasswordField();
@@ -50,15 +50,30 @@ public class CrearCompte extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel_iniciarSessio.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_iniciarSessio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel_iniciarSessio.setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel3.setText("Ja ets membre?");
-        jPanel_iniciarSessio.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 380, 140, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(55, 420, 0, 0);
+        jPanel_iniciarSessio.add(jLabel3, gridBagConstraints);
 
         jPasswordField.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jPasswordField.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel_iniciarSessio.add(jPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 610, 690, 51));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.ipadx = 626;
+        gridBagConstraints.ipady = 20;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(29, 220, 0, 0);
+        jPanel_iniciarSessio.add(jPasswordField, gridBagConstraints);
 
         jTextField_login.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jTextField_login.setForeground(new java.awt.Color(204, 204, 204));
@@ -67,14 +82,30 @@ public class CrearCompte extends javax.swing.JFrame {
                 jTextField_loginActionPerformed(evt);
             }
         });
-        jPanel_iniciarSessio.add(jTextField_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 530, 690, 51));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.ipadx = 626;
+        gridBagConstraints.ipady = 20;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(29, 220, 0, 0);
+        jPanel_iniciarSessio.add(jTextField_login, gridBagConstraints);
 
         jButton_registrat.setBackground(new java.awt.Color(76, 140, 43));
         jButton_registrat.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         jButton_registrat.setForeground(new java.awt.Color(255, 255, 255));
         jButton_registrat.setText("Registra't");
         jButton_registrat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel_iniciarSessio.add(jButton_registrat, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 770, 390, 51));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 281;
+        gridBagConstraints.ipady = 19;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(25, 360, 47, 0);
+        jPanel_iniciarSessio.add(jButton_registrat, gridBagConstraints);
 
         jLabel_iniciaSessio.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         jLabel_iniciaSessio.setForeground(new java.awt.Color(255, 174, 0));
@@ -85,10 +116,24 @@ public class CrearCompte extends javax.swing.JFrame {
                 jLabel_iniciaSessioMouseClicked(evt);
             }
         });
-        jPanel_iniciarSessio.add(jLabel_iniciaSessio, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 370, 378, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.ipadx = 329;
+        gridBagConstraints.ipady = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(45, 10, 0, 144);
+        jPanel_iniciarSessio.add(jLabel_iniciaSessio, gridBagConstraints);
 
         jLabel_logo.setIcon(new javax.swing.ImageIcon("G:\\DAM\\2on\\Curs 2023-2024\\M13-Projecte\\1_WikiLoc\\P1_WikiLoc\\P1-BorrasMeleroJudit\\P1-Vista-BorrasMeleroJudit\\img\\wikiloc_logo.png")); // NOI18N
-        jPanel_iniciarSessio.add(jLabel_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(50, 250, 0, 0);
+        jPanel_iniciarSessio.add(jLabel_logo, gridBagConstraints);
 
         jTextField_email.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jTextField_email.setForeground(new java.awt.Color(204, 204, 204));
@@ -97,34 +142,37 @@ public class CrearCompte extends javax.swing.JFrame {
                 jTextField_emailActionPerformed(evt);
             }
         });
-        jPanel_iniciarSessio.add(jTextField_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 450, 690, 51));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.ipadx = 626;
+        gridBagConstraints.ipady = 20;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(45, 220, 0, 0);
+        jPanel_iniciarSessio.add(jTextField_email, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel1.setText("En continuar, estàs acceptant les Condicions d'Ús i la Política de Privadesa de Wikiloc.");
-        jPanel_iniciarSessio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 720, -1, -1));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_iniciarSessio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1492, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_iniciarSessio, javax.swing.GroupLayout.DEFAULT_SIZE, 1118, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(59, 220, 0, 0);
+        jPanel_iniciarSessio.add(jLabel1, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_iniciarSessio, javax.swing.GroupLayout.DEFAULT_SIZE, 1092, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel_iniciarSessio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -197,7 +245,6 @@ public class CrearCompte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_iniciaSessio;
     private javax.swing.JLabel jLabel_logo;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_iniciarSessio;
     private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JTextField jTextField_email;
