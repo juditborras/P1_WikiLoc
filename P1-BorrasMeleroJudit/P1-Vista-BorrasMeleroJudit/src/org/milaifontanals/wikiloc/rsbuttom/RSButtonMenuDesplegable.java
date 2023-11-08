@@ -27,17 +27,17 @@ public class RSButtonMenuDesplegable extends JButton implements MouseListener, M
     /**
      * Color para el fondo del boton
      */
-    private Color colorNormal = new Color(76, 140, 43);
+    private Color colorNormal = new Color(238, 238, 238);
     private Color colorPressed = new Color(76, 140, 43);   
-    private Color colorHover = new Color(76, 140, 43);
+    private Color colorHover = new Color(255, 163, 0);
     
     private Border bordeMoved = javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255));
     /**
      * Color para el texto
      */
-    private Color colorTextNormal = new Color(255, 255, 255);
+    private Color colorTextNormal = new Color(153, 153, 153);
     private Color colorTextPressed = new Color(255, 255, 255);
-    private Color colorTextHover = new Color(255, 255, 255);
+    private Color colorTextHover = new Color(0, 0, 0);
     
     private Font f = new Font("Tahoma", Font.BOLD, 14);
 

@@ -31,7 +31,7 @@ public class RSButtonMenu extends JButton implements MouseListener, MouseMotionL
     private Color colorPressed = new Color(76, 140, 43);   
     private Color colorHover = new Color(76, 140, 43);
     
-    private Border bordeMoved = javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255));
+    private Border bordeMoved = javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(76, 140, 43));
     /**
      * Color para el texto
      */
