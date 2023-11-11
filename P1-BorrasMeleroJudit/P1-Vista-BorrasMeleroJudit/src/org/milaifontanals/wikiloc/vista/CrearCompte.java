@@ -4,6 +4,7 @@
  */
 package org.milaifontanals.wikiloc.vista;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.io.File;
 import javax.swing.ImageIcon;
@@ -18,11 +19,16 @@ public class CrearCompte extends javax.swing.JFrame {
     /**
      * Creates new form IniciarSessio
      */
+    
+    private boolean amagarPwd = true;
+    
     public CrearCompte() {
         initComponents();
         TextPrompt placeHolder_email = new TextPrompt("correu electrònic",jTextField_email);
         TextPrompt placeHolder_login = new TextPrompt("nom d'usuari",jTextField_login);
         TextPrompt placeHolder_pwd = new TextPrompt("●●●●●●●●●●●",jPasswordField);
+        
+        //jButton_mostrarPwd.setBackground(new Color(255,255,255));
     }
 
     /**
@@ -44,6 +50,7 @@ public class CrearCompte extends javax.swing.JFrame {
         jLabel_logo = new javax.swing.JLabel();
         jTextField_email = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel_mostrarPwd = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("WikiLoc");
@@ -96,7 +103,16 @@ public class CrearCompte extends javax.swing.JFrame {
         jButton_registrat.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         jButton_registrat.setForeground(new java.awt.Color(255, 255, 255));
         jButton_registrat.setText("Registra't");
+        jButton_registrat.setBorder(null);
         jButton_registrat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_registrat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_registratMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_registratMouseExited(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
@@ -104,7 +120,7 @@ public class CrearCompte extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 281;
         gridBagConstraints.ipady = 19;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(25, 360, 47, 0);
+        gridBagConstraints.insets = new java.awt.Insets(25, 360, 51, 0);
         jPanel_iniciarSessio.add(jButton_registrat, gridBagConstraints);
 
         jLabel_iniciaSessio.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
@@ -119,8 +135,8 @@ public class CrearCompte extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.ipadx = 329;
+        gridBagConstraints.gridwidth = 10;
+        gridBagConstraints.ipadx = 378;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(45, 10, 0, 144);
@@ -132,7 +148,7 @@ public class CrearCompte extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(50, 250, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(53, 250, 0, 0);
         jPanel_iniciarSessio.add(jLabel_logo, gridBagConstraints);
 
         jTextField_email.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
@@ -162,11 +178,26 @@ public class CrearCompte extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(59, 220, 0, 0);
         jPanel_iniciarSessio.add(jLabel1, gridBagConstraints);
 
+        jLabel_mostrarPwd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/ull.png"))); // NOI18N
+        jLabel_mostrarPwd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_mostrarPwdMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.ipady = 21;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(29, 6, 0, 0);
+        jPanel_iniciarSessio.add(jLabel_mostrarPwd, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_iniciarSessio, javax.swing.GroupLayout.DEFAULT_SIZE, 1092, Short.MAX_VALUE)
+            .addComponent(jPanel_iniciarSessio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,6 +234,36 @@ public class CrearCompte extends javax.swing.JFrame {
         iniciarSessio.setVisible(true);
         
     }//GEN-LAST:event_jLabel_iniciaSessioMouseClicked
+
+    private void jButton_registratMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_registratMouseEntered
+        
+        jButton_registrat.setBackground(new Color(255,163,0));
+    }//GEN-LAST:event_jButton_registratMouseEntered
+
+    private void jButton_registratMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_registratMouseExited
+        
+        jButton_registrat.setBackground(new Color(76,140,43));
+    }//GEN-LAST:event_jButton_registratMouseExited
+
+    private void jLabel_mostrarPwdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_mostrarPwdMouseClicked
+        
+        amagarPwd = !amagarPwd;
+        
+        ImageIcon image1 = new ImageIcon("img"+File.separator+"ull.png");
+        ImageIcon image2 = new ImageIcon("img"+File.separator+"ull_amagar.png");
+
+        if (amagarPwd) {
+
+            jPasswordField.setEchoChar('●');
+            jLabel_mostrarPwd.setIcon(image1);
+
+        } else {
+
+            jPasswordField.setEchoChar((char) 0);
+            jLabel_mostrarPwd.setIcon(image2);
+        }
+        
+    }//GEN-LAST:event_jLabel_mostrarPwdMouseClicked
 
     /**
      * @param args the command line arguments
@@ -245,6 +306,7 @@ public class CrearCompte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel_iniciaSessio;
     private javax.swing.JLabel jLabel_logo;
+    private javax.swing.JLabel jLabel_mostrarPwd;
     private javax.swing.JPanel jPanel_iniciarSessio;
     private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JTextField jTextField_email;
