@@ -305,15 +305,30 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
         
-        int posicio = this.jPanel_menu.getX();
-        if(posicio > -1){
-            Animacion.Animacion.mover_izquierda(0, -260, 2, 2, jPanel_menu);
-            Animacion.Animacion.mover_derecha(0, 0, 0, 0, jPanel_principal);
-            
-        }else{
+        
+        
+        if(!jPanel_menu.isVisible()){
+            System.out.println("PRESS");
+            jPanel_menu.setVisible(true);
             Animacion.Animacion.mover_derecha(-260, 0, 2, 2, jPanel_menu);
             Animacion.Animacion.mover_izquierda(0, 0, 0, 0, jPanel_principal);
+            
+            
+        }else{
+            int posicio = this.jPanel_menu.getX();
+            if(posicio > -1){
+                Animacion.Animacion.mover_izquierda(0, -260, 2, 2, jPanel_menu);
+                Animacion.Animacion.mover_derecha(0, 0, 0, 0, jPanel_principal);
+
+            }else{
+                Animacion.Animacion.mover_derecha(-260, 0, 2, 2, jPanel_menu);
+                Animacion.Animacion.mover_izquierda(0, 0, 0, 0, jPanel_principal);
+            }
         }
+        
+
+        
+        
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
     private void rSButtonMenuIniciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuIniciActionPerformed
@@ -341,7 +356,7 @@ public class Menu extends javax.swing.JFrame {
         this.rSButtonMenuSortir.setSelected(false);
         
         this.rSButtonMenuInici.setSelected(true);
-        
+                
     }//GEN-LAST:event_rSButtonMenuIniciMousePressed
 
     private void rSButtonMenuCompartidesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuCompartidesActionPerformed
@@ -400,7 +415,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void rSButtonMenuAfegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuAfegirActionPerformed
         
-        new CambiaPanel(jPanel_principal,new panellAfegir());
+        new CambiaPanel(jPanel_principal,new panellAfegir(jPanel_menu, jPanel_principal));
         
         if(this.rSButtonMenuAfegir.isSelected()){
             this.rSButtonMenuAfegir.setColorNormal(new Color(255,163,0));
