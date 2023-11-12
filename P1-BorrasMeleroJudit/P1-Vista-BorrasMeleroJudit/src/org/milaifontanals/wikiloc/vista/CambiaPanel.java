@@ -21,6 +21,7 @@ public class CambiaPanel {
      * Constructor de clase
      */
     public CambiaPanel(JPanel container, JPanel content) {
+                
         this.container = container;
         this.content = content;
         this.container.removeAll();

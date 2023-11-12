@@ -257,7 +257,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(rSButtonMenuPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addComponent(rSButtonMenuSortir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -308,8 +308,11 @@ public class Menu extends javax.swing.JFrame {
         int posicio = this.jPanel_menu.getX();
         if(posicio > -1){
             Animacion.Animacion.mover_izquierda(0, -260, 2, 2, jPanel_menu);
+            Animacion.Animacion.mover_derecha(0, 0, 0, 0, jPanel_principal);
+            
         }else{
             Animacion.Animacion.mover_derecha(-260, 0, 2, 2, jPanel_menu);
+            Animacion.Animacion.mover_izquierda(0, 0, 0, 0, jPanel_principal);
         }
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
