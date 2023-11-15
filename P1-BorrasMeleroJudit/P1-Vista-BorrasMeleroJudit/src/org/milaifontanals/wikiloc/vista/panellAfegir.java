@@ -40,7 +40,7 @@ public class panellAfegir extends javax.swing.JPanel {
                         
                         break;
                     case 1:
-                        new CambiaPanel(jPanel_formulari,new panellSortir());
+                        new CambiaPanel(jPanel_formulari,new panellAfegir_ruta());
                        
                         
                         break;
