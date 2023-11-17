@@ -20,6 +20,7 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 import org.milaifontanals.wikiloc.components.TextPrompt;
 import org.milaifontanals.wikiloc.jdbc.GestorBDWikilocJdbc;
+import org.milaifontanals.wikiloc.model.Usuari;
 import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
 
 /**
@@ -33,6 +34,8 @@ public class IniciarSessio extends javax.swing.JFrame {
      */
     private GestorBDWikilocJdbc gestorBDWikilocJdbc;
     private boolean amagarPwd = true;
+    
+    private Usuari usuari_loginat;
     
     public IniciarSessio() {
         
@@ -272,14 +275,14 @@ public class IniciarSessio extends javax.swing.JFrame {
     private void jButton_iniciaSessioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_iniciaSessioMouseClicked
 
         try {
-            boolean correcte = gestorBDWikilocJdbc.iniciarSessio(jTextField_loginEmail.getText(), jPasswordField.getText());
+            usuari_loginat = gestorBDWikilocJdbc.iniciarSessio(jTextField_loginEmail.getText(), jPasswordField.getText());
 
-            if(correcte){
+            if(usuari_loginat!=null){
 
                 this.setVisible(false);
                 //this.dispose();
 
-                Menu menu = new Menu();
+                Menu menu = new Menu(usuari_loginat);
 
                 ImageIcon img = new ImageIcon("img" + File.separator + "wikiloc_logo_simple.png");
 
@@ -359,14 +362,14 @@ public class IniciarSessio extends javax.swing.JFrame {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             
             try {
-                boolean correcte = gestorBDWikilocJdbc.iniciarSessio(jTextField_loginEmail.getText(), jPasswordField.getText());
+                usuari_loginat = gestorBDWikilocJdbc.iniciarSessio(jTextField_loginEmail.getText(), jPasswordField.getText());
 
-                if (correcte) {
+                if (usuari_loginat!=null) {
 
                     this.setVisible(false);
                     //this.dispose();
 
-                    Menu menu = new Menu();
+                    Menu menu = new Menu(usuari_loginat);
 
                     ImageIcon img = new ImageIcon("img" + File.separator + "wikiloc_logo_simple.png");
 

@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.milaifontanals.wikiloc.jdbc.GestorBDWikilocJdbc;
 import org.milaifontanals.wikiloc.model.Ruta;
+import org.milaifontanals.wikiloc.model.Usuari;
 import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
 
 /**
@@ -28,30 +29,26 @@ public class panellCompartides extends javax.swing.JPanel {
      */
     
     private GestorBDWikilocJdbc gestorBDWikilocJdbc;
-    int selectedRow;
+    Usuari usuari_loginat;
     
-    public panellCompartides() {
+    public panellCompartides(Usuari usuari_loginat) {
         initComponents();
-  
+        this.usuari_loginat = usuari_loginat;
+        
+        System.out.println(usuari_loginat);
+        
         List<Ruta> llistaRutesCreades;
         
         try {
             
             gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
             
-            llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRuta();
+            llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
             
             DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
             Object rowData[] = new Object[5];
             
             for (Ruta r : llistaRutesCreades) {
-
-                //tableModel.insertRow(tableModel.getRowCount(), new Object[]{r.getTitol(),r.getDescRuta(),r.getDist(),r.getTemps(),r.getDific()});
-                
-                //Vector row = new Vector();
-                //row.add(r);
-                //tableModel.addRow(row);
-                //tableModel.addRow(new Object[]{r.getTitol(),r.getDescRuta(),r.getDist(),r.getTemps(),r.getDific()});
               
                 rowData[0] = r.getTitol();
                 rowData[1] = r.getDescRuta();
@@ -135,7 +132,6 @@ public class panellCompartides extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
         jTable1.setRowHeight(40);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -144,7 +140,7 @@ public class panellCompartides extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         jLabel2.setText("mostrar info basica a la graella i habilitar botó per accedir als detalls i poder editar ");
 
@@ -182,7 +178,7 @@ public class panellCompartides extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         
         
-        selectedRow = jTable1.getSelectedRow();
+        
         
     }//GEN-LAST:event_jTable1MouseClicked
 

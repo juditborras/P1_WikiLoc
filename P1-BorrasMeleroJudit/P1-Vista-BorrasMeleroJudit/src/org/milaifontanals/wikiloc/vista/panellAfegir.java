@@ -7,6 +7,7 @@ package org.milaifontanals.wikiloc.vista;
 import javax.swing.JPanel;
 import org.milaifontanals.wikiloc.breadcrumb.com.raven.component.BreadcrumbItem;
 import org.milaifontanals.wikiloc.breadcrumb.com.raven.event.EventItemSelected;
+import org.milaifontanals.wikiloc.model.Usuari;
 
 /**
  *
@@ -17,9 +18,14 @@ public class panellAfegir extends javax.swing.JPanel {
     /**
      * Creates new form panellAfegir
      */
-    public panellAfegir(JPanel jPanel_menu, JPanel jPanel_principal) {
+    
+    Usuari usuari_loginat;
+    public panellAfegir(JPanel jPanel_menu, JPanel jPanel_principal, Usuari usuari_loginat) {
         
         initComponents();
+        
+        this.usuari_loginat = usuari_loginat;
+        
         breadcrumb1.addItem("Item 1");
         breadcrumb1.addItem("Item 2");
         breadcrumb1.addItem("Item 3");
@@ -34,7 +40,7 @@ public class panellAfegir extends javax.swing.JPanel {
                     case 0:
                         
                         
-                        new CambiaPanel(jPanel_formulari,new panellCompartides());
+                        new CambiaPanel(jPanel_formulari,new panellCompartides(usuari_loginat));
                         
                         
                         

@@ -51,7 +51,7 @@ public interface IGestorBDWikiloc {
      * @return S'ha verificat o no l'inici de sessió
      * @throws GestorBDWikilocException
      */
-    boolean iniciarSessio(String login, String pwd) throws GestorBDWikilocException; 
+    Usuari iniciarSessio(String login, String pwd) throws GestorBDWikilocException; 
         
     // </editor-fold>
        
@@ -91,6 +91,15 @@ public interface IGestorBDWikiloc {
      * @throws GestorBDWikilocException
      */    
     List<Ruta> obtenirLlistaRuta() throws GestorBDWikilocException;
+        
+    /**
+     * Obtenir llista de ruta de la BD
+     *
+     * @param usuari usuari del que volem obtenir les seves rutes
+     * @return Llista de rutes recuperades de l'usuari
+     * @throws GestorBDWikilocException
+     */    
+    List<Ruta> obtenirLlistaRutaUsuari(String usuari) throws GestorBDWikilocException;
     
     /**
      * Obtenir ruta de la BD

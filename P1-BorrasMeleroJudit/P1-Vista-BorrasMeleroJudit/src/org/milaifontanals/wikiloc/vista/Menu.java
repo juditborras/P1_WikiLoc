@@ -6,6 +6,7 @@ package org.milaifontanals.wikiloc.vista;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import org.milaifontanals.wikiloc.model.Usuari;
 
 /**
  *
@@ -13,11 +14,13 @@ import javax.swing.JOptionPane;
  */
 public class Menu extends javax.swing.JFrame {
 
+    Usuari usuari_loginat;
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu(Usuari usuari) {
         initComponents();
+        this.usuari_loginat = usuari;
         
         new CambiaPanel(jPanel_principal,new panellinici());
         this.rSButtonMenuInici.setColorNormal(new Color(255,163,0));
@@ -362,7 +365,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void rSButtonMenuCompartidesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuCompartidesActionPerformed
         
-        new CambiaPanel(jPanel_principal,new panellCompartides());
+        new CambiaPanel(jPanel_principal,new panellCompartides(usuari_loginat));
         
         if(this.rSButtonMenuCompartides.isSelected()){
             this.rSButtonMenuCompartides.setColorNormal(new Color(255,163,0));
@@ -416,7 +419,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void rSButtonMenuAfegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuAfegirActionPerformed
         
-        new CambiaPanel(jPanel_principal,new panellAfegir(jPanel_menu, jPanel_principal));
+        new CambiaPanel(jPanel_principal,new panellAfegir(jPanel_menu, jPanel_principal,usuari_loginat));
         
         if(this.rSButtonMenuAfegir.isSelected()){
             this.rSButtonMenuAfegir.setColorNormal(new Color(255,163,0));

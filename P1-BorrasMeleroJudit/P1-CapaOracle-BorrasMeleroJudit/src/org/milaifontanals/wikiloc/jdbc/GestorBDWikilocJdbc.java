@@ -35,6 +35,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     private static PreparedStatement psEditarRuta;
     private static PreparedStatement psEliminarRuta;
     private static PreparedStatement psObtenirLlistaRuta;
+    private static PreparedStatement psObtenirLlistaRutaUsuari;
     private static PreparedStatement psObtenirRuta;
     private static PreparedStatement psObtenirPropietariRuta;
     private static PreparedStatement psVerificarPropietariRuta;
@@ -111,6 +112,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
             inst = "select r.*, u.* from ruta r join usuari u on r.login_usuari = u.login";
             psObtenirLlistaRuta = conn.prepareStatement(inst);
+            
+            inst = "select r.*, u.* from ruta r join usuari u on r.login_usuari = u.login where r.login_usuari = ?";
+            psObtenirLlistaRutaUsuari = conn.prepareStatement(inst);
             
             inst = "select r.*, u.* from ruta r join usuari u on r.login_usuari = u.login where r.id = ?";
             psObtenirRuta = conn.prepareStatement(inst);
@@ -239,7 +243,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     
 
     @Override
-    public boolean iniciarSessio(String login, String pwd) throws GestorBDWikilocException {
+    public Usuari iniciarSessio(String login, String pwd) throws GestorBDWikilocException {
         
         try {
             
@@ -251,16 +255,20 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
             rsIniciarSessio = psIniciarSessio.executeQuery();
             
+            
+            
             boolean sortida = false;
             if(rsIniciarSessio.next()){
                 sortida = true;
             }
             
+            Usuari u = null;
             if(rsIniciarSessio != null){
+                u = new Usuari(rsIniciarSessio.getString("login"),rsIniciarSessio.getString("pwd"),rsIniciarSessio.getString("email"));
                 rsIniciarSessio.close();
             }
             
-            return sortida;
+            return u;
             
         } catch (SQLException ex) {
             throw new GestorBDWikilocException("Error al realitzar l'inici de sessió.\n" + ex.getMessage());
@@ -386,11 +394,52 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             }
             
         } catch (SQLException ex) {
-            throw new GestorBDWikilocException("Error en obtenir les rutes de l'usuari.\n" + ex.getMessage());
+            throw new GestorBDWikilocException("Error en obtenir les rutes.\n" + ex.getMessage());
         }
         
         return rutes;
         
+    }
+    
+    
+    @Override
+    public List<Ruta> obtenirLlistaRutaUsuari(String usuari) throws GestorBDWikilocException {
+        //psObtenirLlistaRutaUsuari
+    
+        List<Ruta> rutes = new ArrayList();
+        try {
+            ResultSet rsRutes = null;
+            
+            psObtenirLlistaRutaUsuari.setString(1, usuari);
+            rsRutes = psObtenirLlistaRutaUsuari.executeQuery();
+            
+            while(rsRutes.next()){
+                Usuari u = new Usuari(rsRutes.getString("login"),rsRutes.getString("pwd"),rsRutes.getString("email"));
+                
+                Ruta r = new Ruta(rsRutes.getInt("id"), 
+                                    rsRutes.getString("titol"),
+                                    rsRutes.getString("desc_ruta"),
+                                    rsRutes.getString("text_ruta"),
+                                    rsRutes.getDouble("dist"),
+                                    rsRutes.getInt("temps"),
+                                    rsRutes.getInt("desn_p"),
+                                    rsRutes.getInt("desn_n"),
+                                    rsRutes.getInt("dific"),
+                                    u);
+
+                rutes.add(r);
+            }
+            
+            if(rsRutes != null){
+                rsRutes.close();
+            }
+            
+        
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir les rutes de l'usuari.\n" + ex.getMessage());
+        }
+        
+        return rutes;
     }
 
     @Override
@@ -1132,5 +1181,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         }
         
     }
+
+
     
 }
