@@ -7,6 +7,7 @@ package org.milaifontanals.wikiloc.vista;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -186,6 +187,11 @@ public class IniciarSessio extends javax.swing.JFrame {
         jPasswordField.setForeground(new java.awt.Color(204, 204, 204));
         jPasswordField.setBorder(null);
         jPasswordField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordFieldKeyPressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -347,6 +353,48 @@ public class IniciarSessio extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jLabel_mostrarPwdMouseClicked
+
+    private void jPasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            try {
+                boolean correcte = gestorBDWikilocJdbc.iniciarSessio(jTextField_loginEmail.getText(), jPasswordField.getText());
+
+                if (correcte) {
+
+                    this.setVisible(false);
+                    //this.dispose();
+
+                    Menu menu = new Menu();
+
+                    ImageIcon img = new ImageIcon("img" + File.separator + "wikiloc_logo_simple.png");
+
+                    menu.setIconImage(img.getImage());
+
+                    menu.setExtendedState(menu.MAXIMIZED_BOTH);
+                    menu.setResizable(false);
+                    menu.setLocationRelativeTo(null);
+                    menu.setVisible(true);
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this,
+                            "No s'ha pogut iniciar sessió. L'usuari o contrasenya no són correctes.",
+                            "Error - Inici sessió", JOptionPane.ERROR_MESSAGE);
+
+                }
+
+            } catch (GestorBDWikilocException ex) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Error: " + ex.getMessage(),
+                        "Error - Inici sessió", JOptionPane.ERROR_MESSAGE);
+            } 
+            
+        }
+        
+    }//GEN-LAST:event_jPasswordFieldKeyPressed
 
     /**
      * @param args the command line arguments

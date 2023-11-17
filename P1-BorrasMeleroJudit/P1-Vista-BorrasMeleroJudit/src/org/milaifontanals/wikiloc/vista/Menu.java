@@ -5,6 +5,7 @@
 package org.milaifontanals.wikiloc.vista;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -471,7 +472,11 @@ public class Menu extends javax.swing.JFrame {
 
     private void rSButtonMenuSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuSortirActionPerformed
         
-        new CambiaPanel(jPanel_principal,new panellSortir());
+        //new CambiaPanel(jPanel_principal,new panellSortir());
+        
+        JOptionPane.showConfirmDialog(null, "Estàs segur de tancar la sessió?",
+                "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE);
         
         if(this.rSButtonMenuSortir.isSelected()){
             this.rSButtonMenuSortir.setColorNormal(new Color(255,163,0));
