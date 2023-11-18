@@ -5,8 +5,11 @@
 package org.milaifontanals.wikiloc.vista;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.milaifontanals.wikiloc.model.Usuari;
+import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
 
 /**
  *
@@ -365,7 +368,11 @@ public class Menu extends javax.swing.JFrame {
 
     private void rSButtonMenuCompartidesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuCompartidesActionPerformed
         
-        new CambiaPanel(jPanel_principal,new panellCompartides(usuari_loginat));
+        try {
+            new CambiaPanel(jPanel_principal,new panellCompartides(jPanel_menu, jPanel_principal,usuari_loginat));
+        } catch (GestorBDWikilocException ex) {
+            
+        }
         
         if(this.rSButtonMenuCompartides.isSelected()){
             this.rSButtonMenuCompartides.setColorNormal(new Color(255,163,0));

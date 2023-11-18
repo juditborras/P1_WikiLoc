@@ -4,10 +4,13 @@
  */
 package org.milaifontanals.wikiloc.vista;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import org.milaifontanals.wikiloc.breadcrumb.com.raven.component.BreadcrumbItem;
 import org.milaifontanals.wikiloc.breadcrumb.com.raven.event.EventItemSelected;
 import org.milaifontanals.wikiloc.model.Usuari;
+import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
 
 /**
  *
@@ -40,11 +43,18 @@ public class panellAfegir extends javax.swing.JPanel {
                     case 0:
                         
                         
-                        new CambiaPanel(jPanel_formulari,new panellCompartides(usuari_loginat));
+                    {
+                        try {
+                            new CambiaPanel(jPanel_formulari,new panellCompartides(jPanel_menu,jPanel_principal,usuari_loginat));
+                        } catch (GestorBDWikilocException ex) {
+                            
+                        }
+                    }
                         
                         
                         
                         break;
+
                     case 1:
                         new CambiaPanel(jPanel_formulari,new panellAfegir_ruta());
                        
