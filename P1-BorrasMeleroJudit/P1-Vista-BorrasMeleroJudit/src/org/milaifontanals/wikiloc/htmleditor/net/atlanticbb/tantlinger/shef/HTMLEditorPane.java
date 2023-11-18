@@ -99,7 +99,7 @@ public class HTMLEditorPane extends JPanel
     
     private static final String INVALID_TAGS[] = {"html", "head", "body", "title"};
 
-    private JEditorPane wysEditor;
+    public JEditorPane wysEditor;
     private SourceCodeEditor srcEditor;
     private JEditorPane focusedEditor;
     private JComboBox fontFamilyCombo;

@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -43,14 +44,22 @@ public class panellCompartides extends javax.swing.JPanel {
     ImageIcon estrellaGroga = new ImageIcon("img"+File.separator+"estrella_groga.png");
     boolean editar_estrelles = false;
     
-    int hours, minutes, antic, qtat_estrelles, qtat_estrelles_actual;
-    boolean hours_canviada = false, minutes_canviada = false, titol_canviada = false, desc_canviada = false, desnP_canviada = false, desnN_canviada = false, estrella_canviada = false;
+    int id, hours, minutes, antic, qtat_estrelles, qtat_estrelles_actual;
+    boolean hours_canviada = false, minutes_canviada = false, titol_canviada = false, dist_canviada = false, desc_canviada = false, desnP_canviada = false, desnN_canviada = false, estrella_canviada = false;
     
     int qc1,qc2;
     
-    String titol, desc, desnP, desnN;
+    String titol, desc, dist, desnP, desnN;
+    String textHtmlEditat;
     
     String text_html;
+    
+    int row_sel;
+    List<Ruta> llistaRutesCreades;
+    
+    public panellCompartides(){
+        
+    }
     
     public panellCompartides(JPanel jPanel_menu, JPanel jPanel_principal, Usuari usuari_loginat) throws GestorBDWikilocException {
         initComponents();
@@ -62,7 +71,7 @@ public class panellCompartides extends javax.swing.JPanel {
         jButton2.setVisible(false);
         
        
-        List<Ruta> llistaRutesCreades = new ArrayList();
+        llistaRutesCreades = new ArrayList();
         
         try {
             
@@ -104,6 +113,7 @@ public class panellCompartides extends javax.swing.JPanel {
   
             @Override
             public void onEdit(int row) {
+                row_sel = row;
                 System.out.println("Edit row : " + row);
                 System.out.println(llistaRutesCreades.get(row)); 
                 
@@ -121,7 +131,8 @@ public class panellCompartides extends javax.swing.JPanel {
                 //new CambiaPanel(jPanel_compartidesCanviant,new panellCompartidesDetallsRuta(usuari_loginat,llistaRutesCreades.get(row)));
                 
                 
-                jTextField1.setEditable(true);                
+                jTextField1.setEditable(true); 
+                jTextField2.setEditable(true); 
                 jTextArea1.setEditable(true);
                 jButton1.setEnabled(true);
 
@@ -168,6 +179,7 @@ public class panellCompartides extends javax.swing.JPanel {
                 jButton1.setEnabled(false);
                 
                 jTextField1.setEditable(false);
+                jTextField2.setEditable(false); 
                 jTextArea1.setEditable(false);
                 
                 
@@ -197,6 +209,8 @@ public class panellCompartides extends javax.swing.JPanel {
     
     public void obtenirDadesRuta(List<Ruta> llistaRutesCreades, int row){
         
+        id = llistaRutesCreades.get(row).getId();
+        
         jTextField1.setText(llistaRutesCreades.get(row).getTitol());
         titol = llistaRutesCreades.get(row).getTitol();
         
@@ -205,6 +219,10 @@ public class panellCompartides extends javax.swing.JPanel {
         
         text_html = llistaRutesCreades.get(row).getTextRuta();
 
+        
+        jTextField2.setText(llistaRutesCreades.get(row).getDist()+"");
+        dist = llistaRutesCreades.get(row).getDist()+"";
+        
         int temps_total = llistaRutesCreades.get(row).getTemps();
         
        
@@ -306,6 +324,7 @@ public class panellCompartides extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jTextField2 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -482,6 +501,13 @@ public class panellCompartides extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTextArea1);
 
+        jTextField2.setText("jTextField2");
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_compartidesCanviantLayout = new javax.swing.GroupLayout(jPanel_compartidesCanviant);
         jPanel_compartidesCanviant.setLayout(jPanel_compartidesCanviantLayout);
         jPanel_compartidesCanviantLayout.setHorizontalGroup(
@@ -503,21 +529,22 @@ public class panellCompartides extends javax.swing.JPanel {
                         .addComponent(jButton2)
                         .addGap(504, 504, 504))
                     .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                        .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                                .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(46, 46, 46)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(34, 34, 34)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButton1))
-                                .addGap(75, 75, 75)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton1))
+                        .addGap(75, 75, 75)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel_compartidesCanviantLayout.setVerticalGroup(
@@ -526,7 +553,9 @@ public class panellCompartides extends javax.swing.JPanel {
                 .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
@@ -577,8 +606,14 @@ public class panellCompartides extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        
-        demo = new Demo(text_html);
+        try {
+            llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
+            text_html = llistaRutesCreades.get(row_sel).getTextRuta();
+            
+            demo = new Demo(text_html, id);
+        } catch (GestorBDWikilocException ex) {
+            
+        }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
@@ -707,8 +742,35 @@ public class panellCompartides extends javax.swing.JPanel {
         
         try {
             gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
+                                
+            int total = (hours * 60) + minutes;
             
-            //gestorBDWikilocJdbc.editarRuta();
+            Ruta ruta_editada = new Ruta(jTextField1.getText(),jTextArea1.getText(),textHtmlEditat,Double.parseDouble(jTextField2.getText()),total,Integer.parseInt(jTextField3.getText()),Integer.parseInt(jTextField4.getText()),qtat_estrelles_actual,usuari_loginat);
+            
+            boolean rutaEditada = gestorBDWikilocJdbc.editarRuta(ruta_editada);
+            
+            if(!rutaEditada){
+                
+                JOptionPane.showMessageDialog(this,
+                    "Error: No s'ha pogut editar la ruta" ,
+                    "Error - Editar ruta", JOptionPane.ERROR_MESSAGE);
+            }else{
+                
+                int resposta =JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
+                "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE);
+                
+                if(resposta == 0){
+                    gestorBDWikilocJdbc.confirmarCanvis();
+
+                    JOptionPane.showConfirmDialog(null, "Els canvis s'han desat correctament",
+                    "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE);
+                    
+                }
+                
+                
+            }
             
             
             
@@ -853,10 +915,23 @@ public class panellCompartides extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jTextField4KeyReleased
 
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        
+        if (dist.equals(jTextField2.getText())) {
+            dist_canviada = false;
+            horesMinutsModificats();
+        } else {
+            dist_canviada = true;
+            horesMinutsModificats();
+        }
+        
+        
+    }//GEN-LAST:event_jTextField2KeyReleased
+
     public void horesMinutsModificats(){
  
         System.out.println("hora"+hours_canviada+" minuts"+ minutes_canviada);
-        if(hours_canviada || minutes_canviada || titol_canviada || desc_canviada || desnP_canviada || desnN_canviada || estrella_canviada){
+        if(hours_canviada || minutes_canviada || titol_canviada || dist_canviada || desc_canviada || desnP_canviada || desnN_canviada || estrella_canviada){
             jButton2.setEnabled(true);
             System.out.println("A");
         }else{
@@ -864,6 +939,10 @@ public class panellCompartides extends javax.swing.JPanel {
             System.out.println("B");
         }
     }
+    
+    
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -884,6 +963,7 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables

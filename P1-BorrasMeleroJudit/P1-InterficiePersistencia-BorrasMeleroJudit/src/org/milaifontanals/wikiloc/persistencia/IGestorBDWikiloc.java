@@ -84,6 +84,16 @@ public interface IGestorBDWikiloc {
      */   
     boolean editarRuta(Ruta r) throws GestorBDWikilocException;
     
+        /**
+     * Editar text Html de la ruta
+     *
+     * @param id id de la ruta a editar
+     * @param text_ruta text html de la ruta a editar
+     * @return S'ha confirmat o no l'edició del text html de la ruta
+     * @throws GestorBDWikilocException
+     */   
+    boolean editarTextHtmlRuta(Integer id, String text_ruta) throws GestorBDWikilocException;
+    
     /**
      * Eliminar ruta de la BD
      *

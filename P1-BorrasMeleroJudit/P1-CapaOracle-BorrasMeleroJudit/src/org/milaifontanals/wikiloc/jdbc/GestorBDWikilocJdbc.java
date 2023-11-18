@@ -34,6 +34,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     
     private static PreparedStatement psAfegirRuta;
     private static PreparedStatement psEditarRuta;
+    private static PreparedStatement psEditarTextHtmlRuta;
     private static PreparedStatement psEliminarRuta;
     private static PreparedStatement psObtenirLlistaRuta;
     private static PreparedStatement psObtenirLlistaRutaUsuari;
@@ -110,6 +111,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
             inst = "update ruta set titol = ?, desc_ruta = ?, text_ruta = ?, dist = ?, temps = ?, desn_p = ?, desn_n = ?, dific = ? where id = ?";
             psEditarRuta = conn.prepareStatement(inst);
+            
+            inst = "update ruta set text_ruta = ? where id = ?";
+            psEditarTextHtmlRuta = conn.prepareStatement(inst);
             
             inst = "delete from ruta where id = ?";
             psEliminarRuta = conn.prepareStatement(inst);
@@ -354,6 +358,27 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                 return false;
             }
             
+            return true;
+            
+        }catch(Exception ex){
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean editarTextHtmlRuta(Integer id, String text_ruta) throws GestorBDWikilocException {
+        
+        try{
+         
+            psEditarTextHtmlRuta.setString(1, text_ruta);
+            psEditarTextHtmlRuta.setInt(2, id);
+            
+            int registres_afectats = psEditarTextHtmlRuta.executeUpdate();
+
+            if(registres_afectats != 1){
+                return false;
+            }
+            System.out.println("TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
             return true;
             
         }catch(Exception ex){
@@ -1206,6 +1231,8 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         }
         
     }
+
+
 
    
 }
