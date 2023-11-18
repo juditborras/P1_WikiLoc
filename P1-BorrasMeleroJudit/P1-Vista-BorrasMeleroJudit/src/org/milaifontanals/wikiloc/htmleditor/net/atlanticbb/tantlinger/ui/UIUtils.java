@@ -40,28 +40,28 @@ public class UIUtils
     /**
      * The 16 x 16 icon package
      */
-    public static final String X16 = "resources/images/x16/";
+    public static final String X16 = "/src/org/milaifontanals/wikiloc/htmleditor/resources/images/x16/";
     
     /**
      * The 24 x 24 icon package
      */
-    public static final String X24 = "resources/images/x24/";
+    public static final String X24 = "/src/org/milaifontanals/wikiloc/htmleditor/resources/images/x24/";
     
     /**
      * The 32 x 32 icon package
      */    
-    public static final String X32 = "resources/images/x32/";
+    public static final String X32 = "/src/org/milaifontanals/wikiloc/htmleditor/resources/images/x32/";
     
     /**
      * The 48 x 48 icon package
      */
-    public static final String X48 = "resources/images/x48/";
+    public static final String X48 = "/src/org/milaifontanals/wikiloc/htmleditor/resources/images/x48/";
     
     
     /**
      * Misc icons that are unsized
      */
-    public static final String MISC = "resources/images/misc/";
+    public static final String MISC = "/src/org/milaifontanals/wikiloc/htmleditor/resources/images/misc/";
     
     /**
      * Gets the icon in the specified package with the specified name.

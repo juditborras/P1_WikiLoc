@@ -7,8 +7,14 @@ package org.milaifontanals.wikiloc.vista;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import org.milaifontanals.wikiloc.components.TextPrompt;
+import org.milaifontanals.wikiloc.jdbc.GestorBDWikilocJdbc;
+import org.milaifontanals.wikiloc.model.Usuari;
+import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
 
 /**
  *
@@ -21,6 +27,8 @@ public class CrearCompte extends javax.swing.JFrame {
      */
     
     private boolean amagarPwd = true;
+    Usuari nou_usuari;
+    private GestorBDWikilocJdbc gestorBDWikilocJdbc;
     
     public CrearCompte() {
         initComponents();
@@ -113,6 +121,9 @@ public class CrearCompte extends javax.swing.JFrame {
         jButton_registrat.setBorder(null);
         jButton_registrat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_registrat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_registratMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButton_registratMouseEntered(evt);
             }
@@ -332,6 +343,45 @@ public class CrearCompte extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jLabel_mostrarPwdMouseClicked
+
+    private void jButton_registratMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_registratMouseClicked
+        
+        try {
+            gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
+            
+            nou_usuari = new Usuari(jTextField_login.getText(),jPasswordField.getText(),jTextField_email.getText());
+            
+            boolean usuariCreat = gestorBDWikilocJdbc.afegirUsuari(nou_usuari);
+            
+            if(!usuariCreat){
+                JOptionPane.showMessageDialog(this,
+                    "Error: No s'ha pogut crear l'usuari" ,
+                    "Error - Alta usuari", JOptionPane.ERROR_MESSAGE);
+            }else{
+                
+                gestorBDWikilocJdbc.confirmarCanvis();
+                
+                this.setVisible(false);
+
+
+                Menu menu = new Menu(nou_usuari);
+
+                ImageIcon img = new ImageIcon("img" + File.separator + "wikiloc_logo_simple.png");
+
+                menu.setIconImage(img.getImage());
+
+                menu.setExtendedState(menu.MAXIMIZED_BOTH);
+                menu.setResizable(false);
+                menu.setLocationRelativeTo(null);
+                menu.setVisible(true);
+            }
+            
+            
+            
+        } catch (GestorBDWikilocException ex) {
+            Logger.getLogger(CrearCompte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_registratMouseClicked
 
     /**
      * @param args the command line arguments

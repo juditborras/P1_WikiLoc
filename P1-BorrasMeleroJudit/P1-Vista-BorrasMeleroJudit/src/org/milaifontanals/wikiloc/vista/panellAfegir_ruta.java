@@ -352,7 +352,7 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         
         
 
-    demo = new Demo();
+    demo = new Demo("");
 
             
 

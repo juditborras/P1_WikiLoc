@@ -30,6 +30,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     private Connection conn;
     
     private static PreparedStatement psIniciarSessio;
+    private static PreparedStatement psAfegirUsuari;
     
     private static PreparedStatement psAfegirRuta;
     private static PreparedStatement psEditarRuta;
@@ -100,6 +101,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         try {                   
             inst = "select * from usuari where pwd = ? and (login = ? or email = ?)";
             psIniciarSessio = conn.prepareStatement(inst);
+            
+            inst = "insert into usuari(login,pwd,email) values(?,?,?)";
+            psAfegirUsuari = conn.prepareStatement(inst);
             
             inst = "insert into ruta(titol,desc_ruta,text_ruta,dist,temps,desn_p,desn_n,dific,login_usuari) values(?,?,?,?,?,?,?,?,?)";
             psAfegirRuta = conn.prepareStatement(inst);
@@ -278,6 +282,27 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     }
     
     
+    @Override
+    public boolean afegirUsuari(Usuari u) throws GestorBDWikilocException {
+        
+        try {
+                
+            psAfegirUsuari.setString(1, u.getLogin());
+            psAfegirUsuari.setString(2, u.getPwd());
+            psAfegirUsuari.setString(3, u.getEmail());
+            
+            int registres_afectats = psAfegirUsuari.executeUpdate();
+  
+            if(registres_afectats != 1){
+                return false;
+            }
+            
+            return true;
+            
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
 
     @Override
     public boolean afegirRuta(Ruta r) throws GestorBDWikilocException {
@@ -1182,6 +1207,5 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         
     }
 
-
-    
+   
 }

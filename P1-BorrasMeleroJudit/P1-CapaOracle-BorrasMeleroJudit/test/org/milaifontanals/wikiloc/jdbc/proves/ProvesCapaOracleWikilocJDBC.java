@@ -34,7 +34,8 @@ public class ProvesCapaOracleWikilocJDBC {
             Ruta r_db = gb.obtenirRuta(3);
             
             //Iniciar sessió amb un usuari determinat
-            if(gb.iniciarSessio("jborras2","pwd12345")){
+            Usuari u_login = gb.iniciarSessio("jborras2","pwd12345");
+            if(u_login != null){
                 System.out.println("Login correcte"); 
             }else{
                 System.out.println("Login incorrecte");

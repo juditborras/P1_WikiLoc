@@ -52,6 +52,15 @@ public interface IGestorBDWikiloc {
      * @throws GestorBDWikilocException
      */
     Usuari iniciarSessio(String login, String pwd) throws GestorBDWikilocException; 
+    
+    /**
+     * Inserir nou usuari a la BD
+     *
+     * @param u Usuari a inserir
+     * @return S'ha verificat o no la inserció de l'usuari
+     * @throws GestorBDWikilocException
+     */
+    boolean afegirUsuari(Usuari u) throws GestorBDWikilocException;
         
     // </editor-fold>
        

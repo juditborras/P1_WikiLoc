@@ -43,8 +43,14 @@ public class panellCompartides extends javax.swing.JPanel {
     ImageIcon estrellaGroga = new ImageIcon("img"+File.separator+"estrella_groga.png");
     boolean editar_estrelles = false;
     
-    int hours, minutes, antic;
-    boolean hours_canviada = false, minutes_canviada = false;
+    int hours, minutes, antic, qtat_estrelles, qtat_estrelles_actual;
+    boolean hours_canviada = false, minutes_canviada = false, titol_canviada = false, desc_canviada = false, desnP_canviada = false, desnN_canviada = false, estrella_canviada = false;
+    
+    int qc1,qc2;
+    
+    String titol, desc, desnP, desnN;
+    
+    String text_html;
     
     public panellCompartides(JPanel jPanel_menu, JPanel jPanel_principal, Usuari usuari_loginat) throws GestorBDWikilocException {
         initComponents();
@@ -115,9 +121,8 @@ public class panellCompartides extends javax.swing.JPanel {
                 //new CambiaPanel(jPanel_compartidesCanviant,new panellCompartidesDetallsRuta(usuari_loginat,llistaRutesCreades.get(row)));
                 
                 
-                jTextField1.setEditable(true);
-                jTextField2.setEditable(true);
-                jTextField5.setEditable(true);
+                jTextField1.setEditable(true);                
+                jTextArea1.setEditable(true);
                 jButton1.setEnabled(true);
 
                                      
@@ -163,8 +168,7 @@ public class panellCompartides extends javax.swing.JPanel {
                 jButton1.setEnabled(false);
                 
                 jTextField1.setEditable(false);
-                jTextField2.setEditable(false);
-                jTextField5.setEditable(false);
+                jTextArea1.setEditable(false);
                 
                 
                 jComboBox1.setEnabled(false);
@@ -194,8 +198,12 @@ public class panellCompartides extends javax.swing.JPanel {
     public void obtenirDadesRuta(List<Ruta> llistaRutesCreades, int row){
         
         jTextField1.setText(llistaRutesCreades.get(row).getTitol());
-        jTextField5.setText(llistaRutesCreades.get(row).getDescRuta());
-        jTextField2.setText(llistaRutesCreades.get(row).getTextRuta());
+        titol = llistaRutesCreades.get(row).getTitol();
+        
+        jTextArea1.setText(llistaRutesCreades.get(row).getDescRuta());
+        desc = llistaRutesCreades.get(row).getDescRuta();
+        
+        text_html = llistaRutesCreades.get(row).getTextRuta();
 
         int temps_total = llistaRutesCreades.get(row).getTemps();
         
@@ -212,9 +220,12 @@ public class panellCompartides extends javax.swing.JPanel {
         jComboBox2.getModel().setSelectedItem(minutes);
         
         jTextField3.setText(llistaRutesCreades.get(row).getDesnP() + "");
-        jTextField4.setText(llistaRutesCreades.get(row).getDesnN() + "");
+        desnP = llistaRutesCreades.get(row).getDesnP()+"";
         
-        int qtat_estrelles = llistaRutesCreades.get(row).getDific();
+        jTextField4.setText(llistaRutesCreades.get(row).getDesnN() + "");
+        desnN = llistaRutesCreades.get(row).getDesnN()+"";
+        
+        qtat_estrelles = llistaRutesCreades.get(row).getDific();
 
         if (qtat_estrelles == 1) {
             jLabel3.setIcon(estrellaGroga);
@@ -282,7 +293,6 @@ public class panellCompartides extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel_compartidesCanviant = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
@@ -293,8 +303,9 @@ public class panellCompartides extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -362,22 +373,20 @@ public class panellCompartides extends javax.swing.JPanel {
 
         jTextField1.setText("jTextField1");
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
             }
         });
 
-        jTextField2.setText("jTextField2");
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField2KeyTyped(evt);
-            }
-        });
-
-        jButton1.setText("jButton1");
+        jButton1.setText("html");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -394,8 +403,18 @@ public class panellCompartides extends javax.swing.JPanel {
         });
 
         jTextField3.setText("jTextField3");
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField3KeyReleased(evt);
+            }
+        });
 
         jTextField4.setText("jTextField4");
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField4KeyReleased(evt);
+            }
+        });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -447,19 +466,21 @@ public class panellCompartides extends javax.swing.JPanel {
             }
         });
 
-        jTextField5.setText("jTextField5");
-        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField5KeyTyped(evt);
-            }
-        });
-
         jButton2.setText("desar");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
             }
         });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel_compartidesCanviantLayout = new javax.swing.GroupLayout(jPanel_compartidesCanviant);
         jPanel_compartidesCanviant.setLayout(jPanel_compartidesCanviantLayout);
@@ -468,28 +489,6 @@ public class panellCompartides extends javax.swing.JPanel {
             .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                        .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                                .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
-                                .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton1))
-                                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                                        .addGap(34, 34, 34)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
@@ -502,28 +501,47 @@ public class panellCompartides extends javax.swing.JPanel {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)
-                        .addGap(504, 504, 504))))
+                        .addGap(504, 504, 504))
+                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
+                        .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
+                                .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
+                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(34, 34, 34)
+                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButton1))
+                                .addGap(75, 75, 75)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel_compartidesCanviantLayout.setVerticalGroup(
             jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE))
+                    .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane2)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
@@ -560,7 +578,7 @@ public class panellCompartides extends javax.swing.JPanel {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         
-        demo = new Demo();
+        demo = new Demo(text_html);
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
@@ -571,6 +589,15 @@ public class panellCompartides extends javax.swing.JPanel {
             jLabel5.setIcon(estrellaBlanca);
             jLabel6.setIcon(estrellaBlanca);
             jLabel7.setIcon(estrellaBlanca);
+            qtat_estrelles_actual = 1;
+            
+            if(qtat_estrelles_actual == qtat_estrelles){
+                estrella_canviada = false;
+            }else{
+                estrella_canviada = true;
+            }
+            
+            horesMinutsModificats();
             
         }else{
             evt.consume();
@@ -586,6 +613,15 @@ public class panellCompartides extends javax.swing.JPanel {
             jLabel5.setIcon(estrellaBlanca);
             jLabel6.setIcon(estrellaBlanca);
             jLabel7.setIcon(estrellaBlanca);
+            qtat_estrelles_actual = 2;
+            
+            if(qtat_estrelles_actual == qtat_estrelles){
+                estrella_canviada = false;
+            }else{
+                estrella_canviada = true;
+            }
+            
+            horesMinutsModificats();
             
         }else{
             evt.consume();
@@ -601,6 +637,15 @@ public class panellCompartides extends javax.swing.JPanel {
             jLabel5.setIcon(estrellaGroga);
             jLabel6.setIcon(estrellaBlanca);
             jLabel7.setIcon(estrellaBlanca);
+            qtat_estrelles_actual = 3;
+            
+            if(qtat_estrelles_actual == qtat_estrelles){
+                estrella_canviada = false;
+            }else{
+                estrella_canviada = true;
+            }
+            
+            horesMinutsModificats();
             
         }else{
             evt.consume();
@@ -617,6 +662,15 @@ public class panellCompartides extends javax.swing.JPanel {
             jLabel5.setIcon(estrellaGroga);
             jLabel6.setIcon(estrellaGroga);
             jLabel7.setIcon(estrellaBlanca);
+            qtat_estrelles_actual = 4;
+            
+            if(qtat_estrelles_actual == qtat_estrelles){
+                estrella_canviada = false;
+            }else{
+                estrella_canviada = true;
+            }
+            
+            horesMinutsModificats();
             
         }else{
             evt.consume();
@@ -632,6 +686,15 @@ public class panellCompartides extends javax.swing.JPanel {
             jLabel5.setIcon(estrellaGroga);
             jLabel6.setIcon(estrellaGroga);
             jLabel7.setIcon(estrellaGroga);
+            qtat_estrelles_actual = 5;
+            
+            if(qtat_estrelles_actual == qtat_estrelles){
+                estrella_canviada = false;
+            }else{
+                estrella_canviada = true;
+            }
+            
+            horesMinutsModificats();
             
         }else{
             evt.consume();
@@ -642,6 +705,16 @@ public class panellCompartides extends javax.swing.JPanel {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         
         
+        try {
+            gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
+            
+            //gestorBDWikilocJdbc.editarRuta();
+            
+            
+            
+        } catch (GestorBDWikilocException ex) {
+            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
     }//GEN-LAST:event_jButton2MouseClicked
@@ -666,40 +739,32 @@ public class panellCompartides extends javax.swing.JPanel {
         canviarCursorEstrelles();
     }//GEN-LAST:event_jLabel7MouseEntered
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-        
-        
-        jButton2.setEnabled(true);
-    }//GEN-LAST:event_jTextField1KeyTyped
-
-    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5KeyTyped
-
-    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2KeyTyped
-
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
        
         try{
             if (evt.getStateChange() == ItemEvent.SELECTED) {
-                // Item was just selected
+                
+                qc1++;
+                
+                if(qc1>1){
+                    // Item was just selected
 
-                JComboBox cb = (JComboBox) evt.getSource();
+                    JComboBox cb = (JComboBox) evt.getSource();
 
-                String n_nou = (String)cb.getSelectedItem();
-                Integer nou = Integer.parseInt(n_nou);
-                System.out.println("ANTIC: "+hours+" NOU: "+nou);
-                if(hours!=nou){
-                    
-                    hours_canviada = true;
-                    horesMinutsModificats();
-                }else{
-                    
-                    hours_canviada = false;
-                    horesMinutsModificats();
+                    String n_nou = (String)cb.getSelectedItem();
+                    Integer nou = Integer.parseInt(n_nou);
+                    System.out.println("C1 ANTIC: "+hours+" NOU: "+nou);
+                    if(hours!=nou){
+                        hours_canviada = true;
+                        horesMinutsModificats();
+                        
+                    }else{
+                        hours_canviada = false;
+                        horesMinutsModificats();
+                        
+                    }
                 }
+                
             }
         }catch(Exception ex){
             
@@ -712,36 +777,91 @@ public class panellCompartides extends javax.swing.JPanel {
             if (evt.getStateChange() == ItemEvent.SELECTED) {
                 // Item was just selected
 
-                JComboBox cb = (JComboBox) evt.getSource();
+                qc2++;
+                
+                if(qc2>1){
+                    JComboBox cb = (JComboBox) evt.getSource();
 
-                String n_nou = (String)cb.getSelectedItem();
-                Integer nou = Integer.parseInt(n_nou);
-                System.out.println("ANTIC: "+minutes+" NOU: "+nou);
-                if(minutes!=nou){
-                    
-                    minutes_canviada = true;
-                    horesMinutsModificats();
-                }else{
-                    
-                    minutes_canviada = false;
-                    horesMinutsModificats();
+                    String n_nou = (String)cb.getSelectedItem();
+                    Integer nou = Integer.parseInt(n_nou);
+                    System.out.println("C2 ANTIC: "+minutes+" NOU: "+nou);
+                    if(minutes!=nou){
+                        minutes_canviada = true;
+                        horesMinutsModificats();
+                        
+                    }else{
+                        minutes_canviada = false;
+                        horesMinutsModificats();
+                    }
                 }
+                
             }
         }catch(Exception ex){
             
         }
     }//GEN-LAST:event_jComboBox2ItemStateChanged
 
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        
+        if (titol.equals(jTextField1.getText())) {
+            titol_canviada = false;
+            horesMinutsModificats();
+        } else {
+            titol_canviada = true;
+            horesMinutsModificats();
+        }
+
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
+        
+        if (desc.equals(jTextArea1.getText())) {
+            desc_canviada = false;
+            horesMinutsModificats();
+        } else {
+            desc_canviada = true;
+            horesMinutsModificats();
+        }
+    }//GEN-LAST:event_jTextArea1KeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
+        
+        
+        if (desnP.equals(jTextField3.getText())) {
+            desnP_canviada = false;
+            horesMinutsModificats();
+        } else {
+            desnP_canviada = true;
+            horesMinutsModificats();
+        }
+        
+    }//GEN-LAST:event_jTextField3KeyReleased
+
+    private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
+        
+        if (desnN.equals(jTextField4.getText())) {
+            desnN_canviada = false;
+            horesMinutsModificats();
+        } else {
+            desnN_canviada = true;
+            horesMinutsModificats();
+        }
+        
+    }//GEN-LAST:event_jTextField4KeyReleased
+
     public void horesMinutsModificats(){
+ 
         System.out.println("hora"+hours_canviada+" minuts"+ minutes_canviada);
-        if(hours_canviada && minutes_canviada){
+        if(hours_canviada || minutes_canviada || titol_canviada || desc_canviada || desnP_canviada || desnN_canviada || estrella_canviada){
             jButton2.setEnabled(true);
             System.out.println("A");
-        }else if(!hours_canviada && !minutes_canviada){
+        }else{
             jButton2.setEnabled(false);
             System.out.println("B");
-        }else {
-            jButton2.setEnabled(true);
         }
     }
 
@@ -760,11 +880,11 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_compartidesCanviant;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

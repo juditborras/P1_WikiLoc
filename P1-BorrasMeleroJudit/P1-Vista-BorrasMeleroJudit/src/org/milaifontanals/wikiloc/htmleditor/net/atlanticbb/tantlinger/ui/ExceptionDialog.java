@@ -28,7 +28,7 @@ import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.i18n.I18n
 
 public class ExceptionDialog extends JDialog
 {
-    private static final I18n i18n = I18n.getInstance("net.atlanticbb.tantlinger.ui");
+    private static final I18n i18n = I18n.getInstance("org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.ui");
     
     private static final long serialVersionUID = 1L;
     private static final int PREFERRED_WIDTH = 450;

@@ -95,7 +95,7 @@ public class HTMLEditorPane extends JPanel
      */
     private static final long serialVersionUID = 1L;
 
-    private static final I18n i18n = I18n.getInstance("net.atlanticbb.tantlinger.shef");
+    private static final I18n i18n = I18n.getInstance("org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.shef");
     
     private static final String INVALID_TAGS[] = {"html", "head", "body", "title"};
 

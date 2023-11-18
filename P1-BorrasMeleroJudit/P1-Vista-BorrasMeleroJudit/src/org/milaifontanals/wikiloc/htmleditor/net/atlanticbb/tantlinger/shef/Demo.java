@@ -1,10 +1,12 @@
 
 package org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.shef;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.swing.JFrame;
@@ -12,6 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.io.IOUtils;
+import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.ui.UIUtils;
 
 /**
  *
@@ -21,22 +24,26 @@ public class Demo {
 
     public JFrame frame;
     private final HTMLEditorPane editor;
+    public String text_html;
     
-    public Demo() {
+    public Demo(String text_html) {
         
-
+        
+        
+        this.text_html = text_html;
 
         editor = new HTMLEditorPane(true);
         Path currentRelativePath = Paths.get("");
         //InputStream in = Demo.class.getResourceAsStream("src"+File.separator+"org"+File.separator+"milaifontanals"+File.separator+"wikiloc"+File.separator+"htmleditor"+File.separator+"net"+File.separator+"atlanticbb"+File.separator+"tantlinger"+File.separator+"shef"+File.separator+"htmlsnip.txt");
-        
+        InputStream stream = new ByteArrayInputStream(text_html.getBytes(StandardCharsets.UTF_8));
         InputStream in = Demo.class.getResourceAsStream("htmlsnip.txt");
+        
         try{
-            editor.setText(IOUtils.read(in));
+            editor.setText(IOUtils.read(stream));
         }catch(IOException ex) {
             ex.printStackTrace();
         } finally {
-            IOUtils.close(in);
+            IOUtils.close(stream);
         }
 
 
@@ -72,7 +79,7 @@ public class Demo {
         SwingUtilities.invokeAndWait(new Runnable() {
 
             public void run() {
-               demo = new Demo();
+               demo = new Demo(null);
             }
         });
         

@@ -72,7 +72,7 @@ public class TextFinderDialog extends JDialog
     private ImageIcon warnIcon = UIUtils.getIcon(UIUtils.X48, "error.png");
     
     
-    private static final I18n i18n = I18n.getInstance("net.atlanticbb.tantlinger.ui.text.dialogs");
+    private static final I18n i18n = I18n.getInstance("org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.ui.text.dialogs");
     
     public static final char[] WORD_SEPARATORS = {' ', '\t', '\n',
 		'\r', '\f', '.', ',', ':', '-', '(', ')', '[', ']', '{',

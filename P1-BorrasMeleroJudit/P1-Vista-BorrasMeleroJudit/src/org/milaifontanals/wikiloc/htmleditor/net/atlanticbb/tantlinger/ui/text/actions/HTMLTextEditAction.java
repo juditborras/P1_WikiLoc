@@ -23,7 +23,7 @@ import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.ui.Defaul
  */
 public abstract class HTMLTextEditAction extends DefaultAction
 {
-    static final I18n i18n = I18n.getInstance("net.atlanticbb.tantlinger.ui.text.actions");
+    static final I18n i18n = I18n.getInstance("org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.ui.text.actions");
     
     public static final String EDITOR = "editor";
     

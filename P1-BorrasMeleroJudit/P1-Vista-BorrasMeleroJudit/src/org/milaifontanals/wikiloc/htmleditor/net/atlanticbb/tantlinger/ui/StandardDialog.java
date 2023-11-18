@@ -36,7 +36,7 @@ public class StandardDialog extends JDialog
      */
     private static final long serialVersionUID = 1L;
 
-    private static final I18n i18n = I18n.getInstance("net.atlanticbb.tantlinger.ui");
+    private static final I18n i18n = I18n.getInstance("org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.ui");
     
     // Constants
     public static final int BUTTONS_CENTER = FlowLayout.CENTER;
