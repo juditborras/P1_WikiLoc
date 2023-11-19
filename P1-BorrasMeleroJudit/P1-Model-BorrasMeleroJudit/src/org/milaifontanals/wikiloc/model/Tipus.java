@@ -13,14 +13,14 @@ public class Tipus {
     
     private Integer id;
     private String nom;
-    private Image icona;
+    private byte[] icona;
     
-    public Tipus(String nom, Image icona) {
+    public Tipus(String nom, byte[] icona) {
         setNom(nom);
         setIcona(icona);
     }
-
-    public Tipus(Integer id, String nom, Image icona) {
+    
+    public Tipus(Integer id, String nom, byte[] icona) {
         this.id = id;
         setNom(nom);
         setIcona(icona);
@@ -41,11 +41,11 @@ public class Tipus {
         this.nom = nom;
     }
 
-    public Image getIcona() {
+    public byte[] getIcona() {
         return icona;
     }
 
-    public void setIcona(Image icona) {
+    public void setIcona(byte[] icona) {
         this.icona = icona;
     }
     

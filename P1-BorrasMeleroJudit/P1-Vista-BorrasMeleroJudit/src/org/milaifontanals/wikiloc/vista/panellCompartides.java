@@ -9,16 +9,23 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -30,7 +37,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.shef.Demo;
 import org.milaifontanals.wikiloc.jdbc.GestorBDWikilocJdbc;
+import org.milaifontanals.wikiloc.model.Punt;
 import org.milaifontanals.wikiloc.model.Ruta;
+import org.milaifontanals.wikiloc.model.Tipus;
 import org.milaifontanals.wikiloc.model.Usuari;
 import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
 
@@ -63,8 +72,10 @@ public class panellCompartides extends javax.swing.JPanel {
     
     int row_sel;
     List<Ruta> llistaRutesCreades;
+    List<Punt> llistaPuntsRuta;
     
     DefaultTableModel tableModel;
+    DefaultListModel dlm;
     
     public panellCompartides(){
         
@@ -77,10 +88,12 @@ public class panellCompartides extends javax.swing.JPanel {
         UIManager.put("TabbedPane.darkShadow", new ColorUIResource(new Color(255,255,255)));
         
         
+        
         initComponents();    
         
         jTabbedPane2.setBackgroundAt(0, new Color(76,140,43));
         jTabbedPane2.setBackgroundAt(1, new Color(76,140,43));
+        jTabbedPane2.setBackgroundAt(2, new Color(76,140,43));
         
         JLabel lab0 = new JLabel("Detalls ruta");
         lab0.setPreferredSize(new Dimension(200, 30));
@@ -88,24 +101,32 @@ public class panellCompartides extends javax.swing.JPanel {
         JLabel lab1 = new JLabel("Detalls punts de ruta");
         lab1.setPreferredSize(new Dimension(200, 30));
         jTabbedPane2.setTabComponentAt(1, lab1); 
+        JLabel lab2 = new JLabel("Estadístiques de la ruta");
+        lab2.setPreferredSize(new Dimension(200, 30));
+        jTabbedPane2.setTabComponentAt(2, lab2);
         
         this.usuari_loginat = usuari_loginat;
         
         System.out.println(usuari_loginat);
         
         jPanel_compartidesCanviant.setVisible(false);
-        jButton2.setVisible(false);
+        jButton_desarCanvisRuta.setVisible(false);
         
        
         llistaRutesCreades = new ArrayList();
+        llistaPuntsRuta = new ArrayList();
         
         try {
             
             gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
             
+            //public Punt(Integer num, String nom, String descPunt, Integer lat, Integer lon, Integer alt, Ruta idRuta, Tipus idTipus) {
+//            gestorBDWikilocJdbc.editarPuntRuta(new Punt(1,"Can Titó","Poliesportiu del poble per a la iniciació de diferents esports",129,400,279,new Ruta(3),new Tipus(15)), 3, "img"+File.separator+"icons8-inicio-48.png");
+//            gestorBDWikilocJdbc.confirmarCanvis();
+            
             llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
             
-            tableModel = (DefaultTableModel) jTable1.getModel();
+            tableModel = (DefaultTableModel) jTable_rutesCreadesUsuari.getModel();
             Object rowData[] = new Object[5];
             
             for (Ruta r : llistaRutesCreades) {
@@ -120,12 +141,12 @@ public class panellCompartides extends javax.swing.JPanel {
             }
             
             for (int i = 1; i <= 24; i++) {
-                jComboBox1.addItem(i + "");
+                jComboBox_tempsH.addItem(i + "");
             }
 
 
             for (int i = 1; i <= 60; i++) {
-                jComboBox2.addItem(i + "");
+                jComboBox_tempsM.addItem(i + "");
             }
             
             
@@ -153,25 +174,25 @@ public class panellCompartides extends javax.swing.JPanel {
                 
                 obtenirDadesRuta(llistaRutesCreades, row);
                 
-                jButton2.setVisible(true);
-                jButton2.setEnabled(false);
+                jButton_desarCanvisRuta.setVisible(true);
+                jButton_desarCanvisRuta.setEnabled(false);
                 
                 editar_estrelles = true;
                 
                 //new CambiaPanel(jPanel_compartidesCanviant,new panellCompartidesDetallsRuta(usuari_loginat,llistaRutesCreades.get(row)));
                 
                 
-                jTextField1.setEditable(true); 
-                jTextField2.setEditable(true); 
-                jTextArea1.setEditable(true);
-                jButton1.setEnabled(true);
+                jTextField_titol.setEditable(true); 
+                jTextField_dist.setEditable(true); 
+                jTextArea_descRuta.setEditable(true);
+                jButton_textRuta.setEnabled(true);
 
                                      
-                jComboBox1.setEnabled(true);
-                jComboBox2.setEnabled(true);
+                jComboBox_tempsH.setEnabled(true);
+                jComboBox_tempsM.setEnabled(true);
                 
-                jTextField3.setEditable(true);
-                jTextField4.setEditable(true);
+                jTextField_desnP.setEditable(true);
+                jTextField_desnN.setEditable(true);
                 
 
                 
@@ -194,11 +215,11 @@ public class panellCompartides extends javax.swing.JPanel {
                     System.out.println("qtat_comentaris. "+qtat_comentaris);
                     if(qtat_comentaris == 0){
                         
-                        if (jTable1.isEditing()) {
-                            jTable1.getCellEditor().stopCellEditing();
+                        if (jTable_rutesCreadesUsuari.isEditing()) {
+                            jTable_rutesCreadesUsuari.getCellEditor().stopCellEditing();
                         }
                         
-                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                        DefaultTableModel model = (DefaultTableModel) jTable_rutesCreadesUsuari.getModel();
                         model.removeRow(row);
                                                 
                         
@@ -238,32 +259,32 @@ public class panellCompartides extends javax.swing.JPanel {
                 
                 obtenirDadesRuta(llistaRutesCreades, row);
                 
-                jButton2.setVisible(false);
+                jButton_desarCanvisRuta.setVisible(false);
                 
                 editar_estrelles = false;
                 
 
-                jButton1.setEnabled(false);
+                jButton_textRuta.setEnabled(false);
                 
-                jTextField1.setEditable(false);
-                jTextField2.setEditable(false); 
-                jTextArea1.setEditable(false);
+                jTextField_titol.setEditable(false);
+                jTextField_dist.setEditable(false); 
+                jTextArea_descRuta.setEditable(false);
                 
                 
-                jComboBox1.setEnabled(false);
-                jComboBox2.setEnabled(false);
+                jComboBox_tempsH.setEnabled(false);
+                jComboBox_tempsM.setEnabled(false);
                 
-                jTextField3.setEditable(false);
-                jTextField4.setEditable(false);
+                jTextField_desnP.setEditable(false);
+                jTextField_desnN.setEditable(false);
                 
  
             }
             
         
         };
-        jTable1.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
-        jTable1.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
-        jTable1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+        jTable_rutesCreadesUsuari.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
+        jTable_rutesCreadesUsuari.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
+        jTable_rutesCreadesUsuari.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
                 setHorizontalAlignment(SwingConstants.RIGHT);
@@ -278,16 +299,16 @@ public class panellCompartides extends javax.swing.JPanel {
         
         id = llistaRutesCreades.get(row).getId();
         
-        jTextField1.setText(llistaRutesCreades.get(row).getTitol());
+        jTextField_titol.setText(llistaRutesCreades.get(row).getTitol());
         titol = llistaRutesCreades.get(row).getTitol();
         
-        jTextArea1.setText(llistaRutesCreades.get(row).getDescRuta());
+        jTextArea_descRuta.setText(llistaRutesCreades.get(row).getDescRuta());
         desc = llistaRutesCreades.get(row).getDescRuta();
         
         text_html = llistaRutesCreades.get(row).getTextRuta();
 
         
-        jTextField2.setText(llistaRutesCreades.get(row).getDist()+"");
+        jTextField_dist.setText(llistaRutesCreades.get(row).getDist()+"");
         dist = llistaRutesCreades.get(row).getDist()+"";
         
         int temps_total = llistaRutesCreades.get(row).getTemps();
@@ -301,64 +322,86 @@ public class panellCompartides extends javax.swing.JPanel {
 
         System.out.println("temps hores:" + hours + " minuts:" + minutes);
 
-        jComboBox1.getModel().setSelectedItem(hours);
-        jComboBox2.getModel().setSelectedItem(minutes);
+        jComboBox_tempsH.getModel().setSelectedItem(hours);
+        jComboBox_tempsM.getModel().setSelectedItem(minutes);
         
-        jTextField3.setText(llistaRutesCreades.get(row).getDesnP() + "");
+        jTextField_desnP.setText(llistaRutesCreades.get(row).getDesnP() + "");
         desnP = llistaRutesCreades.get(row).getDesnP()+"";
         
-        jTextField4.setText(llistaRutesCreades.get(row).getDesnN() + "");
+        jTextField_desnN.setText(llistaRutesCreades.get(row).getDesnN() + "");
         desnN = llistaRutesCreades.get(row).getDesnN()+"";
         
         qtat_estrelles = llistaRutesCreades.get(row).getDific();
 
         if (qtat_estrelles == 1) {
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaBlanca);
-            jLabel5.setIcon(estrellaBlanca);
-            jLabel6.setIcon(estrellaBlanca);
-            jLabel7.setIcon(estrellaBlanca);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaBlanca);
+            jLabel_dificEstrella3.setIcon(estrellaBlanca);
+            jLabel_dificEstrella4.setIcon(estrellaBlanca);
+            jLabel_dificEstrella5.setIcon(estrellaBlanca);
         } else if (qtat_estrelles == 2) {
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaGroga);
-            jLabel5.setIcon(estrellaBlanca);
-            jLabel6.setIcon(estrellaBlanca);
-            jLabel7.setIcon(estrellaBlanca);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaGroga);
+            jLabel_dificEstrella3.setIcon(estrellaBlanca);
+            jLabel_dificEstrella4.setIcon(estrellaBlanca);
+            jLabel_dificEstrella5.setIcon(estrellaBlanca);
         } else if (qtat_estrelles == 3) {
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaGroga);
-            jLabel5.setIcon(estrellaGroga);
-            jLabel6.setIcon(estrellaBlanca);
-            jLabel7.setIcon(estrellaBlanca);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaGroga);
+            jLabel_dificEstrella3.setIcon(estrellaGroga);
+            jLabel_dificEstrella4.setIcon(estrellaBlanca);
+            jLabel_dificEstrella5.setIcon(estrellaBlanca);
         } else if (qtat_estrelles == 4) {
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaGroga);
-            jLabel5.setIcon(estrellaGroga);
-            jLabel6.setIcon(estrellaGroga);
-            jLabel7.setIcon(estrellaBlanca);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaGroga);
+            jLabel_dificEstrella3.setIcon(estrellaGroga);
+            jLabel_dificEstrella4.setIcon(estrellaGroga);
+            jLabel_dificEstrella5.setIcon(estrellaBlanca);
         } else if (qtat_estrelles == 5) {
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaGroga);
-            jLabel5.setIcon(estrellaGroga);
-            jLabel6.setIcon(estrellaGroga);
-            jLabel7.setIcon(estrellaGroga);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaGroga);
+            jLabel_dificEstrella3.setIcon(estrellaGroga);
+            jLabel_dificEstrella4.setIcon(estrellaGroga);
+            jLabel_dificEstrella5.setIcon(estrellaGroga);
         }
+        
+        
+        
+        try {
+            llistaPuntsRuta = gestorBDWikilocJdbc.obtenirLlistaPuntsRuta(id);
+
+            dlm = new DefaultListModel();
+            
+            for (Punt p : llistaPuntsRuta) {
+
+                dlm.addElement(p.getNum().toString() + " - " + p.getNom().toString());
+            }
+            jList_puntsRuta.setModel(dlm);
+            jList_puntsRuta = new JList(dlm);
+            System.out.println(jList_puntsRuta.getModel().toString());
+            
+        } catch (GestorBDWikilocException ex) {
+            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }
     
     public void canviarCursorEstrelles(){
         
         if(editar_estrelles){
-            jLabel3.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            jLabel4.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            jLabel5.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            jLabel6.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            jLabel7.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            jLabel_dificEstrella1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            jLabel_dificEstrella2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            jLabel_dificEstrella3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            jLabel_dificEstrella4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            jLabel_dificEstrella5.setCursor(new Cursor(Cursor.HAND_CURSOR));
         }else{
-            jLabel3.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            jLabel4.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            jLabel5.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            jLabel6.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            jLabel7.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            jLabel_dificEstrella1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            jLabel_dificEstrella2.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            jLabel_dificEstrella3.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            jLabel_dificEstrella4.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            jLabel_dificEstrella5.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         }
     }
     
@@ -373,32 +416,44 @@ public class panellCompartides extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_rutesCreadesUsuari = new javax.swing.JTable();
         jPanel_compartidesCanviant = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jTextField_titol = new javax.swing.JTextField();
+        jButton_textRuta = new javax.swing.JButton();
+        jTextField_dist = new javax.swing.JTextField();
+        jComboBox_tempsH = new javax.swing.JComboBox<>();
+        jComboBox_tempsM = new javax.swing.JComboBox<>();
+        jTextField_desnP = new javax.swing.JTextField();
+        jTextField_desnN = new javax.swing.JTextField();
+        jLabel_dificEstrella1 = new javax.swing.JLabel();
+        jLabel_dificEstrella2 = new javax.swing.JLabel();
+        jLabel_dificEstrella3 = new javax.swing.JLabel();
+        jLabel_dificEstrella4 = new javax.swing.JLabel();
+        jLabel_dificEstrella5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
+        jTextArea_descRuta = new javax.swing.JTextArea();
+        jButton_desarCanvisRuta = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList_puntsRuta = new javax.swing.JList<>();
+        jTextField_nomPunt = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea_descPunt = new javax.swing.JTextArea();
+        jTextField_numPunt = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField_latPunt = new javax.swing.JTextField();
+        jTextField_lonPunt = new javax.swing.JTextField();
+        jTextField_altPunt = new javax.swing.JTextField();
+        jButton_desarCanvisPunts = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_rutesCreadesUsuari.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -414,15 +469,15 @@ public class panellCompartides extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(40);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable_rutesCreadesUsuari.setRowHeight(40);
+        jTable_rutesCreadesUsuari.getTableHeader().setReorderingAllowed(false);
+        jTable_rutesCreadesUsuari.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                jTable_rutesCreadesUsuariMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(jTable_rutesCreadesUsuari);
+        jTable_rutesCreadesUsuari.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -454,121 +509,121 @@ public class panellCompartides extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_titol.setText("jTextField1");
+        jTextField_titol.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+                jTextField_titolKeyReleased(evt);
             }
         });
 
-        jButton1.setText("html");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton_textRuta.setText("html");
+        jButton_textRuta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                jButton_textRutaMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_textRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_textRutaActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("jTextField2");
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_dist.setText("jTextField2");
+        jTextField_dist.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField2KeyReleased(evt);
+                jTextField_distKeyReleased(evt);
             }
         });
 
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        jComboBox_tempsH.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                jComboBox_tempsHItemStateChanged(evt);
             }
         });
 
-        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+        jComboBox_tempsM.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox2ItemStateChanged(evt);
+                jComboBox_tempsMItemStateChanged(evt);
             }
         });
 
-        jTextField3.setText("jTextField3");
-        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_desnP.setText("jTextField3");
+        jTextField_desnP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField3KeyReleased(evt);
+                jTextField_desnPKeyReleased(evt);
             }
         });
 
-        jTextField4.setText("jTextField4");
-        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_desnN.setText("jTextField4");
+        jTextField_desnN.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField4KeyReleased(evt);
+                jTextField_desnNKeyReleased(evt);
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_dificEstrella1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_dificEstrella1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                jLabel_dificEstrella1MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                jLabel_dificEstrella1MouseEntered(evt);
             }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_dificEstrella2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_dificEstrella2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                jLabel_dificEstrella2MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel4MouseEntered(evt);
+                jLabel_dificEstrella2MouseEntered(evt);
             }
         });
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_dificEstrella3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_dificEstrella3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+                jLabel_dificEstrella3MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
+                jLabel_dificEstrella3MouseEntered(evt);
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_dificEstrella4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_dificEstrella4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
+                jLabel_dificEstrella4MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel6MouseEntered(evt);
+                jLabel_dificEstrella4MouseEntered(evt);
             }
         });
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_dificEstrella5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_dificEstrella5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                jLabel_dificEstrella5MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel7MouseEntered(evt);
+                jLabel_dificEstrella5MouseEntered(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextArea_descRuta.setColumns(20);
+        jTextArea_descRuta.setRows(5);
+        jTextArea_descRuta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextArea1KeyReleased(evt);
+                jTextArea_descRutaKeyReleased(evt);
             }
         });
-        jScrollPane2.setViewportView(jTextArea1);
+        jScrollPane2.setViewportView(jTextArea_descRuta);
 
-        jButton2.setText("desar");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton_desarCanvisRuta.setText("desar");
+        jButton_desarCanvisRuta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                jButton_desarCanvisRutaMouseClicked(evt);
             }
         });
 
@@ -581,31 +636,31 @@ public class panellCompartides extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_titol, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField_dist, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_desnP, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(46, 46, 46)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField_desnN, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox_tempsH, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(34, 34, 34)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jButton1))
+                            .addComponent(jComboBox_tempsM, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton_textRuta))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jLabel_dificEstrella1)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
+                        .addComponent(jLabel_dificEstrella2)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
+                        .addComponent(jLabel_dificEstrella3)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
+                        .addComponent(jLabel_dificEstrella4)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel7)))
+                        .addComponent(jLabel_dificEstrella5)))
                 .addGap(75, 75, 75)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
+                    .addComponent(jButton_desarCanvisRuta)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(81, 81, 81))
         );
@@ -620,26 +675,26 @@ public class panellCompartides extends javax.swing.JPanel {
                         .addGap(18, 18, 18))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField_titol, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_dist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(jButton_textRuta)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox_tempsH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox_tempsM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField_desnP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_desnN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jButton2))
+                    .addComponent(jLabel_dificEstrella1)
+                    .addComponent(jLabel_dificEstrella2)
+                    .addComponent(jLabel_dificEstrella3)
+                    .addComponent(jLabel_dificEstrella4)
+                    .addComponent(jLabel_dificEstrella5)
+                    .addComponent(jButton_desarCanvisRuta))
                 .addGap(298, 298, 298))
         );
 
@@ -647,18 +702,105 @@ public class panellCompartides extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
+        jList_puntsRuta.setDragEnabled(true);
+        jList_puntsRuta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList_puntsRutaMouseClicked(evt);
+            }
+        });
+        jList_puntsRuta.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList_puntsRutaValueChanged(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jList_puntsRuta);
+
+        jTextField_nomPunt.setText("jTextField1");
+
+        jTextArea_descPunt.setColumns(20);
+        jTextArea_descPunt.setRows(5);
+        jScrollPane4.setViewportView(jTextArea_descPunt);
+
+        jTextField_numPunt.setText("jTextField2");
+
+        jLabel1.setText("fotooooooooo");
+
+        jTextField_latPunt.setText("jTextField3");
+
+        jTextField_lonPunt.setText("jTextField4");
+
+        jTextField_altPunt.setText("jTextField5");
+
+        jButton_desarCanvisPunts.setText("desar");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1391, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_numPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jTextField_altPunt, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(115, 115, 115)
+                                .addComponent(jButton_desarCanvisPunts)))))
+                .addGap(65, 65, 65)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(182, 182, 182))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton_desarCanvisPunts)
+                        .addGroup(jPanel7Layout.createSequentialGroup()
+                            .addComponent(jTextField_numPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addGap(38, 38, 38)
+                                    .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(26, 26, 26)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(70, 70, 70)
+                            .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextField_altPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("tab2", jPanel7);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1391, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 590, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("tab3", jPanel2);
 
         javax.swing.GroupLayout jPanel_compartidesCanviantLayout = new javax.swing.GroupLayout(jPanel_compartidesCanviant);
         jPanel_compartidesCanviant.setLayout(jPanel_compartidesCanviantLayout);
@@ -693,15 +835,15 @@ public class panellCompartides extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable_rutesCreadesUsuariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_rutesCreadesUsuariMouseClicked
         
 
         jPanel_compartidesCanviant.setVisible(false);
         
         
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_jTable_rutesCreadesUsuariMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void jButton_textRutaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_textRutaMouseClicked
         try {
             llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
             text_html = llistaRutesCreades.get(row_sel).getTextRuta();
@@ -710,16 +852,16 @@ public class panellCompartides extends javax.swing.JPanel {
         } catch (GestorBDWikilocException ex) {
             
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_jButton_textRutaMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void jLabel_dificEstrella1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella1MouseClicked
         
         if(editar_estrelles){
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaBlanca);
-            jLabel5.setIcon(estrellaBlanca);
-            jLabel6.setIcon(estrellaBlanca);
-            jLabel7.setIcon(estrellaBlanca);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaBlanca);
+            jLabel_dificEstrella3.setIcon(estrellaBlanca);
+            jLabel_dificEstrella4.setIcon(estrellaBlanca);
+            jLabel_dificEstrella5.setIcon(estrellaBlanca);
             qtat_estrelles_actual = 1;
             
             if(qtat_estrelles_actual == qtat_estrelles){
@@ -734,16 +876,16 @@ public class panellCompartides extends javax.swing.JPanel {
             evt.consume();
         }
         
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_jLabel_dificEstrella1MouseClicked
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void jLabel_dificEstrella2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella2MouseClicked
         
         if(editar_estrelles){
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaGroga);
-            jLabel5.setIcon(estrellaBlanca);
-            jLabel6.setIcon(estrellaBlanca);
-            jLabel7.setIcon(estrellaBlanca);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaGroga);
+            jLabel_dificEstrella3.setIcon(estrellaBlanca);
+            jLabel_dificEstrella4.setIcon(estrellaBlanca);
+            jLabel_dificEstrella5.setIcon(estrellaBlanca);
             qtat_estrelles_actual = 2;
             
             if(qtat_estrelles_actual == qtat_estrelles){
@@ -758,16 +900,16 @@ public class panellCompartides extends javax.swing.JPanel {
             evt.consume();
         }
         
-    }//GEN-LAST:event_jLabel4MouseClicked
+    }//GEN-LAST:event_jLabel_dificEstrella2MouseClicked
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+    private void jLabel_dificEstrella3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella3MouseClicked
         
         if(editar_estrelles){
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaGroga);
-            jLabel5.setIcon(estrellaGroga);
-            jLabel6.setIcon(estrellaBlanca);
-            jLabel7.setIcon(estrellaBlanca);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaGroga);
+            jLabel_dificEstrella3.setIcon(estrellaGroga);
+            jLabel_dificEstrella4.setIcon(estrellaBlanca);
+            jLabel_dificEstrella5.setIcon(estrellaBlanca);
             qtat_estrelles_actual = 3;
             
             if(qtat_estrelles_actual == qtat_estrelles){
@@ -782,17 +924,17 @@ public class panellCompartides extends javax.swing.JPanel {
             evt.consume();
         }
         
-    }//GEN-LAST:event_jLabel5MouseClicked
+    }//GEN-LAST:event_jLabel_dificEstrella3MouseClicked
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void jLabel_dificEstrella4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella4MouseClicked
         
         if(editar_estrelles){
             
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaGroga);
-            jLabel5.setIcon(estrellaGroga);
-            jLabel6.setIcon(estrellaGroga);
-            jLabel7.setIcon(estrellaBlanca);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaGroga);
+            jLabel_dificEstrella3.setIcon(estrellaGroga);
+            jLabel_dificEstrella4.setIcon(estrellaGroga);
+            jLabel_dificEstrella5.setIcon(estrellaBlanca);
             qtat_estrelles_actual = 4;
             
             if(qtat_estrelles_actual == qtat_estrelles){
@@ -807,16 +949,16 @@ public class panellCompartides extends javax.swing.JPanel {
             evt.consume();
         }
         
-    }//GEN-LAST:event_jLabel6MouseClicked
+    }//GEN-LAST:event_jLabel_dificEstrella4MouseClicked
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+    private void jLabel_dificEstrella5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella5MouseClicked
                
         if(editar_estrelles){
-            jLabel3.setIcon(estrellaGroga);
-            jLabel4.setIcon(estrellaGroga);
-            jLabel5.setIcon(estrellaGroga);
-            jLabel6.setIcon(estrellaGroga);
-            jLabel7.setIcon(estrellaGroga);
+            jLabel_dificEstrella1.setIcon(estrellaGroga);
+            jLabel_dificEstrella2.setIcon(estrellaGroga);
+            jLabel_dificEstrella3.setIcon(estrellaGroga);
+            jLabel_dificEstrella4.setIcon(estrellaGroga);
+            jLabel_dificEstrella5.setIcon(estrellaGroga);
             qtat_estrelles_actual = 5;
             
             if(qtat_estrelles_actual == qtat_estrelles){
@@ -831,9 +973,9 @@ public class panellCompartides extends javax.swing.JPanel {
             evt.consume();
         }
         
-    }//GEN-LAST:event_jLabel7MouseClicked
+    }//GEN-LAST:event_jLabel_dificEstrella5MouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void jButton_desarCanvisRutaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarCanvisRutaMouseClicked
         
         
         try {
@@ -846,9 +988,9 @@ public class panellCompartides extends javax.swing.JPanel {
             Ruta ruta_editada;
             
             if(textHtmlEditat!=null){
-                ruta_editada = new Ruta(id,jTextField1.getText(),jTextArea1.getText(),textHtmlEditat,Double.parseDouble(jTextField2.getText()),total,Integer.parseInt(jTextField3.getText()),Integer.parseInt(jTextField4.getText()),qtat_estrelles_actual,usuari_loginat);
+                ruta_editada = new Ruta(id,jTextField_titol.getText(),jTextArea_descRuta.getText(),textHtmlEditat,Double.parseDouble(jTextField_dist.getText()),total,Integer.parseInt(jTextField_desnP.getText()),Integer.parseInt(jTextField_desnN.getText()),qtat_estrelles_actual,usuari_loginat);
             }else{
-                ruta_editada = new Ruta(id,jTextField1.getText(),jTextArea1.getText(),text_html,Double.parseDouble(jTextField2.getText()),total,Integer.parseInt(jTextField3.getText()),Integer.parseInt(jTextField4.getText()),qtat_estrelles,usuari_loginat);
+                ruta_editada = new Ruta(id,jTextField_titol.getText(),jTextArea_descRuta.getText(),text_html,Double.parseDouble(jTextField_dist.getText()),total,Integer.parseInt(jTextField_desnP.getText()),Integer.parseInt(jTextField_desnN.getText()),qtat_estrelles,usuari_loginat);
                 
             }
             
@@ -883,7 +1025,7 @@ public class panellCompartides extends javax.swing.JPanel {
                         tableModel.removeRow(i);
                     }
                     
-                    tableModel = (DefaultTableModel) jTable1.getModel();
+                    tableModel = (DefaultTableModel) jTable_rutesCreadesUsuari.getModel();
                     
                     
                     
@@ -902,7 +1044,7 @@ public class panellCompartides extends javax.swing.JPanel {
                     
                 }
                 
-                jButton2.setEnabled(false);
+                jButton_desarCanvisRuta.setEnabled(false);
                 
             }
             
@@ -913,29 +1055,29 @@ public class panellCompartides extends javax.swing.JPanel {
         }
         
         
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_jButton_desarCanvisRutaMouseClicked
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+    private void jLabel_dificEstrella1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella1MouseEntered
         canviarCursorEstrelles();
-    }//GEN-LAST:event_jLabel3MouseEntered
+    }//GEN-LAST:event_jLabel_dificEstrella1MouseEntered
 
-    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+    private void jLabel_dificEstrella2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella2MouseEntered
         canviarCursorEstrelles();
-    }//GEN-LAST:event_jLabel4MouseEntered
+    }//GEN-LAST:event_jLabel_dificEstrella2MouseEntered
 
-    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
+    private void jLabel_dificEstrella3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella3MouseEntered
         canviarCursorEstrelles();
-    }//GEN-LAST:event_jLabel5MouseEntered
+    }//GEN-LAST:event_jLabel_dificEstrella3MouseEntered
 
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
+    private void jLabel_dificEstrella4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella4MouseEntered
         canviarCursorEstrelles();
-    }//GEN-LAST:event_jLabel6MouseEntered
+    }//GEN-LAST:event_jLabel_dificEstrella4MouseEntered
 
-    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
+    private void jLabel_dificEstrella5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_dificEstrella5MouseEntered
         canviarCursorEstrelles();
-    }//GEN-LAST:event_jLabel7MouseEntered
+    }//GEN-LAST:event_jLabel_dificEstrella5MouseEntered
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void jComboBox_tempsHItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_tempsHItemStateChanged
        
         try{
             if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -965,9 +1107,9 @@ public class panellCompartides extends javax.swing.JPanel {
         }catch(Exception ex){
             
         }
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_jComboBox_tempsHItemStateChanged
 
-    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+    private void jComboBox_tempsMItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_tempsMItemStateChanged
         
         try{
             if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -995,11 +1137,11 @@ public class panellCompartides extends javax.swing.JPanel {
         }catch(Exception ex){
             
         }
-    }//GEN-LAST:event_jComboBox2ItemStateChanged
+    }//GEN-LAST:event_jComboBox_tempsMItemStateChanged
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+    private void jTextField_titolKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_titolKeyReleased
         
-        if (titol.equals(jTextField1.getText())) {
+        if (titol.equals(jTextField_titol.getText())) {
             titol_canviada = false;
             horesMinutsModificats();
         } else {
@@ -1007,27 +1149,27 @@ public class panellCompartides extends javax.swing.JPanel {
             horesMinutsModificats();
         }
 
-    }//GEN-LAST:event_jTextField1KeyReleased
+    }//GEN-LAST:event_jTextField_titolKeyReleased
 
-    private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
+    private void jTextArea_descRutaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea_descRutaKeyReleased
         
-        if (desc.equals(jTextArea1.getText())) {
+        if (desc.equals(jTextArea_descRuta.getText())) {
             desc_canviada = false;
             horesMinutsModificats();
         } else {
             desc_canviada = true;
             horesMinutsModificats();
         }
-    }//GEN-LAST:event_jTextArea1KeyReleased
+    }//GEN-LAST:event_jTextArea_descRutaKeyReleased
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_textRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_textRutaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_textRutaActionPerformed
 
-    private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
+    private void jTextField_desnPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_desnPKeyReleased
         
         
-        if (desnP.equals(jTextField3.getText())) {
+        if (desnP.equals(jTextField_desnP.getText())) {
             desnP_canviada = false;
             horesMinutsModificats();
         } else {
@@ -1035,11 +1177,11 @@ public class panellCompartides extends javax.swing.JPanel {
             horesMinutsModificats();
         }
         
-    }//GEN-LAST:event_jTextField3KeyReleased
+    }//GEN-LAST:event_jTextField_desnPKeyReleased
 
-    private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
+    private void jTextField_desnNKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_desnNKeyReleased
         
-        if (desnN.equals(jTextField4.getText())) {
+        if (desnN.equals(jTextField_desnN.getText())) {
             desnN_canviada = false;
             horesMinutsModificats();
         } else {
@@ -1047,11 +1189,11 @@ public class panellCompartides extends javax.swing.JPanel {
             horesMinutsModificats();
         }
         
-    }//GEN-LAST:event_jTextField4KeyReleased
+    }//GEN-LAST:event_jTextField_desnNKeyReleased
 
-    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+    private void jTextField_distKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_distKeyReleased
         
-        if (dist.equals(jTextField2.getText())) {
+        if (dist.equals(jTextField_dist.getText())) {
             dist_canviada = false;
             horesMinutsModificats();
         } else {
@@ -1060,22 +1202,78 @@ public class panellCompartides extends javax.swing.JPanel {
         }
         
         
-    }//GEN-LAST:event_jTextField2KeyReleased
+    }//GEN-LAST:event_jTextField_distKeyReleased
 
     private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
         
-
+        
         
     }//GEN-LAST:event_jTabbedPane2MouseClicked
 
+    private void jList_puntsRutaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList_puntsRutaMouseClicked
+        
+        //String value = (String)jList_puntsRuta.getModel().getElementAt(jList_puntsRuta.locationToIndex(evt.getPoint()));
+        //System.out.println("value:"+value);
+        
+        //Punt punt = (Punt) jList_puntsRuta.getModel().getElementAt(0);
+        //Punt punt = (Punt)dlm.getElementAt(jList_puntsRuta.getSelectedIndex());
+        //System.out.println("punt: "+punt);
+    }//GEN-LAST:event_jList_puntsRutaMouseClicked
+
+    private void jList_puntsRutaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList_puntsRutaValueChanged
+        
+        if (!evt.getValueIsAdjusting()) {
+            JList jlist = (JList)evt.getSource();
+            
+            int idx = jlist.getSelectedIndex();
+            
+            Punt p = llistaPuntsRuta.get(idx);
+            
+            jTextField_numPunt.setText(p.getNum().toString());
+            jTextField_nomPunt.setText(p.getNom());
+            jTextArea_descPunt.setText(p.getDescPunt());
+            
+            //jLabel1
+            if(p.getFoto()!=null){
+                System.out.println("BYTE[]"+p.getFoto().length);
+                
+                BufferedImage bf = byteArrayToImage(p.getFoto());
+                ImageIcon foto = new ImageIcon(bf);
+                jLabel1.setIcon(foto);
+                             
+             
+            }else{
+                jLabel1.setIcon(null);
+            }
+            
+            
+            jTextField_latPunt.setText(p.getLat().toString());
+            jTextField_lonPunt.setText(p.getLon().toString());
+            jTextField_altPunt.setText(p.getAlt().toString());
+
+        }
+        
+    }//GEN-LAST:event_jList_puntsRutaValueChanged
+
+    public BufferedImage byteArrayToImage(byte[] bytes) {
+        BufferedImage bufferedImage = null;
+        try {
+            InputStream inputStream = new ByteArrayInputStream(bytes);
+            bufferedImage = ImageIO.read(inputStream);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return bufferedImage;
+    }
+    
     public void horesMinutsModificats(){
  
         System.out.println("hora"+hours_canviada+" minuts"+ minutes_canviada);
         if(hours_canviada || minutes_canviada || titol_canviada || dist_canviada || desc_canviada || desnP_canviada || desnN_canviada || estrella_canviada){
-            jButton2.setEnabled(true);
+            jButton_desarCanvisRuta.setEnabled(true);
             System.out.println("A");
         }else{
-            jButton2.setEnabled(false);
+            jButton_desarCanvisRuta.setEnabled(false);
             System.out.println("B");
         }
     }
@@ -1086,27 +1284,39 @@ public class panellCompartides extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JButton jButton_desarCanvisPunts;
+    private javax.swing.JButton jButton_desarCanvisRuta;
+    private javax.swing.JButton jButton_textRuta;
+    private javax.swing.JComboBox<String> jComboBox_tempsH;
+    private javax.swing.JComboBox<String> jComboBox_tempsM;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel_dificEstrella1;
+    private javax.swing.JLabel jLabel_dificEstrella2;
+    private javax.swing.JLabel jLabel_dificEstrella3;
+    private javax.swing.JLabel jLabel_dificEstrella4;
+    private javax.swing.JLabel jLabel_dificEstrella5;
+    private javax.swing.JList<String> jList_puntsRuta;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel_compartidesCanviant;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable jTable_rutesCreadesUsuari;
+    private javax.swing.JTextArea jTextArea_descPunt;
+    private javax.swing.JTextArea jTextArea_descRuta;
+    private javax.swing.JTextField jTextField_altPunt;
+    private javax.swing.JTextField jTextField_desnN;
+    private javax.swing.JTextField jTextField_desnP;
+    private javax.swing.JTextField jTextField_dist;
+    private javax.swing.JTextField jTextField_latPunt;
+    private javax.swing.JTextField jTextField_lonPunt;
+    private javax.swing.JTextField jTextField_nomPunt;
+    private javax.swing.JTextField jTextField_numPunt;
+    private javax.swing.JTextField jTextField_titol;
     // End of variables declaration//GEN-END:variables
 }

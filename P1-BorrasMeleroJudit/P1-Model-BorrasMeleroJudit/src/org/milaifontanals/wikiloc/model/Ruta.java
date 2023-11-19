@@ -34,7 +34,7 @@ public class Ruta {
         setDific(dific);
         setLoginUsuari(loginUsuari);
     }
-    
+       
     //Constructor complet
     public Ruta(Integer id, String titol, String descRuta, String textRuta, Double dist, Integer temps, Integer desnP, Integer desnN, Integer dific, Usuari loginUsuari) {
         setId(id);

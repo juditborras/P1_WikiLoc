@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.io.IOUtils;
 import org.milaifontanals.wikiloc.model.Comentari;
 import org.milaifontanals.wikiloc.model.Companys;
 import org.milaifontanals.wikiloc.model.Fetes;
@@ -147,7 +150,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             inst = "insert into punt(num,nom,desc_punt,lat,lon,alt,id_ruta,id_tipus) values(?,?,?,?,?,?,?,?)";
             psAfegirPuntRuta = conn.prepareStatement(inst);
             
-            inst = "update punt set nom = ?, desc_punt = ?, lat = ?, lon = ?, alt = ?, id_tipus = ? where num = ? and id_ruta = ?";
+            inst = "update punt set nom = ?, desc_punt = ?, foto = ?, lat = ?, lon = ?, alt = ?, id_tipus = ? where num = ? and id_ruta = ?";
             psEditarPuntRuta = conn.prepareStatement(inst);
             
             inst = "delete from punt where num = ? and id_ruta = ?";
@@ -723,18 +726,21 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     }
 
     @Override
-    public boolean editarPuntRuta(Punt p, Integer id) throws GestorBDWikilocException {
+    public boolean editarPuntRuta(Punt p, Integer id, String url_foto) throws GestorBDWikilocException {
         
          try{
             
             psEditarPuntRuta.setString(1, p.getNom());
             psEditarPuntRuta.setString(2, p.getDescPunt());
-            psEditarPuntRuta.setInt(3, p.getLat());
-            psEditarPuntRuta.setInt(4, p.getLon());
-            psEditarPuntRuta.setInt(5, p.getAlt());
-            psEditarPuntRuta.setInt(6, p.getIdTipus().getId());
-            psEditarPuntRuta.setInt(7, p.getNum());
-            psEditarPuntRuta.setInt(8, p.getIdRuta().getId());
+            
+            FileInputStream fin = new FileInputStream(url_foto);
+            psEditarPuntRuta.setBinaryStream(3, fin);
+            psEditarPuntRuta.setInt(4, p.getLat());
+            psEditarPuntRuta.setInt(5, p.getLon());
+            psEditarPuntRuta.setInt(6, p.getAlt());
+            psEditarPuntRuta.setInt(7, p.getIdTipus().getId());
+            psEditarPuntRuta.setInt(8, p.getNum());
+            psEditarPuntRuta.setInt(9, p.getIdRuta().getId());
 
             
             int registres_afectats = psEditarPuntRuta.executeUpdate();
@@ -817,6 +823,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                 punt = new Punt(rsObtenirPuntRuta.getInt("num"),
                                 rsObtenirPuntRuta.getString("nom"),
                                 rsObtenirPuntRuta.getString("desc_punt"),
+                            IOUtils.toByteArray(rsObtenirPuntRuta.getBinaryStream("foto")),
                                 rsObtenirPuntRuta.getInt("lat"),
                                 rsObtenirPuntRuta.getInt("lon"),
                                 rsObtenirPuntRuta.getInt("alt"),
@@ -834,6 +841,8 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
         } catch (SQLException ex) {
             throw new GestorBDWikilocException("Error en obtenir el punt.\n" + ex.getMessage());
+        } catch (IOException ex) {
+            throw new GestorBDWikilocException("Error en obtenir la foto.\n" + ex.getMessage());
         }
     }
 
@@ -865,15 +874,28 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                                     rsObtenirLlistaPuntsRuta.getInt("desn_n"),
                                     rsObtenirLlistaPuntsRuta.getInt("dific"),
                                     u);
-                
-                Punt punt = new Punt(rsObtenirLlistaPuntsRuta.getInt("num"),
+                Punt punt = null;
+                if(rsObtenirLlistaPuntsRuta.getBinaryStream("foto")!=null){
+                    punt = new Punt(rsObtenirLlistaPuntsRuta.getInt("num"),
                                 rsObtenirLlistaPuntsRuta.getString("nom"),
                                 rsObtenirLlistaPuntsRuta.getString("desc_punt"),
+                                IOUtils.toByteArray(rsObtenirLlistaPuntsRuta.getBinaryStream("foto")),
                                 rsObtenirLlistaPuntsRuta.getInt("lat"),
                                 rsObtenirLlistaPuntsRuta.getInt("lon"),
                                 rsObtenirLlistaPuntsRuta.getInt("alt"),
                                 ruta,
                                 tipus);
+                }else{
+                    punt = new Punt(rsObtenirLlistaPuntsRuta.getInt("num"),
+                                rsObtenirLlistaPuntsRuta.getString("nom"),
+                                rsObtenirLlistaPuntsRuta.getString("desc_punt"),
+                                null,
+                                rsObtenirLlistaPuntsRuta.getInt("lat"),
+                                rsObtenirLlistaPuntsRuta.getInt("lon"),
+                                rsObtenirLlistaPuntsRuta.getInt("alt"),
+                                ruta,
+                                tipus);
+                }
                
                 punts.add(punt);
             }               
@@ -884,6 +906,8 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
         } catch (SQLException ex) {
             throw new GestorBDWikilocException("Error en obtenir els punts de la ruta.\n" + ex.getMessage());
+        } catch (IOException ex) {
+            throw new GestorBDWikilocException("Error en obtenir la foto.\n" + ex.getMessage());
         }
         
         return punts;

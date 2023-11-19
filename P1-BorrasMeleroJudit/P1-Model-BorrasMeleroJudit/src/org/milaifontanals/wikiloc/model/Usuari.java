@@ -15,7 +15,7 @@ public class Usuari {
     private String login;
     private String pwd;
     private String email;
-    private Image foto;
+    private byte[] foto;
     
     //Constructor mínim
     public Usuari(String login, String pwd, String email) {
@@ -23,7 +23,7 @@ public class Usuari {
         setPwd(pwd);
         setEmail(email);
     }
-    
+     
     public String getLogin() {
         return login;
     }
@@ -63,11 +63,11 @@ public class Usuari {
           .matches();
     }
 
-    public Image getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(Image foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
     

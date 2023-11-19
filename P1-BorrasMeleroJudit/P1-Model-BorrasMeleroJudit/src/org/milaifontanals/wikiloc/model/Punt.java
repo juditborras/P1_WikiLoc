@@ -14,7 +14,7 @@ public class Punt {
     private Integer num;
     private String nom;
     private String descPunt;
-    private Image foto;
+    private byte[] foto;
     private Integer lat;
     private Integer lon;
     private Integer alt;
@@ -22,17 +22,18 @@ public class Punt {
     private Ruta idRuta;
     private Tipus idTipus;
     
-    public Punt(Integer num, String nom, String descPunt, Integer lat, Integer lon, Integer alt, Ruta idRuta, Tipus idTipus) {
+    public Punt(Integer num, String nom, String descPunt, byte[] foto, Integer lat, Integer lon, Integer alt, Ruta idRuta, Tipus idTipus) {
         setNum(num);
         setNom(nom);
         setDescPunt(descPunt);
+        setFoto(foto);
         setLat(lat);
         setLon(lon);
         setAlt(alt);
         setIdRuta(idRuta);
         setIdTipus(idTipus);
     }
-
+    
     public Integer getNum() {
         return num;
     }
@@ -66,11 +67,11 @@ public class Punt {
         this.descPunt = descPunt;
     }
 
-    public Image getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(Image foto) {
+    public void setFoto(byte[] foto) {
         
         this.foto = foto;
     }

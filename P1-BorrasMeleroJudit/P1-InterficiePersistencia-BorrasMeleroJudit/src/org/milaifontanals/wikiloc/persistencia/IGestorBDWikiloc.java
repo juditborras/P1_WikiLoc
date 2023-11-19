@@ -201,10 +201,11 @@ public interface IGestorBDWikiloc {
      *
      * @param p Punt a editar de la ruta
      * @param id id de la ruta a la qual pertany el punt
+     * @param url_foto ruta física de la foto
      * @return S'ha verificat o no l'edició del punt
      * @throws GestorBDWikilocException
      */
-    boolean editarPuntRuta(Punt p, Integer id) throws GestorBDWikilocException;
+    boolean editarPuntRuta(Punt p, Integer id, String url_foto) throws GestorBDWikilocException;
     
     /**
      * Eliminar punt de la ruta de la BD
