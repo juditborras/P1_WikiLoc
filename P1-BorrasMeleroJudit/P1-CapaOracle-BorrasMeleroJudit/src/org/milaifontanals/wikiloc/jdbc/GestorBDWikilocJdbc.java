@@ -361,6 +361,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
             
         }catch(Exception ex){
+            System.out.println("gestor error: "+ex.getMessage());
             return false;
         }
     }
@@ -995,6 +996,8 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             }else{
                 qt = -1;
             }
+            
+            System.out.println("QT: "+qt);
             
             if(rsQtatComentarisRuta != null){
                 rsQtatComentarisRuta.close();

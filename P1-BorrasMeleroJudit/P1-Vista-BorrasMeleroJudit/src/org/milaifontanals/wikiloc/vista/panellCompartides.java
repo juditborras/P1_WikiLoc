@@ -46,7 +46,7 @@ public class panellCompartides extends javax.swing.JPanel {
     
     int id, hours, minutes, antic, qtat_estrelles, qtat_estrelles_actual;
     boolean hours_canviada = false, minutes_canviada = false, titol_canviada = false, dist_canviada = false, desc_canviada = false, desnP_canviada = false, desnN_canviada = false, estrella_canviada = false;
-    
+    boolean onEdit_click = false;
     int qc1,qc2;
     
     String titol, desc, dist, desnP, desnN;
@@ -56,6 +56,8 @@ public class panellCompartides extends javax.swing.JPanel {
     
     int row_sel;
     List<Ruta> llistaRutesCreades;
+    
+    DefaultTableModel tableModel;
     
     public panellCompartides(){
         
@@ -79,7 +81,7 @@ public class panellCompartides extends javax.swing.JPanel {
             
             llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
             
-            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+            tableModel = (DefaultTableModel) jTable1.getModel();
             Object rowData[] = new Object[5];
             
             for (Ruta r : llistaRutesCreades) {
@@ -113,6 +115,10 @@ public class panellCompartides extends javax.swing.JPanel {
   
             @Override
             public void onEdit(int row) {
+                
+                onEdit_click = true;
+                
+                
                 row_sel = row;
                 System.out.println("Edit row : " + row);
                 System.out.println(llistaRutesCreades.get(row)); 
@@ -151,14 +157,51 @@ public class panellCompartides extends javax.swing.JPanel {
             public void onDelete(int row) {
                 
                 jPanel_menu.setVisible(false);
-                jPanel_compartidesCanviant.setVisible(false);
                 
                 
-                if (jTable1.isEditing()) {
-                    jTable1.getCellEditor().stopCellEditing();
+                
+                System.out.println("hola esborrem ruta" + id);
+                
+                try {
+                    
+                    id = llistaRutesCreades.get(row).getId();
+                    
+                    int qtat_comentaris = gestorBDWikilocJdbc.qtatComentarisRuta(id);
+                    System.out.println("qtat_comentaris. "+qtat_comentaris);
+                    if(qtat_comentaris == 0){
+                        
+                        if (jTable1.isEditing()) {
+                            jTable1.getCellEditor().stopCellEditing();
+                        }
+                        
+                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                        model.removeRow(row);
+                                                
+                        
+                        jPanel_compartidesCanviant.setVisible(false);
+                        
+                    }else{
+                        
+                        JOptionPane.showConfirmDialog(null, "No es pot esborrar una ruta si aquesta té comentaris",
+                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE);
+                        
+                        
+                        if(onEdit_click){
+                            jPanel_compartidesCanviant.setVisible(true);
+                        }else{
+                            jPanel_compartidesCanviant.setVisible(false);
+                        }
+                        
+                        onEdit_click = false;
+                    }
+                    
+                                       
+                } catch (GestorBDWikilocException ex) {
+                    Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                model.removeRow(row);
+                
+                
             }
 
             @Override
@@ -745,7 +788,18 @@ public class panellCompartides extends javax.swing.JPanel {
                                 
             int total = (hours * 60) + minutes;
             
-            Ruta ruta_editada = new Ruta(jTextField1.getText(),jTextArea1.getText(),textHtmlEditat,Double.parseDouble(jTextField2.getText()),total,Integer.parseInt(jTextField3.getText()),Integer.parseInt(jTextField4.getText()),qtat_estrelles_actual,usuari_loginat);
+            System.out.println(textHtmlEditat);
+            
+            Ruta ruta_editada;
+            
+            if(textHtmlEditat!=null){
+                ruta_editada = new Ruta(id,jTextField1.getText(),jTextArea1.getText(),textHtmlEditat,Double.parseDouble(jTextField2.getText()),total,Integer.parseInt(jTextField3.getText()),Integer.parseInt(jTextField4.getText()),qtat_estrelles_actual,usuari_loginat);
+            }else{
+                ruta_editada = new Ruta(id,jTextField1.getText(),jTextArea1.getText(),text_html,Double.parseDouble(jTextField2.getText()),total,Integer.parseInt(jTextField3.getText()),Integer.parseInt(jTextField4.getText()),qtat_estrelles,usuari_loginat);
+                
+            }
+            
+            
             
             boolean rutaEditada = gestorBDWikilocJdbc.editarRuta(ruta_editada);
             
@@ -767,15 +821,42 @@ public class panellCompartides extends javax.swing.JPanel {
                     "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
                     JOptionPane.INFORMATION_MESSAGE);
                     
+                    gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
+
+                    llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
+
+                    
+                    for(int i=0; i< llistaRutesCreades.size(); i++){
+                        tableModel.removeRow(i);
+                    }
+                    
+                    tableModel = (DefaultTableModel) jTable1.getModel();
+                    
+                    
+                    
+                    Object rowData[] = new Object[5];
+
+                    for (Ruta r : llistaRutesCreades) {
+
+                        rowData[0] = r.getTitol();
+                        rowData[1] = r.getDescRuta();
+                        rowData[2] = r.getDist();
+                        rowData[3] = r.getTemps();
+                        rowData[4] = r.getDific();
+
+                        tableModel.addRow(rowData);
+                    }
+                    
                 }
                 
+                jButton2.setEnabled(false);
                 
             }
             
             
             
         } catch (GestorBDWikilocException ex) {
-            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR: "+ex.getMessage());
         }
         
         
