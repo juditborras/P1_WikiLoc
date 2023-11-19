@@ -996,9 +996,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             }else{
                 qt = -1;
             }
-            
-            System.out.println("QT: "+qt);
-            
+                       
             if(rsQtatComentarisRuta != null){
                 rsQtatComentarisRuta.close();
             }
