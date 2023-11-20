@@ -183,6 +183,24 @@ public interface IGestorBDWikiloc {
      */
     Tipus obtenirTipusPerId(Integer id) throws GestorBDWikilocException;
         
+    /**
+     * Obtenir llista dels tipus de punts de la BD
+     *
+     * @return llista de tipus
+     * @throws GestorBDWikilocException
+     */
+    List<Tipus> obtenirLlistaTipus() throws GestorBDWikilocException;
+    
+    /**
+     * Obtenir informació del tipus de punt de la BD
+     *
+     * @param id_ruta id de la ruta
+     * @param id_punt id del punt
+     * @return Tipus del punt indicat de la ruta indicada
+     * @throws GestorBDWikilocException
+     */
+    Tipus obtenirTipusPunt(Integer id_ruta, Integer id_punt) throws GestorBDWikilocException;
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="MÈTODES DE LA CLASSE PUNT">

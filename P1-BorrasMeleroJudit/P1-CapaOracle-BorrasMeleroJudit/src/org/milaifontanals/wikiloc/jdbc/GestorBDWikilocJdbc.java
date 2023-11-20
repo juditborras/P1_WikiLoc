@@ -49,6 +49,8 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     private static PreparedStatement psObtenirLlistaFetes;
     
     private static PreparedStatement psObtenirTipusPerId;
+    private static PreparedStatement psObtenirLlistaTipus;
+    private static PreparedStatement psObtenirTipusPunt;
     
     private static PreparedStatement psAfegirPuntRuta;
     private static PreparedStatement psEditarPuntRuta;
@@ -147,6 +149,14 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             inst = "select * from tipus where id = ?";
             psObtenirTipusPerId = conn.prepareStatement(inst);
             
+            inst ="select * from tipus";
+            psObtenirLlistaTipus = conn.prepareStatement(inst);
+            
+            inst = "select t.*\n" +
+                   "from punt p join tipus t on p.id_tipus = t.id \n" +
+                   "where id_ruta = ? and id_tipus = ?";
+            psObtenirTipusPunt = conn.prepareStatement(inst);
+            
             inst = "insert into punt(num,nom,desc_punt,lat,lon,alt,id_ruta,id_tipus) values(?,?,?,?,?,?,?,?)";
             psAfegirPuntRuta = conn.prepareStatement(inst);
             
@@ -167,7 +177,8 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                     "from punt p join ruta r on p.id_ruta = r.id\n" +
                     "            join tipus t on p.id_tipus = t.id\n" +
                     "            join usuari u on r.login_usuari = u.login\n" +
-                    "where p.id_ruta = ?";
+                    "where p.id_ruta = ?" +
+                    "order by p.num";
             psObtenirLlistaPuntsRuta = conn.prepareStatement(inst);
             
             inst = "insert into comentari(text,v_inf,feta,v_seg,v_pai,dific,login_usuari,id_ruta) values (?,?,?,?,?,?,?,?)";
@@ -364,7 +375,6 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
             
         }catch(Exception ex){
-            System.out.println("gestor error: "+ex.getMessage());
             return false;
         }
     }
@@ -382,7 +392,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             if(registres_afectats != 1){
                 return false;
             }
-            System.out.println("TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+
             return true;
             
         }catch(Exception ex){
@@ -696,6 +706,97 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             throw new GestorBDWikilocException("Error en obtenir el tipus.\n" + ex.getMessage());
         }
     }
+    
+    @Override
+    public List<Tipus> obtenirLlistaTipus() throws GestorBDWikilocException {
+
+        List<Tipus> tipus = new ArrayList();
+
+        try {
+
+            ResultSet rsObtenirLlistaTipus = null;
+
+            rsObtenirLlistaTipus = psObtenirLlistaTipus.executeQuery();
+
+            while (rsObtenirLlistaTipus.next()) {
+
+                Tipus t = new Tipus(rsObtenirLlistaTipus.getInt("id"),rsObtenirLlistaTipus.getString("nom"),IOUtils.toByteArray(rsObtenirLlistaTipus.getBinaryStream("icona")));
+
+                tipus.add(t);
+            }
+
+            if (rsObtenirLlistaTipus != null) {
+                rsObtenirLlistaTipus.close();
+            }
+
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir la llista dels tipus de punt.\n" + ex.getMessage());
+        } catch (IOException ex) {
+            throw new GestorBDWikilocException("Error en obtenir la icona dels tipus de punt.\n" + ex.getMessage());
+        }
+
+        return tipus;
+    }
+
+    @Override
+    public Tipus obtenirTipusPunt(Integer id_punt, Integer id_ruta) throws GestorBDWikilocException {
+        /*
+         ResultSet rsObtenirTipusPerId = null;
+    
+            psObtenirTipusPerId.setInt(1, id);
+            rsObtenirTipusPerId = psObtenirTipusPerId.executeQuery();
+            
+            Tipus tipus;
+            if(rsObtenirTipusPerId.next()){
+                //PROVISIONAL
+                //tipus = new Tipus(rsObtenirTipusPerId.getInt("id"),rsObtenirTipusPerId.getString("nom"),rsObtenirTipusPerId.getBlob("icona"));
+                tipus = new Tipus(rsObtenirTipusPerId.getInt("id"),rsObtenirTipusPerId.getString("nom"),null);
+                
+                
+            }else{
+                tipus = null;
+            }
+            
+            if(rsObtenirTipusPerId != null){
+                rsObtenirTipusPerId.close();
+            }
+            
+            return tipus;
+        */
+        try {
+
+            ResultSet rsObtenirTipusPunt = null;
+
+            psObtenirTipusPunt.setInt(1, id_ruta);
+            psObtenirTipusPunt.setInt(2, id_punt);
+            rsObtenirTipusPunt = psObtenirTipusPunt.executeQuery();
+            
+            if(rsObtenirTipusPunt==null){
+                System.out.println("NULL");
+            }else{
+                System.out.println("NO NULL");
+            }
+            rsObtenirTipusPunt.next();
+            Tipus tipus = new Tipus(rsObtenirTipusPunt.getInt("id"),rsObtenirTipusPunt.getString("nom"),null);
+/*
+            if(rsObtenirTipusPunt.next()){
+                
+            }else{
+                
+            }
+
+            if (rsObtenirTipusPunt != null) {
+                rsObtenirTipusPunt.close();
+            }
+*/
+            System.out.println("TIPUS: "+tipus);
+            return tipus;
+
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir el tipus.\n" + ex.getMessage());
+        }
+               
+    }
 
     @Override
     public boolean afegirPuntRuta(Punt p) throws GestorBDWikilocException {
@@ -909,7 +1010,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         } catch (IOException ex) {
             throw new GestorBDWikilocException("Error en obtenir la foto.\n" + ex.getMessage());
         }
-        
+                
         return punts;
         
     }
@@ -1256,8 +1357,5 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         }
         
     }
-
-
-
    
 }

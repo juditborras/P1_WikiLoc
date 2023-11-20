@@ -21,6 +21,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -73,9 +75,13 @@ public class panellCompartides extends javax.swing.JPanel {
     int row_sel;
     List<Ruta> llistaRutesCreades;
     List<Punt> llistaPuntsRuta;
+    List<Tipus> llistaTipusPunts;
     
     DefaultTableModel tableModel;
-    DefaultListModel dlm;
+    DefaultListModel dlm, dlm_tipus;
+    
+    Punt punt_seleccionat;
+    Ruta ruta_seleccionada;
     
     public panellCompartides(){
         
@@ -111,10 +117,12 @@ public class panellCompartides extends javax.swing.JPanel {
         
         jPanel_compartidesCanviant.setVisible(false);
         jButton_desarCanvisRuta.setVisible(false);
+        jButton_incorporarNouElement.setVisible(false);
         
        
         llistaRutesCreades = new ArrayList();
         llistaPuntsRuta = new ArrayList();
+        llistaTipusPunts = new ArrayList();
         
         try {
             
@@ -167,6 +175,7 @@ public class panellCompartides extends javax.swing.JPanel {
                 row_sel = row;
                 System.out.println("Edit row : " + row);
                 System.out.println(llistaRutesCreades.get(row)); 
+                ruta_seleccionada = llistaRutesCreades.get(row);
                 
                 jPanel_menu.setVisible(false);
                 
@@ -385,6 +394,31 @@ public class panellCompartides extends javax.swing.JPanel {
         }
         
         
+        try {
+            llistaTipusPunts = gestorBDWikilocJdbc.obtenirLlistaTipus();
+         
+            
+            System.out.println("LEN: "+llistaTipusPunts.size());
+            Tipus[] tip = new Tipus[llistaTipusPunts.size()];
+            tip = llistaTipusPunts.toArray(tip);
+            
+            
+            //jComboBox_tipusPunt = new JComboBox(tip);
+            System.out.println("ITEM COUNT: "+jComboBox_tipusPunt.getItemCount());
+            //jComboBox_tipusPunt.setSelectedIndex(-1);
+            
+            jComboBox_tipusPunt.setModel(new DefaultComboBoxModel<>(llistaTipusPunts.toArray(new Tipus[0])));
+            jComboBox_tipusPunt.setSelectedIndex(-1);
+            
+            
+            for(int i=0; i<llistaTipusPunts.size(); i++){
+                System.out.println(tip[i]);
+            }
+          
+        } catch (GestorBDWikilocException ex) {
+            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
         
     }
     
@@ -442,11 +476,19 @@ public class panellCompartides extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea_descPunt = new javax.swing.JTextArea();
         jTextField_numPunt = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel_fotoPunt = new javax.swing.JLabel();
         jTextField_latPunt = new javax.swing.JTextField();
         jTextField_lonPunt = new javax.swing.JTextField();
         jTextField_altPunt = new javax.swing.JTextField();
         jButton_desarCanvisPunts = new javax.swing.JButton();
+        jButton_netejar = new javax.swing.JButton();
+        jButton_editar = new javax.swing.JButton();
+        jButton_afegir = new javax.swing.JButton();
+        jButton_eliminar = new javax.swing.JButton();
+        jButton_pujar = new javax.swing.JButton();
+        jButton_baixar = new javax.swing.JButton();
+        jButton_incorporarNouElement = new javax.swing.JButton();
+        jComboBox_tipusPunt = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -671,8 +713,7 @@ public class panellCompartides extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField_titol, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -686,8 +727,8 @@ public class panellCompartides extends javax.swing.JPanel {
                         .addGap(29, 29, 29)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField_desnP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_desnN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jTextField_desnN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_dificEstrella1)
                     .addComponent(jLabel_dificEstrella2)
@@ -716,22 +757,76 @@ public class panellCompartides extends javax.swing.JPanel {
         jScrollPane3.setViewportView(jList_puntsRuta);
 
         jTextField_nomPunt.setText("jTextField1");
+        jTextField_nomPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_nomPuntKeyReleased(evt);
+            }
+        });
 
         jTextArea_descPunt.setColumns(20);
         jTextArea_descPunt.setRows(5);
+        jTextArea_descPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea_descPuntKeyReleased(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTextArea_descPunt);
 
         jTextField_numPunt.setText("jTextField2");
+        jTextField_numPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_numPuntKeyReleased(evt);
+            }
+        });
 
-        jLabel1.setText("fotooooooooo");
+        jLabel_fotoPunt.setText("fotooooooooo");
 
         jTextField_latPunt.setText("jTextField3");
+        jTextField_latPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_latPuntKeyReleased(evt);
+            }
+        });
 
         jTextField_lonPunt.setText("jTextField4");
+        jTextField_lonPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_lonPuntKeyReleased(evt);
+            }
+        });
 
         jTextField_altPunt.setText("jTextField5");
+        jTextField_altPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_altPuntKeyReleased(evt);
+            }
+        });
 
         jButton_desarCanvisPunts.setText("desar");
+
+        jButton_netejar.setText("netejar llista");
+
+        jButton_editar.setText("editar element llista");
+
+        jButton_afegir.setText("afegir element llista");
+        jButton_afegir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_afegirActionPerformed(evt);
+            }
+        });
+
+        jButton_eliminar.setText("eliminar element");
+
+        jButton_pujar.setText("pujar elem");
+
+        jButton_baixar.setText("baixar elem");
+
+        jButton_incorporarNouElement.setText("guardar elem a llista");
+        jButton_incorporarNouElement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_incorporarNouElementActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -740,7 +835,11 @@ public class panellCompartides extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_pujar)
+                    .addComponent(jButton_baixar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField_numPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -754,10 +853,26 @@ public class panellCompartides extends javax.swing.JPanel {
                                     .addComponent(jTextField_altPunt, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(115, 115, 115)
-                                .addComponent(jButton_desarCanvisPunts)))))
+                                .addComponent(jButton_desarCanvisPunts))
+                            .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(65, 65, 65)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(182, 182, 182))
+                .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(jButton_editar)
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton_netejar))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(jButton_eliminar)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton_afegir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_incorporarNouElement)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -765,11 +880,16 @@ public class panellCompartides extends javax.swing.JPanel {
                 .addGap(48, 48, 48)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(jButton_pujar)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton_baixar))
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButton_desarCanvisPunts)
                         .addGroup(jPanel7Layout.createSequentialGroup()
                             .addComponent(jTextField_numPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel7Layout.createSequentialGroup()
                                     .addGap(38, 38, 38)
                                     .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -777,14 +897,25 @@ public class panellCompartides extends javax.swing.JPanel {
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel7Layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(70, 70, 70)
                             .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jTextField_altPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_afegir)
+                    .addComponent(jButton_eliminar)
+                    .addComponent(jButton_incorporarNouElement))
+                .addGap(4, 4, 4)
+                .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_netejar)
+                    .addComponent(jButton_editar))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("tab2", jPanel7);
@@ -1227,33 +1358,157 @@ public class panellCompartides extends javax.swing.JPanel {
             
             int idx = jlist.getSelectedIndex();
             
-            Punt p = llistaPuntsRuta.get(idx);
+            punt_seleccionat = llistaPuntsRuta.get(idx);
             
-            jTextField_numPunt.setText(p.getNum().toString());
-            jTextField_nomPunt.setText(p.getNom());
-            jTextArea_descPunt.setText(p.getDescPunt());
             
-            //jLabel1
-            if(p.getFoto()!=null){
-                System.out.println("BYTE[]"+p.getFoto().length);
+            jTextField_numPunt.setText(punt_seleccionat.getNum().toString());
+            jTextField_nomPunt.setText(punt_seleccionat.getNom());
+            jTextArea_descPunt.setText(punt_seleccionat.getDescPunt());
+            
+            Tipus t;
+            try {
+                t = gestorBDWikilocJdbc.obtenirTipusPunt(punt_seleccionat.getNum(), id);
                 
-                BufferedImage bf = byteArrayToImage(p.getFoto());
-                ImageIcon foto = new ImageIcon(bf);
-                jLabel1.setIcon(foto);
-                             
-             
-            }else{
-                jLabel1.setIcon(null);
+                System.out.println("tipus punt: SELECCIONAT: "+t);
+                jComboBox_tipusPunt.getModel().setSelectedItem(t);
+                
+                
+                
+                //jComboBox_tipusPunt.setSelectedItem(t);
+                
+                            
+
+                
+            } catch (GestorBDWikilocException ex) {
+                System.out.println(ex.getMessage());
             }
             
             
-            jTextField_latPunt.setText(p.getLat().toString());
-            jTextField_lonPunt.setText(p.getLon().toString());
-            jTextField_altPunt.setText(p.getAlt().toString());
+            //jLabel1
+            if(punt_seleccionat.getFoto()!=null){
+                System.out.println("BYTE[]"+punt_seleccionat.getFoto().length);
+                
+                BufferedImage bf = byteArrayToImage(punt_seleccionat.getFoto());
+                ImageIcon foto = new ImageIcon(bf);
+                jLabel_fotoPunt.setIcon(foto);
+                             
+             
+            }else{
+                jLabel_fotoPunt.setIcon(null);
+            }
+            
+            
+            jTextField_latPunt.setText(punt_seleccionat.getLat().toString());
+            jTextField_lonPunt.setText(punt_seleccionat.getLon().toString());
+            jTextField_altPunt.setText(punt_seleccionat.getAlt().toString());
 
         }
         
     }//GEN-LAST:event_jList_puntsRutaValueChanged
+
+    private void jButton_afegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_afegirActionPerformed
+        
+        jTextField_numPunt.setText("");
+        jTextField_nomPunt.setText("");
+        jTextArea_descPunt.setText("");
+        jTextField_latPunt.setText("");
+        jTextField_lonPunt.setText("");
+        jTextField_altPunt.setText("");
+        jLabel_fotoPunt.setIcon(null);//posar imatge però amb imatge de sense imatge per defecte!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        jComboBox_tipusPunt.setSelectedIndex(-1);
+        
+        jButton_incorporarNouElement.setVisible(true);
+    }//GEN-LAST:event_jButton_afegirActionPerformed
+
+    private void jButton_incorporarNouElementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_incorporarNouElementActionPerformed
+        
+        //AQUEST AFEGEIX ELEMENT A LA LLISTA
+        int nou_num = Integer.parseInt(jTextField_numPunt.getText());
+        String nou_nom = jTextField_nomPunt.getText();
+        String nova_desc = jTextArea_descPunt.getText();
+        int nova_lat = Integer.parseInt(jTextField_latPunt.getText());
+        int nova_lon = Integer.parseInt(jTextField_lonPunt.getText());
+        int nova_alt = Integer.parseInt(jTextField_altPunt.getText());
+        byte[] nova_foto = null; //jLabel_fotoPunt.getIcon();!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! IMPORTANT
+        
+        Tipus tipusPunt = (Tipus) jComboBox_tipusPunt.getSelectedItem();
+        
+        Punt nou_punt = new Punt(nou_num,nou_nom,nova_desc,nova_foto,nova_lat,nova_lon,nova_alt,ruta_seleccionada,tipusPunt);
+        
+        dlm_tipus = new DefaultListModel();
+
+        for (Punt p : llistaPuntsRuta) {
+
+            dlm.addElement(p.getNum().toString() + " - " + p.getNom().toString());
+        }
+        jList_puntsRuta.setModel(dlm);
+        jList_puntsRuta = new JList(dlm);
+        
+        dlm.addElement(nou_punt.getNum().toString() + " - " + nou_punt.getNom().toString());
+        jList_puntsRuta.setModel(dlm);
+        jList_puntsRuta = new JList(dlm);
+        
+        
+        
+        
+        
+
+        jButton_incorporarNouElement.setVisible(false);
+    }//GEN-LAST:event_jButton_incorporarNouElementActionPerformed
+
+    private void jTextField_numPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_numPuntKeyReleased
+        
+        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
+            jButton_incorporarNouElement.setEnabled(false);
+        }else{
+            jButton_incorporarNouElement.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTextField_numPuntKeyReleased
+
+    private void jTextField_nomPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_nomPuntKeyReleased
+        
+        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
+            jButton_incorporarNouElement.setEnabled(false);
+        }else{
+            jButton_incorporarNouElement.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTextField_nomPuntKeyReleased
+
+    private void jTextArea_descPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea_descPuntKeyReleased
+        
+        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
+            jButton_incorporarNouElement.setEnabled(false);
+        }else{
+            jButton_incorporarNouElement.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTextArea_descPuntKeyReleased
+
+    private void jTextField_latPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_latPuntKeyReleased
+        
+        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
+            jButton_incorporarNouElement.setEnabled(false);
+        }else{
+            jButton_incorporarNouElement.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTextField_latPuntKeyReleased
+
+    private void jTextField_lonPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_lonPuntKeyReleased
+        
+        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
+            jButton_incorporarNouElement.setEnabled(false);
+        }else{
+            jButton_incorporarNouElement.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTextField_lonPuntKeyReleased
+
+    private void jTextField_altPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_altPuntKeyReleased
+        
+        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
+            jButton_incorporarNouElement.setEnabled(false);
+        }else{
+            jButton_incorporarNouElement.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTextField_altPuntKeyReleased
 
     public BufferedImage byteArrayToImage(byte[] bytes) {
         BufferedImage bufferedImage = null;
@@ -1284,17 +1539,25 @@ public class panellCompartides extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_afegir;
+    private javax.swing.JButton jButton_baixar;
     private javax.swing.JButton jButton_desarCanvisPunts;
     private javax.swing.JButton jButton_desarCanvisRuta;
+    private javax.swing.JButton jButton_editar;
+    private javax.swing.JButton jButton_eliminar;
+    private javax.swing.JButton jButton_incorporarNouElement;
+    private javax.swing.JButton jButton_netejar;
+    private javax.swing.JButton jButton_pujar;
     private javax.swing.JButton jButton_textRuta;
     private javax.swing.JComboBox<String> jComboBox_tempsH;
     private javax.swing.JComboBox<String> jComboBox_tempsM;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<Tipus> jComboBox_tipusPunt;
     private javax.swing.JLabel jLabel_dificEstrella1;
     private javax.swing.JLabel jLabel_dificEstrella2;
     private javax.swing.JLabel jLabel_dificEstrella3;
     private javax.swing.JLabel jLabel_dificEstrella4;
     private javax.swing.JLabel jLabel_dificEstrella5;
+    private javax.swing.JLabel jLabel_fotoPunt;
     private javax.swing.JList<String> jList_puntsRuta;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

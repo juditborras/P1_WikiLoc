@@ -82,7 +82,7 @@ public class Tipus {
     
     @Override
     public String toString() {
-        return "Tipus{" + "id=" + id + ", nom=" + nom + ", icona=" + icona + '}';
+        return nom;
     }    
     
 }
