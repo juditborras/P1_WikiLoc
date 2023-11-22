@@ -449,14 +449,13 @@
                               <Component id="jButton_pujar" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton_baixar" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="101" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jTextField_numPunt" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextField_nomPunt" min="-2" pref="231" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField_latPunt" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
                                       <Component id="jScrollPane4" alignment="0" min="-2" pref="297" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -467,19 +466,21 @@
                                           <Component id="jButton_desarCanvisPunts" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jComboBox_tipusPunt" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
+                                      <Component id="jTextField_latPunt" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                          <Component id="jLabel_fotoPunt" min="-2" pref="241" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel_fotoPunt" alignment="1" min="-2" pref="241" max="-2" attributes="0"/>
+                              <Component id="jButton_seleccionarFoto" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
-                                  <Component id="jButton_editar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
                                   <Component id="jButton_netejar" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -487,8 +488,6 @@
                                   <Component id="jButton_eliminar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                                   <Component id="jButton_afegir" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton_incorporarNouElement" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -523,8 +522,16 @@
                                               <Component id="jLabel_fotoPunt" min="-2" pref="180" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                                      <Component id="jTextField_latPunt" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                                              <Component id="jTextField_latPunt" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                                              <Component id="jButton_seleccionarFoto" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jTextField_lonPunt" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -536,15 +543,11 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButton_afegir" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton_eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton_incorporarNouElement" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Component id="jComboBox_tipusPunt" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton_netejar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton_editar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jButton_netejar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="76" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -576,9 +579,6 @@
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JTextField" name="jTextField_nomPunt">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField1"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_nomPuntKeyReleased"/>
                   </Events>
@@ -602,9 +602,6 @@
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JTextField" name="jTextField_numPunt">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField2"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_numPuntKeyReleased"/>
                   </Events>
@@ -615,25 +612,16 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField_latPunt">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField3"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_latPuntKeyReleased"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField_lonPunt">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField4"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_lonPuntKeyReleased"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField_altPunt">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField5"/>
-                  </Properties>
                   <Events>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_altPuntKeyReleased"/>
                   </Events>
@@ -642,15 +630,13 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="desar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton_desarCanvisPuntsMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton_netejar">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="netejar llista"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton_editar">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="editar element llista"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton_afegir">
@@ -676,23 +662,26 @@
                     <Property name="text" type="java.lang.String" value="baixar elem"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton_incorporarNouElement">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="guardar elem a llista"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_incorporarNouElementActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox_tipusPunt">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBox_tipusPuntItemStateChanged"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Tipus&gt;"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton_seleccionarFoto">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="seleccionar foto"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_seleccionarFotoActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

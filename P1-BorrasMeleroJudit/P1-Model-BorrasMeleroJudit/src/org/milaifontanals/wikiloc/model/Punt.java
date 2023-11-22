@@ -34,6 +34,17 @@ public class Punt {
         setIdTipus(idTipus);
     }
     
+    public Punt(Integer num, String nom, String descPunt, Integer lat, Integer lon, Integer alt, Ruta idRuta, Tipus idTipus) {
+        setNum(num);
+        setNom(nom);
+        setDescPunt(descPunt);
+        setLat(lat);
+        setLon(lon);
+        setAlt(alt);
+        setIdRuta(idRuta);
+        setIdTipus(idTipus);
+    }
+    
     public Integer getNum() {
         return num;
     }

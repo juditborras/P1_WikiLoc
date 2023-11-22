@@ -54,6 +54,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     
     private static PreparedStatement psAfegirPuntRuta;
     private static PreparedStatement psEditarPuntRuta;
+    private static PreparedStatement editarPuntRutaSenseFoto;
     private static PreparedStatement psEliminarPuntRuta;
     private static PreparedStatement psObtenirPuntRuta;
     private static PreparedStatement psObtenirLlistaPuntsRuta;
@@ -157,11 +158,14 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                    "where id_ruta = ? and id_tipus = ?";
             psObtenirTipusPunt = conn.prepareStatement(inst);
             
-            inst = "insert into punt(num,nom,desc_punt,lat,lon,alt,id_ruta,id_tipus) values(?,?,?,?,?,?,?,?)";
+            inst = "insert into punt(num,nom,desc_punt,lat,lon,alt,id_ruta,id_tipus,foto) values(?,?,?,?,?,?,?,?,?)";
             psAfegirPuntRuta = conn.prepareStatement(inst);
             
             inst = "update punt set nom = ?, desc_punt = ?, foto = ?, lat = ?, lon = ?, alt = ?, id_tipus = ? where num = ? and id_ruta = ?";
             psEditarPuntRuta = conn.prepareStatement(inst);
+            
+            inst = "update punt set nom = ?, desc_punt = ?, lat = ?, lon = ?, alt = ?, id_tipus = ? where num = ? and id_ruta = ?";
+            editarPuntRutaSenseFoto = conn.prepareStatement(inst);
             
             inst = "delete from punt where num = ? and id_ruta = ?";
             psEliminarPuntRuta = conn.prepareStatement(inst);
@@ -799,7 +803,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     }
 
     @Override
-    public boolean afegirPuntRuta(Punt p) throws GestorBDWikilocException {
+    public boolean afegirPuntRuta(Punt p, String url_foto) throws GestorBDWikilocException {
         
        try{
 
@@ -811,7 +815,13 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             psAfegirPuntRuta.setInt(6, p.getAlt());
             psAfegirPuntRuta.setInt(7, p.getIdRuta().getId());
             psAfegirPuntRuta.setInt(8, p.getIdTipus().getId());
-
+            
+            if(url_foto!=null){
+                FileInputStream fin = new FileInputStream(url_foto);
+                psAfegirPuntRuta.setBinaryStream(9, fin);
+            }else{
+                psAfegirPuntRuta.setNull(9, java.sql.Types.BLOB);
+            }
             
             int registres_afectats = psAfegirPuntRuta.executeUpdate();
   
@@ -822,6 +832,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
             
         }catch(Exception ex){
+            System.out.println("ERRROR INSERT: "+ex.getMessage());
             return false;
         }
     }
@@ -831,6 +842,10 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         
          try{
             
+             System.out.println("URL FOTO: "+url_foto);
+             System.out.println("ID RUTA: "+p.getIdRuta().getId());
+             System.out.println("ID TIPUS RUTA: "+p.getIdTipus().getId());
+             
             psEditarPuntRuta.setString(1, p.getNom());
             psEditarPuntRuta.setString(2, p.getDescPunt());
             
@@ -853,9 +868,51 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
             
         }catch(Exception ex){
+             System.out.println("ERROR GESTORRRR: "+ex.getMessage());
             return false;
         }
     }
+    
+    @Override
+    public boolean editarPuntRutaSenseFoto(Punt p, Integer id) throws GestorBDWikilocException {
+
+        //editarPuntRutaSenseFoto
+        
+        try{
+            
+
+             System.out.println("ID RUTA: "+p.getIdRuta().getId());
+             System.out.println("ID TIPUS RUTA: "+p.getIdTipus().getId());
+             System.out.println("NOM: "+p.getNom());
+             
+            editarPuntRutaSenseFoto.setString(1, p.getNom());
+            editarPuntRutaSenseFoto.setString(2, p.getDescPunt());
+
+            editarPuntRutaSenseFoto.setInt(3, p.getLat());
+            editarPuntRutaSenseFoto.setInt(4, p.getLon());
+            editarPuntRutaSenseFoto.setInt(5, p.getAlt());
+            editarPuntRutaSenseFoto.setInt(6, p.getIdTipus().getId());
+            editarPuntRutaSenseFoto.setInt(7, p.getNum());
+            editarPuntRutaSenseFoto.setInt(8, p.getIdRuta().getId());
+
+            
+            int registres_afectats = editarPuntRutaSenseFoto.executeUpdate();
+  
+            if(registres_afectats != 1){
+                return false;
+            }
+            System.out.println("TOT CORRECTE. EDITAR");
+            return true;
+            
+        }catch(Exception ex){
+             System.out.println("ERROR GESTORRRR: "+ex.getMessage());
+            return false;
+        }
+        
+        
+        
+    }
+    
 
     @Override
     public boolean eliminarPuntRuta(Integer num, Integer id) throws GestorBDWikilocException {
@@ -1357,5 +1414,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         }
         
     }
+
+
    
 }

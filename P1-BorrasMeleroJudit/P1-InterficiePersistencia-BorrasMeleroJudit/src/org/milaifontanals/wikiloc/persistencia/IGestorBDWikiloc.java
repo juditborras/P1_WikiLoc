@@ -209,10 +209,11 @@ public interface IGestorBDWikiloc {
      * Inserir punt a la ruta de la BD
      *
      * @param p Punt a inserir a la ruta
+     * @param url_foto ruta física de la foto
      * @return S'ha verificat o no la inserció del punt
      * @throws GestorBDWikilocException
      */    
-    boolean afegirPuntRuta(Punt p) throws GestorBDWikilocException;
+    boolean afegirPuntRuta(Punt p, String url_foto) throws GestorBDWikilocException;
     
     /**
      * Editar punt de la ruta de la BD
@@ -224,6 +225,16 @@ public interface IGestorBDWikiloc {
      * @throws GestorBDWikilocException
      */
     boolean editarPuntRuta(Punt p, Integer id, String url_foto) throws GestorBDWikilocException;
+    
+    /**
+     * Editar punt de la ruta de la BD
+     *
+     * @param p Punt a editar de la ruta
+     * @param id id de la ruta a la qual pertany el punt
+     * @return S'ha verificat o no l'edició del punt
+     * @throws GestorBDWikilocException
+     */
+    boolean editarPuntRutaSenseFoto(Punt p, Integer id) throws GestorBDWikilocException;
     
     /**
      * Eliminar punt de la ruta de la BD

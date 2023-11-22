@@ -106,7 +106,7 @@ public class ProvesCapaOracleWikilocJDBC {
             System.out.println("Tipus 1: " + tipus);            
             
             //Afegir un nou punt a la ruta id = 22
-            if(gb.afegirPuntRuta(new Punt(40,"Nom punt","Desc punt",new byte[11],143,67,23,r_db,tipus))){
+            if(gb.afegirPuntRuta(new Punt(40,"Nom punt","Desc punt",new byte[11],143,67,23,r_db,tipus),"")){
                 System.out.println("Punt de ruta afegir correctament");
             }else{
                 System.out.println("Error en afegir el punt de ruta");

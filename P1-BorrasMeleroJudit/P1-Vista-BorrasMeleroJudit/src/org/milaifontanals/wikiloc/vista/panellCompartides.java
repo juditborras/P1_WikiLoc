@@ -11,10 +11,12 @@ import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -26,6 +28,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -34,6 +37,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -65,7 +70,7 @@ public class panellCompartides extends javax.swing.JPanel {
     int id, hours, minutes, antic, qtat_estrelles, qtat_estrelles_actual;
     boolean hours_canviada = false, minutes_canviada = false, titol_canviada = false, dist_canviada = false, desc_canviada = false, desnP_canviada = false, desnN_canviada = false, estrella_canviada = false;
     boolean onEdit_click = false;
-    int qc1,qc2;
+    int qc1,qc2, qc3;
     
     String titol, desc, dist, desnP, desnN;
     String textHtmlEditat;
@@ -82,6 +87,12 @@ public class panellCompartides extends javax.swing.JPanel {
     
     Punt punt_seleccionat;
     Ruta ruta_seleccionada;
+    Tipus t;
+    
+    String num, nomPunt, descPunt, lat, lon, alt, filePath;
+    boolean num_canviat = false, nomPunt_canviat = false, descPunt_canviat = false, lat_canviat = false, lon_canviat = false, alt_canviat = false, tipusPunt_canviada = false, fotoPunt_canviada = false;
+    boolean editarPuntRuta = false, botoAfegirClicat = false;
+    ImageIcon fotoPunt;
     
     public panellCompartides(){
         
@@ -117,7 +128,7 @@ public class panellCompartides extends javax.swing.JPanel {
         
         jPanel_compartidesCanviant.setVisible(false);
         jButton_desarCanvisRuta.setVisible(false);
-        jButton_incorporarNouElement.setVisible(false);
+        
         
        
         llistaRutesCreades = new ArrayList();
@@ -170,7 +181,7 @@ public class panellCompartides extends javax.swing.JPanel {
             public void onEdit(int row) {
                 
                 onEdit_click = true;
-                
+                editarPuntRuta = true;
                 
                 row_sel = row;
                 System.out.println("Edit row : " + row);
@@ -202,9 +213,26 @@ public class panellCompartides extends javax.swing.JPanel {
                 
                 jTextField_desnP.setEditable(true);
                 jTextField_desnN.setEditable(true);
+            
                 
+                jTextField_numPunt.setVisible(false);
+                jTextField_nomPunt.setVisible(false);
+                jTextArea_descPunt.setVisible(false);
+                jScrollPane4.setVisible(false);
+                jTextField_latPunt.setVisible(false);
+                jTextField_lonPunt.setVisible(false);
+                jTextField_altPunt.setVisible(false);
+                jComboBox_tipusPunt.setVisible(false);
+                jLabel_fotoPunt.setVisible(false);             
+                jButton_seleccionarFoto.setVisible(false);
 
-                
+                jButton_pujar.setVisible(false);
+                jButton_baixar.setVisible(false);
+                jButton_eliminar.setVisible(false);
+                jButton_afegir.setVisible(false);
+                jButton_netejar.setVisible(false);
+
+                jButton_desarCanvisPunts.setVisible(false);
             }
 
             @Override
@@ -262,6 +290,8 @@ public class panellCompartides extends javax.swing.JPanel {
             public void onView(int row) {
                 System.out.println("View row : " + row);
                 
+                editarPuntRuta = false;
+                
                 jPanel_menu.setVisible(false);
                 
                 jPanel_compartidesCanviant.setVisible(true);
@@ -287,6 +317,24 @@ public class panellCompartides extends javax.swing.JPanel {
                 jTextField_desnN.setEditable(false);
                 
  
+                jTextField_numPunt.setVisible(false);
+                jTextField_nomPunt.setVisible(false);
+                jTextArea_descPunt.setVisible(false);
+                jScrollPane4.setVisible(false);
+                jTextField_latPunt.setVisible(false);
+                jTextField_lonPunt.setVisible(false);
+                jTextField_altPunt.setVisible(false);
+                jComboBox_tipusPunt.setVisible(false);
+                jLabel_fotoPunt.setVisible(false);             
+                jButton_seleccionarFoto.setVisible(false);
+
+                jButton_pujar.setVisible(false);
+                jButton_baixar.setVisible(false);
+                jButton_eliminar.setVisible(false);
+                jButton_afegir.setVisible(false);
+                jButton_netejar.setVisible(false);
+
+                jButton_desarCanvisPunts.setVisible(false);
             }
             
         
@@ -384,11 +432,13 @@ public class panellCompartides extends javax.swing.JPanel {
             for (Punt p : llistaPuntsRuta) {
 
                 dlm.addElement(p.getNum().toString() + " - " + p.getNom().toString());
+                                
             }
             jList_puntsRuta.setModel(dlm);
             jList_puntsRuta = new JList(dlm);
             System.out.println(jList_puntsRuta.getModel().toString());
             
+          
         } catch (GestorBDWikilocException ex) {
             Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -482,13 +532,12 @@ public class panellCompartides extends javax.swing.JPanel {
         jTextField_altPunt = new javax.swing.JTextField();
         jButton_desarCanvisPunts = new javax.swing.JButton();
         jButton_netejar = new javax.swing.JButton();
-        jButton_editar = new javax.swing.JButton();
         jButton_afegir = new javax.swing.JButton();
         jButton_eliminar = new javax.swing.JButton();
         jButton_pujar = new javax.swing.JButton();
         jButton_baixar = new javax.swing.JButton();
-        jButton_incorporarNouElement = new javax.swing.JButton();
         jComboBox_tipusPunt = new javax.swing.JComboBox<>();
+        jButton_seleccionarFoto = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -756,7 +805,6 @@ public class panellCompartides extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jList_puntsRuta);
 
-        jTextField_nomPunt.setText("jTextField1");
         jTextField_nomPunt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_nomPuntKeyReleased(evt);
@@ -772,7 +820,6 @@ public class panellCompartides extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(jTextArea_descPunt);
 
-        jTextField_numPunt.setText("jTextField2");
         jTextField_numPunt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_numPuntKeyReleased(evt);
@@ -781,21 +828,18 @@ public class panellCompartides extends javax.swing.JPanel {
 
         jLabel_fotoPunt.setText("fotooooooooo");
 
-        jTextField_latPunt.setText("jTextField3");
         jTextField_latPunt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_latPuntKeyReleased(evt);
             }
         });
 
-        jTextField_lonPunt.setText("jTextField4");
         jTextField_lonPunt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_lonPuntKeyReleased(evt);
             }
         });
 
-        jTextField_altPunt.setText("jTextField5");
         jTextField_altPunt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_altPuntKeyReleased(evt);
@@ -803,10 +847,13 @@ public class panellCompartides extends javax.swing.JPanel {
         });
 
         jButton_desarCanvisPunts.setText("desar");
+        jButton_desarCanvisPunts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_desarCanvisPuntsMouseClicked(evt);
+            }
+        });
 
         jButton_netejar.setText("netejar llista");
-
-        jButton_editar.setText("editar element llista");
 
         jButton_afegir.setText("afegir element llista");
         jButton_afegir.addActionListener(new java.awt.event.ActionListener() {
@@ -821,10 +868,16 @@ public class panellCompartides extends javax.swing.JPanel {
 
         jButton_baixar.setText("baixar elem");
 
-        jButton_incorporarNouElement.setText("guardar elem a llista");
-        jButton_incorporarNouElement.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_tipusPunt.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox_tipusPuntItemStateChanged(evt);
+            }
+        });
+
+        jButton_seleccionarFoto.setText("seleccionar foto");
+        jButton_seleccionarFoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_incorporarNouElementActionPerformed(evt);
+                jButton_seleccionarFotoActionPerformed(evt);
             }
         });
 
@@ -839,14 +892,13 @@ public class panellCompartides extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton_pujar)
                     .addComponent(jButton_baixar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField_numPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -854,24 +906,23 @@ public class panellCompartides extends javax.swing.JPanel {
                                     .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(115, 115, 115)
                                 .addComponent(jButton_desarCanvisPunts))
-                            .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(65, 65, 65)
-                .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(184, 184, 184)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_seleccionarFoto))
                 .addGap(77, 77, 77))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jButton_editar)
-                        .addGap(27, 27, 27)
+                        .addGap(253, 253, 253)
                         .addComponent(jButton_netejar))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jButton_eliminar)
                         .addGap(42, 42, 42)
-                        .addComponent(jButton_afegir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_incorporarNouElement)))
+                        .addComponent(jButton_afegir)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -898,8 +949,13 @@ public class panellCompartides extends javax.swing.JPanel {
                                 .addGroup(jPanel7Layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(70, 70, 70)
-                            .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addGap(70, 70, 70)
+                                    .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addGap(55, 55, 55)
+                                    .addComponent(jButton_seleccionarFoto)))
                             .addGap(18, 18, 18)
                             .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
@@ -907,14 +963,11 @@ public class panellCompartides extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_afegir)
-                    .addComponent(jButton_eliminar)
-                    .addComponent(jButton_incorporarNouElement))
+                    .addComponent(jButton_eliminar))
                 .addGap(4, 4, 4)
                 .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_netejar)
-                    .addComponent(jButton_editar))
+                .addComponent(jButton_netejar)
                 .addContainerGap(76, Short.MAX_VALUE))
         );
 
@@ -1358,6 +1411,69 @@ public class panellCompartides extends javax.swing.JPanel {
             
             int idx = jlist.getSelectedIndex();
             
+            if(editarPuntRuta){
+                jTextField_numPunt.setVisible(true);
+                jTextField_nomPunt.setVisible(true);
+                jTextArea_descPunt.setVisible(true);
+                jScrollPane4.setVisible(true);
+                jTextField_latPunt.setVisible(true);
+                jTextField_lonPunt.setVisible(true);
+                jTextField_altPunt.setVisible(true);
+                jComboBox_tipusPunt.setVisible(true);
+                jLabel_fotoPunt.setVisible(true);
+                jButton_seleccionarFoto.setVisible(true);
+
+                jButton_pujar.setVisible(true);
+                jButton_baixar.setVisible(true);
+                jButton_eliminar.setVisible(true);
+                jButton_afegir.setVisible(true);
+                jButton_netejar.setVisible(true);
+                
+                jTextField_numPunt.setEditable(true);
+                jTextField_nomPunt.setEditable(true);
+                jTextArea_descPunt.setEditable(true);
+                jTextField_latPunt.setEditable(true);
+                jTextField_lonPunt.setEditable(true);
+                jTextField_altPunt.setEditable(true);
+                jComboBox_tipusPunt.setEnabled(true);
+
+                jButton_desarCanvisPunts.setVisible(true);
+                jButton_desarCanvisPunts.setEnabled(false);
+                
+            }else{
+                
+                
+                jTextField_numPunt.setVisible(true);
+                jTextField_nomPunt.setVisible(true);
+                jTextArea_descPunt.setVisible(true);
+                jScrollPane4.setVisible(true);
+                jTextField_latPunt.setVisible(true);
+                jTextField_lonPunt.setVisible(true);
+                jTextField_altPunt.setVisible(true);
+                jComboBox_tipusPunt.setVisible(true);
+                jLabel_fotoPunt.setVisible(true);             
+
+                
+                jTextField_numPunt.setEditable(false);
+                jTextField_nomPunt.setEditable(false);
+                jTextArea_descPunt.setEditable(false);
+                jTextField_latPunt.setEditable(false);
+                jTextField_lonPunt.setEditable(false);
+                jTextField_altPunt.setEditable(false);
+                jComboBox_tipusPunt.setEnabled(false);
+
+
+//                jButton_pujar.setVisible(false);
+//                jButton_baixar.setVisible(false);
+//                jButton_eliminar.setVisible(false);
+//                jButton_afegir.setEnabled(false);
+//                jButton_netejar.setEnabled(false);
+//
+                jButton_desarCanvisPunts.setVisible(false);
+            }
+
+            
+            
             punt_seleccionat = llistaPuntsRuta.get(idx);
             
             
@@ -1365,7 +1481,15 @@ public class panellCompartides extends javax.swing.JPanel {
             jTextField_nomPunt.setText(punt_seleccionat.getNom());
             jTextArea_descPunt.setText(punt_seleccionat.getDescPunt());
             
-            Tipus t;
+
+            
+            num = punt_seleccionat.getNum()+"";
+            nomPunt = punt_seleccionat.getNom();
+            descPunt = punt_seleccionat.getDescPunt();
+            lat = punt_seleccionat.getLat()+"";
+            lon = punt_seleccionat.getLon()+"";
+            alt = punt_seleccionat.getAlt()+"";
+            
             try {
                 t = gestorBDWikilocJdbc.obtenirTipusPunt(punt_seleccionat.getNum(), id);
                 
@@ -1389,8 +1513,8 @@ public class panellCompartides extends javax.swing.JPanel {
                 System.out.println("BYTE[]"+punt_seleccionat.getFoto().length);
                 
                 BufferedImage bf = byteArrayToImage(punt_seleccionat.getFoto());
-                ImageIcon foto = new ImageIcon(bf);
-                jLabel_fotoPunt.setIcon(foto);
+                fotoPunt = new ImageIcon(bf);
+                jLabel_fotoPunt.setIcon(fotoPunt);
                              
              
             }else{
@@ -1408,6 +1532,8 @@ public class panellCompartides extends javax.swing.JPanel {
 
     private void jButton_afegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_afegirActionPerformed
         
+        botoAfegirClicat = true;
+        
         jTextField_numPunt.setText("");
         jTextField_nomPunt.setText("");
         jTextArea_descPunt.setText("");
@@ -1417,98 +1543,325 @@ public class panellCompartides extends javax.swing.JPanel {
         jLabel_fotoPunt.setIcon(null);//posar imatge però amb imatge de sense imatge per defecte!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         jComboBox_tipusPunt.setSelectedIndex(-1);
         
-        jButton_incorporarNouElement.setVisible(true);
+        jButton_desarCanvisPunts.setVisible(true);
     }//GEN-LAST:event_jButton_afegirActionPerformed
-
-    private void jButton_incorporarNouElementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_incorporarNouElementActionPerformed
-        
-        //AQUEST AFEGEIX ELEMENT A LA LLISTA
-        int nou_num = Integer.parseInt(jTextField_numPunt.getText());
-        String nou_nom = jTextField_nomPunt.getText();
-        String nova_desc = jTextArea_descPunt.getText();
-        int nova_lat = Integer.parseInt(jTextField_latPunt.getText());
-        int nova_lon = Integer.parseInt(jTextField_lonPunt.getText());
-        int nova_alt = Integer.parseInt(jTextField_altPunt.getText());
-        byte[] nova_foto = null; //jLabel_fotoPunt.getIcon();!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! IMPORTANT
-        
-        Tipus tipusPunt = (Tipus) jComboBox_tipusPunt.getSelectedItem();
-        
-        Punt nou_punt = new Punt(nou_num,nou_nom,nova_desc,nova_foto,nova_lat,nova_lon,nova_alt,ruta_seleccionada,tipusPunt);
-        
-        dlm_tipus = new DefaultListModel();
-
-        for (Punt p : llistaPuntsRuta) {
-
-            dlm.addElement(p.getNum().toString() + " - " + p.getNom().toString());
-        }
-        jList_puntsRuta.setModel(dlm);
-        jList_puntsRuta = new JList(dlm);
-        
-        dlm.addElement(nou_punt.getNum().toString() + " - " + nou_punt.getNom().toString());
-        jList_puntsRuta.setModel(dlm);
-        jList_puntsRuta = new JList(dlm);
-        
-        
-        
-        
-        
-
-        jButton_incorporarNouElement.setVisible(false);
-    }//GEN-LAST:event_jButton_incorporarNouElementActionPerformed
 
     private void jTextField_numPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_numPuntKeyReleased
         
-        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
-            jButton_incorporarNouElement.setEnabled(false);
+        if(num.equals(jTextField_numPunt.getText())){           
+            num_canviat = false;
+            modificacionsCampsPunt();
         }else{
-            jButton_incorporarNouElement.setEnabled(true);
+            num_canviat = true;
+            modificacionsCampsPunt();
         }
     }//GEN-LAST:event_jTextField_numPuntKeyReleased
 
     private void jTextField_nomPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_nomPuntKeyReleased
         
-        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
-            jButton_incorporarNouElement.setEnabled(false);
+        if(nomPunt.equals(jTextField_nomPunt.getText())){           
+            nomPunt_canviat = false;
+            modificacionsCampsPunt();
         }else{
-            jButton_incorporarNouElement.setEnabled(true);
+            nomPunt_canviat = true;
+            modificacionsCampsPunt();
         }
     }//GEN-LAST:event_jTextField_nomPuntKeyReleased
 
     private void jTextArea_descPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea_descPuntKeyReleased
         
-        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
-            jButton_incorporarNouElement.setEnabled(false);
+        if(descPunt.equals(jTextArea_descPunt.getText())){           
+            descPunt_canviat = false;
+            modificacionsCampsPunt();
         }else{
-            jButton_incorporarNouElement.setEnabled(true);
+            descPunt_canviat = true;
+            modificacionsCampsPunt();
         }
     }//GEN-LAST:event_jTextArea_descPuntKeyReleased
 
     private void jTextField_latPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_latPuntKeyReleased
         
-        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
-            jButton_incorporarNouElement.setEnabled(false);
+        if(lat.equals(jTextField_latPunt.getText())){           
+            lat_canviat = false;
+            modificacionsCampsPunt();
         }else{
-            jButton_incorporarNouElement.setEnabled(true);
+            lat_canviat = true;
+            modificacionsCampsPunt();
         }
     }//GEN-LAST:event_jTextField_latPuntKeyReleased
 
     private void jTextField_lonPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_lonPuntKeyReleased
         
-        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
-            jButton_incorporarNouElement.setEnabled(false);
+        if(lon.equals(jTextField_lonPunt.getText())){           
+            lon_canviat = false;
+            modificacionsCampsPunt();
         }else{
-            jButton_incorporarNouElement.setEnabled(true);
+            lon_canviat = true;
+            modificacionsCampsPunt();
         }
     }//GEN-LAST:event_jTextField_lonPuntKeyReleased
 
     private void jTextField_altPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_altPuntKeyReleased
         
-        if(jTextField_numPunt.getText().length() == 0 || jTextField_nomPunt.getText().length() == 0 || jTextArea_descPunt.getText().length() == 0 || jTextField_latPunt.getText().length() == 0 || jTextField_lonPunt.getText().length() == 0 || jTextField_altPunt.getText().length() == 0){
-            jButton_incorporarNouElement.setEnabled(false);
+        if(alt.equals(jTextField_altPunt.getText())){           
+            alt_canviat = false;
+            modificacionsCampsPunt();
         }else{
-            jButton_incorporarNouElement.setEnabled(true);
+            alt_canviat = true;
+            modificacionsCampsPunt();
         }
     }//GEN-LAST:event_jTextField_altPuntKeyReleased
+
+    private void jButton_seleccionarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_seleccionarFotoActionPerformed
+        
+        JFileChooser jfc = new JFileChooser();
+                
+        FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+        
+        jfc.setFileFilter(imageFilter);
+        
+        jfc.showOpenDialog(jfc);
+        
+        File imgFile = jfc.getSelectedFile();
+        
+        if(imgFile != null){
+            
+           
+            filePath = imgFile.getAbsolutePath();
+            ImageIcon novaImatgeSeleccionada = new ImageIcon(filePath);
+            
+            jLabel_fotoPunt.setIcon(novaImatgeSeleccionada);
+            
+            BufferedImage bi = new BufferedImage(
+            novaImatgeSeleccionada.getIconWidth(),
+            novaImatgeSeleccionada.getIconHeight(),
+            BufferedImage.TYPE_INT_RGB);
+            
+            
+            String extensio = filePath.substring(filePath.length() - 3);
+            byte[] bt = imageToByteArray(bi, extensio);
+            
+            if(Arrays.equals(punt_seleccionat.getFoto(), bt)){
+                fotoPunt_canviada = true;
+                modificacionsCampsPunt();
+            }else{
+                fotoPunt_canviada = false;
+                modificacionsCampsPunt();
+            }
+        }
+
+        
+    }//GEN-LAST:event_jButton_seleccionarFotoActionPerformed
+
+    private void jComboBox_tipusPuntItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_tipusPuntItemStateChanged
+        
+        try{
+            if (evt.getStateChange() == ItemEvent.SELECTED) {
+                // Item was just selected
+
+                qc3++;
+                
+                if(qc3>1){
+
+                    JComboBox cb = (JComboBox) evt.getSource();
+
+                    Tipus tipus_nou = (Tipus) cb.getSelectedItem();
+
+                    if (t.getId() != tipus_nou.getId()) {
+                        tipusPunt_canviada = true;
+                        modificacionsCampsPunt();
+
+                    } else {
+                        tipusPunt_canviada = false;
+                        modificacionsCampsPunt();
+                    }
+                }
+                
+            }
+        }catch(Exception ex){
+            
+        }
+    }//GEN-LAST:event_jComboBox_tipusPuntItemStateChanged
+
+    private void jButton_desarCanvisPuntsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarCanvisPuntsMouseClicked
+        
+        Integer nNum = Integer.parseInt(jTextField_numPunt.getText());
+        String nNomP = jTextField_nomPunt.getText();
+        String nDescP = jTextArea_descPunt.getText();
+        Integer nLatP = Integer.parseInt(jTextField_latPunt.getText());
+        Integer nLonP = Integer.parseInt(jTextField_lonPunt.getText());
+        Integer nAltP = Integer.parseInt(jTextField_altPunt.getText());
+        
+        Tipus nTipus = (Tipus) jComboBox_tipusPunt.getModel().getSelectedItem();
+        
+        Punt nPunt = new Punt(nNum,nNomP,nDescP,nLatP,nLonP,nAltP,ruta_seleccionada,nTipus);
+        
+        String url_foto = filePath;
+        
+        if(botoAfegirClicat){
+            
+            
+            try {
+                boolean puntAfegit;
+
+
+                puntAfegit = gestorBDWikilocJdbc.afegirPuntRuta(nPunt, url_foto);
+                
+
+                if (puntAfegit) {
+                    int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
+                            "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                    if (resposta == 0) {
+                        gestorBDWikilocJdbc.confirmarCanvis();
+
+                        JOptionPane.showConfirmDialog(null, "Els canvis s'han desat correctament",
+                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                        try {
+                            llistaPuntsRuta = gestorBDWikilocJdbc.obtenirLlistaPuntsRuta(id);
+
+                            dlm = new DefaultListModel();
+
+                            for (Punt p : llistaPuntsRuta) {
+
+                                dlm.addElement(p.getNum().toString() + " - " + p.getNom().toString());
+
+                            }
+                            jList_puntsRuta.setModel(dlm);
+                            jList_puntsRuta = new JList(dlm);
+                            System.out.println(jList_puntsRuta.getModel().toString());
+
+                        } catch (GestorBDWikilocException ex) {
+                            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        try {
+                            llistaTipusPunts = gestorBDWikilocJdbc.obtenirLlistaTipus();
+
+                            System.out.println("LEN: " + llistaTipusPunts.size());
+                            Tipus[] tip = new Tipus[llistaTipusPunts.size()];
+                            tip = llistaTipusPunts.toArray(tip);
+
+                            //jComboBox_tipusPunt = new JComboBox(tip);
+                            System.out.println("ITEM COUNT: " + jComboBox_tipusPunt.getItemCount());
+                            //jComboBox_tipusPunt.setSelectedIndex(-1);
+
+                            jComboBox_tipusPunt.setModel(new DefaultComboBoxModel<>(llistaTipusPunts.toArray(new Tipus[0])));
+                            jComboBox_tipusPunt.setSelectedIndex(-1);
+
+                            for (int i = 0; i < llistaTipusPunts.size(); i++) {
+                                System.out.println(tip[i]);
+                            }
+
+                        } catch (GestorBDWikilocException ex) {
+                            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    }
+                } else {
+                    System.out.println("POSAR PANTALLA ERROR");//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                }
+
+            } catch (GestorBDWikilocException ex) {
+                System.out.println("ERROR: " + ex.getMessage());
+            }
+            
+            
+        }else{
+            
+            
+            try {
+                boolean puntEditat;
+
+                if (url_foto != null) {
+                    System.out.println("AMB FOTO");
+                    puntEditat = gestorBDWikilocJdbc.editarPuntRuta(nPunt, id, url_foto);
+                } else {
+                    System.out.println("SENSE FOTO");
+                    puntEditat = gestorBDWikilocJdbc.editarPuntRutaSenseFoto(nPunt, id);
+                }
+
+                if (puntEditat) {
+                    int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
+                            "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                    if (resposta == 0) {
+                        gestorBDWikilocJdbc.confirmarCanvis();
+
+                        JOptionPane.showConfirmDialog(null, "Els canvis s'han desat correctament",
+                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                        try {
+                            llistaPuntsRuta = gestorBDWikilocJdbc.obtenirLlistaPuntsRuta(id);
+
+                            dlm = new DefaultListModel();
+
+                            for (Punt p : llistaPuntsRuta) {
+
+                                dlm.addElement(p.getNum().toString() + " - " + p.getNom().toString());
+
+                            }
+                            jList_puntsRuta.setModel(dlm);
+                            jList_puntsRuta = new JList(dlm);
+                            System.out.println(jList_puntsRuta.getModel().toString());
+
+                        } catch (GestorBDWikilocException ex) {
+                            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        try {
+                            llistaTipusPunts = gestorBDWikilocJdbc.obtenirLlistaTipus();
+
+                            System.out.println("LEN: " + llistaTipusPunts.size());
+                            Tipus[] tip = new Tipus[llistaTipusPunts.size()];
+                            tip = llistaTipusPunts.toArray(tip);
+
+                            //jComboBox_tipusPunt = new JComboBox(tip);
+                            System.out.println("ITEM COUNT: " + jComboBox_tipusPunt.getItemCount());
+                            //jComboBox_tipusPunt.setSelectedIndex(-1);
+
+                            jComboBox_tipusPunt.setModel(new DefaultComboBoxModel<>(llistaTipusPunts.toArray(new Tipus[0])));
+                            jComboBox_tipusPunt.setSelectedIndex(-1);
+
+                            for (int i = 0; i < llistaTipusPunts.size(); i++) {
+                                System.out.println(tip[i]);
+                            }
+
+                        } catch (GestorBDWikilocException ex) {
+                            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    }
+                } else {
+                    System.out.println("POSAR PANTALLA ERROR");//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                }
+
+            } catch (GestorBDWikilocException ex) {
+                System.out.println("ERROR: " + ex.getMessage());
+            }
+            
+        }
+        
+        botoAfegirClicat = false;
+                
+
+
+
+        jButton_pujar.setVisible(false);
+        jButton_baixar.setVisible(false);
+        jButton_eliminar.setVisible(false);
+        jButton_afegir.setVisible(false);
+        jButton_netejar.setVisible(false);
+
+        jButton_desarCanvisPunts.setVisible(false);
+          
+        
+    }//GEN-LAST:event_jButton_desarCanvisPuntsMouseClicked
 
     public BufferedImage byteArrayToImage(byte[] bytes) {
         BufferedImage bufferedImage = null;
@@ -1519,6 +1872,21 @@ public class panellCompartides extends javax.swing.JPanel {
             System.out.println(ex.getMessage());
         }
         return bufferedImage;
+    }
+    
+    public byte[] imageToByteArray(BufferedImage bi,String format){
+        
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bi, format, baos);
+            
+            byte[] bytes = baos.toByteArray();
+            
+            return bytes;
+            
+        } catch (IOException ex) {
+            throw new RuntimeException("Error"+ex.getMessage());
+        }
     }
     
     public void horesMinutsModificats(){
@@ -1534,7 +1902,17 @@ public class panellCompartides extends javax.swing.JPanel {
     }
     
     
-
+    public void modificacionsCampsPunt(){
+        
+        if(num_canviat || nomPunt_canviat || descPunt_canviat || lat_canviat || lon_canviat || alt_canviat || tipusPunt_canviada || fotoPunt_canviada){
+            jButton_desarCanvisPunts.setEnabled(true);
+            System.out.println("C");
+        }else{
+            jButton_desarCanvisPunts.setEnabled(false);
+            System.out.println("D");
+        }
+        
+    }
 
     
 
@@ -1543,11 +1921,10 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JButton jButton_baixar;
     private javax.swing.JButton jButton_desarCanvisPunts;
     private javax.swing.JButton jButton_desarCanvisRuta;
-    private javax.swing.JButton jButton_editar;
     private javax.swing.JButton jButton_eliminar;
-    private javax.swing.JButton jButton_incorporarNouElement;
     private javax.swing.JButton jButton_netejar;
     private javax.swing.JButton jButton_pujar;
+    private javax.swing.JButton jButton_seleccionarFoto;
     private javax.swing.JButton jButton_textRuta;
     private javax.swing.JComboBox<String> jComboBox_tempsH;
     private javax.swing.JComboBox<String> jComboBox_tempsM;
