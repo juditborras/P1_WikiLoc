@@ -246,6 +246,17 @@ public interface IGestorBDWikiloc {
      */
     boolean eliminarPuntRuta(Integer num, Integer id) throws GestorBDWikilocException;
     
+    
+    /**
+     * Eliminar punt de la ruta de la BD
+     *
+     * @param id_ruta Identificador de la ruta
+     * @return S'ha verificat o no l'eliminació del punt
+     * @throws GestorBDWikilocException
+     */
+    boolean eliminarPuntRutaTots(Integer id_ruta) throws GestorBDWikilocException;
+    
+    
     /**
      * Eliminar conjunt de punts de la ruta de la BD
      *

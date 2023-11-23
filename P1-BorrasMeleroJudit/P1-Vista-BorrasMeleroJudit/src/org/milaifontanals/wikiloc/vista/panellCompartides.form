@@ -638,6 +638,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="netejar llista"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton_netejarMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton_afegir">
                   <Properties>
@@ -651,6 +654,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="eliminar element"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton_eliminarMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton_pujar">
                   <Properties>

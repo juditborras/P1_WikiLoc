@@ -56,6 +56,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     private static PreparedStatement psEditarPuntRuta;
     private static PreparedStatement editarPuntRutaSenseFoto;
     private static PreparedStatement psEliminarPuntRuta;
+    private static PreparedStatement psEliminarPuntRutaTots;
     private static PreparedStatement psObtenirPuntRuta;
     private static PreparedStatement psObtenirLlistaPuntsRuta;
     
@@ -169,6 +170,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
             inst = "delete from punt where num = ? and id_ruta = ?";
             psEliminarPuntRuta = conn.prepareStatement(inst);
+            
+            inst = "delete from punt where id_ruta = ?";
+            psEliminarPuntRutaTots = conn.prepareStatement(inst);
             
             inst = "select p.*, r.*, t.id as id_tipus,t.nom as tipus_nom, u.*\n" +
                    "from punt p join ruta r on p.id_ruta = r.id\n" +
@@ -918,11 +922,31 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     public boolean eliminarPuntRuta(Integer num, Integer id) throws GestorBDWikilocException {
         
         try{
-            
+            System.out.println("NUM; "+num+" RUTA: "+id);
             psEliminarPuntRuta.setInt(1, num);
             psEliminarPuntRuta.setInt(2, id);
             
             int registres_afectats = psEliminarPuntRuta.executeUpdate();
+  
+            if(registres_afectats != 1){
+                return false;
+            }
+            
+            return true;
+            
+        }catch(Exception ex){
+            System.out.println("ERROR BD: "+ex.getMessage());
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean eliminarPuntRutaTots(Integer id_ruta) throws GestorBDWikilocException {
+        try{
+            
+            psEliminarPuntRutaTots.setInt(1, id_ruta);
+            
+            int registres_afectats = psEliminarPuntRutaTots.executeUpdate();
   
             if(registres_afectats != 1){
                 return false;

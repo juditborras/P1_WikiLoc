@@ -854,6 +854,11 @@ public class panellCompartides extends javax.swing.JPanel {
         });
 
         jButton_netejar.setText("netejar llista");
+        jButton_netejar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_netejarMouseClicked(evt);
+            }
+        });
 
         jButton_afegir.setText("afegir element llista");
         jButton_afegir.addActionListener(new java.awt.event.ActionListener() {
@@ -863,6 +868,11 @@ public class panellCompartides extends javax.swing.JPanel {
         });
 
         jButton_eliminar.setText("eliminar element");
+        jButton_eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_eliminarMouseClicked(evt);
+            }
+        });
 
         jButton_pujar.setText("pujar elem");
 
@@ -1473,8 +1483,11 @@ public class panellCompartides extends javax.swing.JPanel {
             }
 
             
+            if(llistaPuntsRuta.size()>0 && idx!= -1){
+                System.out.println("INDEX: "+idx);
+                punt_seleccionat = llistaPuntsRuta.get(idx);
+            }
             
-            punt_seleccionat = llistaPuntsRuta.get(idx);
             
             
             jTextField_numPunt.setText(punt_seleccionat.getNum().toString());
@@ -1862,6 +1875,122 @@ public class panellCompartides extends javax.swing.JPanel {
           
         
     }//GEN-LAST:event_jButton_desarCanvisPuntsMouseClicked
+
+    private void jButton_netejarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_netejarMouseClicked
+        
+//        dlm = (DefaultListModel) jList_puntsRuta.getModel();
+//        dlm.removeAllElements();
+//        dlm.clear();
+//        jList_puntsRuta.setModel(dlm);
+//        jList_puntsRuta = new JList(dlm);
+        
+//        int indiceSeleccionado = jList_puntsRuta.getSelectedIndex();
+//        System.out.println("indiceSeleccionado: "+indiceSeleccionado);
+//
+//        for (int i = dlm.getSize() - 1; i >= 0; i--) {
+//            if (i == indiceSeleccionado || jList_puntsRuta.isSelectedIndex(i)) {
+//                dlm.remove(i);
+//                System.out.println("esborrarrrrrrrrrrrr");
+//            }
+//        }
+        
+        //jList_puntsRuta.setSelectedIndex(0);
+        dlm.clear();
+        //jList_puntsRuta.setModel(dlm);
+        //jList_puntsRuta = new JList(dlm);
+        //eliminarPuntRutaTots(id);
+        
+        int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur d'eliminar TOTS els punts de ruta associats a la ruta?",
+                            "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE);
+
+        if (resposta == 0) {
+            try {
+                if(gestorBDWikilocJdbc.eliminarPuntRutaTots(id)){
+                    gestorBDWikilocJdbc.confirmarCanvis();
+                    
+                    JOptionPane.showConfirmDialog(null, "Els canvis s'han realitzat correctament",
+                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+                
+            } catch (GestorBDWikilocException ex) {
+                JOptionPane.showConfirmDialog(null, "Error: "+ex.getMessage(),
+                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        
+        }
+        
+
+    }//GEN-LAST:event_jButton_netejarMouseClicked
+
+    private void jButton_eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_eliminarMouseClicked
+        
+        
+        int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur d'esborrar el punt de ruta?",
+                           "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                           JOptionPane.INFORMATION_MESSAGE);
+        
+        
+        if (resposta == 0) {
+            try {
+                if(gestorBDWikilocJdbc.eliminarPuntRuta(punt_seleccionat.getNum(),id)){
+                    
+                        
+                    gestorBDWikilocJdbc.confirmarCanvis();
+
+                    JOptionPane.showConfirmDialog(null, "El punt de ruta s'ha esborrat correctament",
+                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
+                    
+                    dlm.removeElement(punt_seleccionat);
+                    
+                    try {
+                        llistaPuntsRuta = gestorBDWikilocJdbc.obtenirLlistaPuntsRuta(id);
+
+                        dlm = new DefaultListModel();
+
+                        for (Punt p : llistaPuntsRuta) {
+
+                            dlm.addElement(p.getNum().toString() + " - " + p.getNom().toString());
+
+                        }
+                        
+                        
+                        jList_puntsRuta.setModel(dlm);
+                        jList_puntsRuta = new JList(dlm);
+                        System.out.println(jList_puntsRuta.getModel().toString());
+
+                    } catch (GestorBDWikilocException ex) {
+                        Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    
+                    botoAfegirClicat = true;
+        
+                    jTextField_numPunt.setText("");
+                    jTextField_nomPunt.setText("");
+                    jTextArea_descPunt.setText("");
+                    jTextField_latPunt.setText("");
+                    jTextField_lonPunt.setText("");
+                    jTextField_altPunt.setText("");
+                    jLabel_fotoPunt.setIcon(null);//posar imatge però amb imatge de sense imatge per defecte!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    jComboBox_tipusPunt.setSelectedIndex(-1);
+
+                    jButton_desarCanvisPunts.setVisible(true);
+                    
+                    
+                }
+                
+            } catch (GestorBDWikilocException ex) {
+                JOptionPane.showConfirmDialog(null, "Error: "+ex.getMessage(),
+                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        
+        }
+    }//GEN-LAST:event_jButton_eliminarMouseClicked
 
     public BufferedImage byteArrayToImage(byte[] bytes) {
         BufferedImage bufferedImage = null;
