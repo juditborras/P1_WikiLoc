@@ -59,6 +59,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     private static PreparedStatement psEliminarPuntRutaTots;
     private static PreparedStatement psObtenirPuntRuta;
     private static PreparedStatement psObtenirLlistaPuntsRuta;
+    private static PreparedStatement psEditarOrdrePuntRuta;
     
     private static PreparedStatement psAfegirComentari;
     private static PreparedStatement psEditarComentari;
@@ -154,12 +155,12 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             inst ="select * from tipus";
             psObtenirLlistaTipus = conn.prepareStatement(inst);
             
-            inst = "select t.*\n" +
+            inst = "select t.* \n" +
                    "from punt p join tipus t on p.id_tipus = t.id \n" +
-                   "where id_ruta = ? and id_tipus = ?";
+                   "where id_ruta = ? and num = ? ";
             psObtenirTipusPunt = conn.prepareStatement(inst);
             
-            inst = "insert into punt(num,nom,desc_punt,lat,lon,alt,id_ruta,id_tipus,foto) values(?,?,?,?,?,?,?,?,?)";
+            inst = "insert into punt(nom,desc_punt,lat,lon,alt,ordre,id_ruta,id_tipus,foto) values(?,?,?,?,?,?,?,?,?)";
             psAfegirPuntRuta = conn.prepareStatement(inst);
             
             inst = "update punt set nom = ?, desc_punt = ?, foto = ?, lat = ?, lon = ?, alt = ?, id_tipus = ? where num = ? and id_ruta = ?";
@@ -186,8 +187,11 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                     "            join tipus t on p.id_tipus = t.id\n" +
                     "            join usuari u on r.login_usuari = u.login\n" +
                     "where p.id_ruta = ?" +
-                    "order by p.num";
+                    "order by p.ordre";
             psObtenirLlistaPuntsRuta = conn.prepareStatement(inst);
+            
+            inst = "update punt set ordre = ? where num = ? and id_ruta = ?";
+            psEditarOrdrePuntRuta = conn.prepareStatement(inst);
             
             inst = "insert into comentari(text,v_inf,feta,v_seg,v_pai,dific,login_usuari,id_ruta) values (?,?,?,?,?,?,?,?)";
             psAfegirComentari = conn.prepareStatement(inst);
@@ -702,6 +706,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                 
             }else{
                 tipus = null;
+                System.out.println("tipus null");
             }
             
             if(rsObtenirTipusPerId != null){
@@ -811,12 +816,12 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         
        try{
 
-            psAfegirPuntRuta.setInt(1, p.getNum());
-            psAfegirPuntRuta.setString(2, p.getNom());
-            psAfegirPuntRuta.setString(3, p.getDescPunt());
-            psAfegirPuntRuta.setInt(4, p.getLat());
-            psAfegirPuntRuta.setInt(5, p.getLon());
-            psAfegirPuntRuta.setInt(6, p.getAlt());
+            psAfegirPuntRuta.setString(1, p.getNom());
+            psAfegirPuntRuta.setString(2, p.getDescPunt());
+            psAfegirPuntRuta.setInt(3, p.getLat());
+            psAfegirPuntRuta.setInt(4, p.getLon());
+            psAfegirPuntRuta.setInt(5, p.getAlt());
+            psAfegirPuntRuta.setInt(6, p.getOrdre());
             psAfegirPuntRuta.setInt(7, p.getIdRuta().getId());
             psAfegirPuntRuta.setInt(8, p.getIdTipus().getId());
             
@@ -1009,6 +1014,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                                 rsObtenirPuntRuta.getInt("lat"),
                                 rsObtenirPuntRuta.getInt("lon"),
                                 rsObtenirPuntRuta.getInt("alt"),
+                                rsObtenirPuntRuta.getInt("ordre"),
                                 ruta,
                                 tipus);
             }else{
@@ -1065,6 +1071,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                                 rsObtenirLlistaPuntsRuta.getInt("lat"),
                                 rsObtenirLlistaPuntsRuta.getInt("lon"),
                                 rsObtenirLlistaPuntsRuta.getInt("alt"),
+                               rsObtenirLlistaPuntsRuta.getInt("ordre"),
                                 ruta,
                                 tipus);
                 }else{
@@ -1075,6 +1082,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                                 rsObtenirLlistaPuntsRuta.getInt("lat"),
                                 rsObtenirLlistaPuntsRuta.getInt("lon"),
                                 rsObtenirLlistaPuntsRuta.getInt("alt"),
+                            rsObtenirLlistaPuntsRuta.getInt("ordre"),
                                 ruta,
                                 tipus);
                 }
@@ -1095,6 +1103,42 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         return punts;
         
     }
+    
+    
+    public boolean editarOrdrePuntRuta(List<Punt> punts){
+        
+        //psEditarOrdrePuntRuta
+        int qt_ok = 0;
+        
+        for(Punt p: punts){
+            
+            try{
+         
+                psEditarOrdrePuntRuta.setInt(1, p.getOrdre());
+                psEditarOrdrePuntRuta.setInt(2, p.getNum());
+                psEditarOrdrePuntRuta.setInt(3, p.getIdRuta().getId());
+
+
+                int registres_afectats = psEditarOrdrePuntRuta.executeUpdate();
+
+                if(registres_afectats == 1){
+                    qt_ok++;
+                }
+
+                
+
+            }catch(Exception ex){
+                
+            }
+        }
+        
+        if(qt_ok==punts.size()){
+            return true;
+        }
+        return false;
+
+    }
+    
 
     @Override
     public boolean afegirComentari(Comentari c, String login, Integer id) throws GestorBDWikilocException {

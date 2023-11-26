@@ -74,29 +74,29 @@ INSERT INTO TIPUS (NOM,ICONA) VALUES ('Bicicletes','15882');
 
 --Cada ruta ha de tenir, com a mínim, 5 punts de diversos tipus
 --Ruta 1
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (1,'Pàrquing','Petita zona per aparcar el cotxe',501,201,282,1,5);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (2,'Trencall-Esquerra','Trobarem un cartell on girarem cap a l''esquerra',504,205,301,1,4);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (3,'Zona pícnic','Destinada al lleure amb la família o amics',550,215,347,1,2);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (4,'Per baix','S''ha de baixar el desnivell i tombar cantonada vora l''arbre arran del camí',565,230,382,1,6);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (5,'Creuem','Creuar per sota el pont',579,286,403,1,4);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (6,'Marca blanca','En aquesta zona haurem d’anar seguint les marques blanques (punts) que trobarem als arbres',581,294,484,1,1);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (7,'Escales','Pujar els dos graons per arribar al destí',599,299,523,1,14);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Pàrquing','Petita zona per aparcar el cotxe',501,201,282,1,1,5);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Trencall-Esquerra','Trobarem un cartell on girarem cap a l''esquerra',504,205,301,2,1,4);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Zona pícnic','Destinada al lleure amb la família o amics',550,215,347,3,1,2);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Per baix','S''ha de baixar el desnivell i tombar cantonada vora l''arbre arran del camí',565,230,382,4,1,6);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Creuem','Creuar per sota el pont',579,286,403,5,1,4);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Marca blanca','En aquesta zona haurem d’anar seguint les marques blanques (punts) que trobarem als arbres',581,294,484,6,1,1);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Escales','Pujar els dos graons per arribar al destí',599,299,523,7,1,14);
 
 --Ruta 2
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (1,'La Rosella','Llar pels més petits',272,273,353,2,16);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (2,'Tombar cap a la dreta','Desviament per agafar el carrer el qual ens portarà al següent punt',275,278,363,2,4);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (3,'Anar recte','Caminar tot recte fins trobar la següent indicació',277,281,368,2,1);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (4,'Carril bici asfaltat','Carril bici en bon estat de grava color vermell',279,284,375,2,18);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (5,'Mirador de Montserrat','Últim punt del camí en què es pot veure tota la muntanya',284,287,399,2,17);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('La Rosella','Llar pels més petits',272,273,353,1,2,16);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Tombar cap a la dreta','Desviament per agafar el carrer el qual ens portarà al següent punt',275,278,363,2,2,4);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Anar recte','Caminar tot recte fins trobar la següent indicació',277,281,368,3,2,1);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Carril bici asfaltat','Carril bici en bon estat de grava color vermell',279,284,375,4,2,18);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Mirador de Montserrat','Últim punt del camí en què es pot veure tota la muntanya',284,287,399,5,2,17);
 
 --Ruta 3
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (1,'Can Titó','Poliesportiu del poble per a la iniciació de diferents esports',129,400,279,3,15);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (2,'Rest. Marcet','Per repostar energies',137,417,303,3,2);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (3,'Mare de Déu de Collbàs','Petita font per hidratar-se durant la caminada',145,444,317,3,3);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (4,'Corriol 10º','Primer indicador a seguir',161,465,333,3,1);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (5,'Corriol 15º','Segon indicador de ruta a seguir',169,477,351,3,1);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (6,'Corriol 19º','Darrer indicador de ruta, proper al final',179,486,419,3,1);
-INSERT INTO PUNT (NUM,NOM,DESC_PUNT,LAT,LON,ALT,ID_RUTA,ID_TIPUS) VALUES (7,'Dipòsits Vilanova','Cim de la ruta amb bones vistes',171,480,467,3,7);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Can Titó','Poliesportiu del poble per a la iniciació de diferents esports',129,400,279,1,3,15);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Rest. Marcet','Per repostar energies',137,417,303,2,3,2);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Mare de Déu de Collbàs','Petita font per hidratar-se durant la caminada',145,444,317,3,3,3);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Corriol 10º','Primer indicador a seguir',161,465,333,4,3,1);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Corriol 15º','Segon indicador de ruta a seguir',169,477,351,5,3,1);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Corriol 19º','Darrer indicador de ruta, proper al final',179,486,419,6,3,1);
+INSERT INTO PUNT (NOM,DESC_PUNT,LAT,LON,ALT,ORDRE,ID_RUTA,ID_TIPUS) VALUES ('Dipòsits Vilanova','Cim de la ruta amb bones vistes',171,480,467,7,3,7);
 
 --1 ruta tingui 2 comentaris
 --1 comentari indicant que no ha fet la ruta.

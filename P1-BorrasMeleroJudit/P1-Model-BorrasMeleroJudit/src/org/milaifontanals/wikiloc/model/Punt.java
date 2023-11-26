@@ -9,7 +9,7 @@ import org.milaifontanals.wikiloc.exception.WikilocModelException;
  * @author JUDIT
  */
 
-public class Punt {
+public class Punt implements Comparable<Punt>{
     
     private Integer num;
     private String nom;
@@ -18,11 +18,12 @@ public class Punt {
     private Integer lat;
     private Integer lon;
     private Integer alt;
+    private Integer ordre;
     
     private Ruta idRuta;
     private Tipus idTipus;
     
-    public Punt(Integer num, String nom, String descPunt, byte[] foto, Integer lat, Integer lon, Integer alt, Ruta idRuta, Tipus idTipus) {
+    public Punt(Integer num, String nom, String descPunt, byte[] foto, Integer lat, Integer lon, Integer alt, Integer ordre, Ruta idRuta, Tipus idTipus) {
         setNum(num);
         setNom(nom);
         setDescPunt(descPunt);
@@ -30,17 +31,42 @@ public class Punt {
         setLat(lat);
         setLon(lon);
         setAlt(alt);
+        setOrdre(ordre);
         setIdRuta(idRuta);
         setIdTipus(idTipus);
     }
     
-    public Punt(Integer num, String nom, String descPunt, Integer lat, Integer lon, Integer alt, Ruta idRuta, Tipus idTipus) {
+    public Punt(Integer num, String nom, String descPunt, Integer lat, Integer lon, Integer alt, Integer ordre, Ruta idRuta, Tipus idTipus) {
         setNum(num);
         setNom(nom);
         setDescPunt(descPunt);
         setLat(lat);
         setLon(lon);
         setAlt(alt);
+        setOrdre(ordre);
+        setIdRuta(idRuta);
+        setIdTipus(idTipus);
+    }
+    
+    public Punt(String nom, String descPunt, byte[] foto, Integer lat, Integer lon, Integer alt, Integer ordre, Ruta idRuta, Tipus idTipus) {
+        setNom(nom);
+        setDescPunt(descPunt);
+        setFoto(foto);
+        setLat(lat);
+        setLon(lon);
+        setAlt(alt);
+        setOrdre(ordre);
+        setIdRuta(idRuta);
+        setIdTipus(idTipus);
+    }
+    
+    public Punt(String nom, String descPunt, Integer lat, Integer lon, Integer alt, Integer ordre, Ruta idRuta, Tipus idTipus) {
+        setNom(nom);
+        setDescPunt(descPunt);
+        setLat(lat);
+        setLon(lon);
+        setAlt(alt);
+        setOrdre(ordre);
         setIdRuta(idRuta);
         setIdTipus(idTipus);
     }
@@ -119,6 +145,18 @@ public class Punt {
         }
         this.alt = alt;
     }
+    
+    public Integer getOrdre() {
+        return ordre;
+    }
+
+    public void setOrdre(Integer ordre) {
+        
+        if(ordre <= 0){
+            throw new WikilocModelException("L'ordre no pot ésser negatiu o igual a zero");
+        }
+        this.ordre = ordre;
+    }
 
     public Ruta getIdRuta() {
         return idRuta;
@@ -171,6 +209,12 @@ public class Punt {
     
     @Override
     public String toString() {
-        return "Punt{" + "num=" + num + ", nom=" + nom + ", descPunt=" + descPunt + ", foto=" + foto + ", lat=" + lat + ", lon=" + lon + ", alt=" + alt + ", idRuta=" + idRuta + ", idTipus=" + idTipus + '}';
+        return "Punt{" + "num=" + num + ", nom=" + nom + ", descPunt=" + descPunt + ", foto=" + foto + ", lat=" + lat + ", lon=" + lon + ", alt=" + alt + ", ordre=" + ordre + ", idRuta=" + idRuta + ", idTipus=" + idTipus + '}';
+    }
+
+    @Override
+    public int compareTo(Punt p) {
+        
+        return ordre.compareTo(p.ordre);
     }
 }
