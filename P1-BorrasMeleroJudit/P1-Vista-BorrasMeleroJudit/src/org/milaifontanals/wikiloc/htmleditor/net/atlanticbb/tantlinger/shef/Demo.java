@@ -6,12 +6,15 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -36,9 +39,10 @@ public class Demo {
     public String text_html;
     
     public GestorBDWikilocJdbc gestorBDWikilocJdbc;
+    public boolean modeAlta;
     
-    public Demo(String text_html, int id_ruta) {
-        
+    public Demo(String text_html, int id_ruta, boolean modeAlta) {
+        this.modeAlta = modeAlta;
         try {
             gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
         } catch (GestorBDWikilocException ex) {
@@ -77,10 +81,34 @@ public class Demo {
         frame.getContentPane().add(editor);
         frame.setVisible(true);
         
+        if(modeAlta){
+            try {
+                //Llegir fitxer
+                File myObj = new File("info_ruta.txt");
+                Scanner myReader = new Scanner(myObj);
+                String html_s = "";
+                while (myReader.hasNextLine()) {
+                    String data = myReader.nextLine();
+                    html_s +=  data;
+                }
+                editor.wysEditor.setText(html_s);
+                myReader.close();
+            } catch (FileNotFoundException ex) {
+                System.out.println("error: "+ex.getMessage());
+            }
+        }
+        
+        
         frame.addWindowListener(new WindowAdapter() {
 
             @Override
             public void windowClosing(WindowEvent e) {
+                
+                System.out.println("TEXT-HTML: "+text_html+" FI HTML");
+                
+                
+
+                
                 
                 int resposta =JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
                 "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
@@ -108,11 +136,25 @@ public class Demo {
                             System.out.println(ex.getMessage());
                         }
                     }
+                    if (modeAlta) {
+
                     
+                        File fitxer = new File("info_ruta.txt");
+                        
+
+                        try {
+                            FileWriter fw = new FileWriter("info_ruta.txt");
+                            fw.write(editor.wysEditor.getText());
+                            fw.close();
+                        } catch (IOException ex) {
+                            System.out.println("ERROR: " + ex.getMessage());
+                        }
+                    }
+
                 }
-                
-                
-                
+
+
+
                 frame.setVisible(false);
                 
             }
@@ -138,7 +180,7 @@ public class Demo {
         SwingUtilities.invokeAndWait(new Runnable() {
 
             public void run() {
-               demo = new Demo(null,0);
+               demo = new Demo(null,0,modeAlta);
             }
         });
         

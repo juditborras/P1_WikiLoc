@@ -140,8 +140,8 @@ public class Punt implements Comparable<Punt>{
     }
 
     public void setAlt(Integer alt) {
-        if(alt > 999999 || alt < -999999){
-            throw new WikilocModelException("L'altitud no pot ésser major de 999999");
+        if(alt == null || alt > 999999 || alt < -999999){
+            throw new WikilocModelException("L'altitud és obligatòria i no pot ésser major de 999999");
         }
         this.alt = alt;
     }

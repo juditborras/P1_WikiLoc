@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -66,6 +67,7 @@ public class panellCompartides extends javax.swing.JPanel {
     Demo demo;
     ImageIcon estrellaBlanca = new ImageIcon("img"+File.separator+"estrella_blanca.png");
     ImageIcon estrellaGroga = new ImageIcon("img"+File.separator+"estrella_groga.png");
+    ImageIcon fotoNulla = new ImageIcon("img"+File.separator+"foto_nulla.jpg");
     boolean editar_estrelles = false;
     
     int id, hours, minutes, antic, qtat_estrelles, qtat_estrelles_actual;
@@ -129,7 +131,6 @@ public class panellCompartides extends javax.swing.JPanel {
         
         jPanel_compartidesCanviant.setVisible(false);
         jButton_desarCanvisRuta.setVisible(false);
-        
         
        
         llistaRutesCreades = new ArrayList();
@@ -230,7 +231,7 @@ public class panellCompartides extends javax.swing.JPanel {
                 jButton_pujar.setVisible(false);
                 jButton_baixar.setVisible(false);
                 jButton_eliminar.setVisible(false);
-                jButton_afegir.setVisible(false);
+                jButton_afegir.setVisible(true);
                 jButton_netejar.setVisible(false);
 
                 jButton_desarCanvisPunts.setVisible(false);
@@ -470,7 +471,9 @@ public class panellCompartides extends javax.swing.JPanel {
             Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
         }        
         
-        
+
+
+
     }
     
     public void canviarCursorEstrelles(){
@@ -539,6 +542,8 @@ public class panellCompartides extends javax.swing.JPanel {
         jButton_baixar = new javax.swing.JButton();
         jComboBox_tipusPunt = new javax.swing.JComboBox<>();
         jButton_seleccionarFoto = new javax.swing.JButton();
+        jPanel_altimetria = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -902,88 +907,119 @@ public class panellCompartides extends javax.swing.JPanel {
             }
         });
 
+        jPanel_altimetria.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("jButton1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton_pujar)
-                    .addComponent(jButton_baixar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField_ordrePunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(86, 86, 86)
-                                .addComponent(jButton_desarCanvisPunts))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField_altPunt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(68, 68, 68)
+                                .addGap(37, 37, 37)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton_pujar)
+                                    .addComponent(jButton_baixar)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton1)
+                                .addGap(55, 55, 55)))
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                            .addComponent(jButton_seleccionarFoto))))
-                .addGap(77, 77, 77))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField_ordrePunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jTextField_altPunt, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jButton_desarCanvisPunts))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jPanel_altimetria, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(257, 257, 257)
+                                .addComponent(jButton_seleccionarFoto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(253, 253, 253)
-                        .addComponent(jButton_netejar))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jButton_eliminar)
-                        .addGap(42, 42, 42)
-                        .addComponent(jButton_afegir)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(253, 253, 253)
+                                .addComponent(jButton_netejar))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(jButton_eliminar)
+                                .addGap(42, 42, 42)
+                                .addComponent(jButton_afegir)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(33, 33, 33))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(jButton_pujar)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton_baixar))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(96, 96, 96)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(229, 229, 229)
+                                .addComponent(jButton_pujar)
+                                .addGap(35, 35, 35)
+                                .addComponent(jButton_baixar)))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton_afegir)
+                            .addComponent(jButton_eliminar))
+                        .addGap(4, 4, 4)
+                        .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_netejar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton_desarCanvisPunts)
+                            .addComponent(jButton1)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jTextField_ordrePunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(84, 84, 84)
-                                .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField_altPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_afegir)
-                    .addComponent(jButton_eliminar))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_seleccionarFoto)
-                    .addComponent(jButton_desarCanvisPunts))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_netejar)
-                .addContainerGap(75, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
+                        .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(jButton_seleccionarFoto)
+                        .addGap(14, 14, 14)
+                        .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField_altPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(jPanel_altimetria, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("tab2", jPanel7);
@@ -1047,7 +1083,7 @@ public class panellCompartides extends javax.swing.JPanel {
             llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
             text_html = llistaRutesCreades.get(row_sel).getTextRuta();
             
-            demo = new Demo(text_html, id);
+            demo = new Demo(text_html, id,false);
         } catch (GestorBDWikilocException ex) {
             
         }
@@ -1420,12 +1456,12 @@ public class panellCompartides extends javax.swing.JPanel {
     }//GEN-LAST:event_jList_puntsRutaMouseClicked
 
     private void jList_puntsRutaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList_puntsRutaValueChanged
-        
+
         if (!evt.getValueIsAdjusting()) {
             JList jlist = (JList)evt.getSource();
             
             int idx = jlist.getSelectedIndex();
-            
+
             if(editarPuntRuta){
                 jTextField_ordrePunt.setVisible(true);
                 jTextField_nomPunt.setVisible(true);
@@ -1441,10 +1477,10 @@ public class panellCompartides extends javax.swing.JPanel {
                 jButton_pujar.setVisible(true);
                 jButton_baixar.setVisible(true);
                 jButton_eliminar.setVisible(true);
-                jButton_afegir.setVisible(true);
+
                 jButton_netejar.setVisible(true);
                 
-                jTextField_ordrePunt.setEditable(true);
+                jTextField_ordrePunt.setEditable(false);
                 jTextField_nomPunt.setEditable(true);
                 jTextArea_descPunt.setEditable(true);
                 jTextField_latPunt.setEditable(true);
@@ -1456,7 +1492,6 @@ public class panellCompartides extends javax.swing.JPanel {
                 jButton_desarCanvisPunts.setEnabled(false);
                 
             }else{
-                
                 
                 jTextField_ordrePunt.setVisible(true);
                 jTextField_nomPunt.setVisible(true);
@@ -1539,7 +1574,7 @@ public class panellCompartides extends javax.swing.JPanel {
                              
              
             }else{
-                jLabel_fotoPunt.setIcon(null);
+                jLabel_fotoPunt.setIcon(fotoNulla);
             }
             
             
@@ -1554,17 +1589,68 @@ public class panellCompartides extends javax.swing.JPanel {
     private void jButton_afegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_afegirActionPerformed
         
         botoAfegirClicat = true;
+
+        dlm.clear();
+        try {
+            llistaPuntsRuta = gestorBDWikilocJdbc.obtenirLlistaPuntsRuta(id);
+            //dlm = new DefaultListModel();
+            dlm.clear();
+            System.out.println("QT PUNTS DE RUTA: "+dlm);
+            for (Punt p : llistaPuntsRuta) {
+
+                dlm.addElement(p.getOrdre().toString() + " - " + p.getNom().toString());
+
+            }
+            jList_puntsRuta.setModel(dlm);
+            jList_puntsRuta = new JList(dlm);
+            System.out.println(jList_puntsRuta.getModel().toString());
+
+        } catch (GestorBDWikilocException ex) {
+            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        jTextField_ordrePunt.setText("");
+        
+        jTextField_ordrePunt.setVisible(true);
+        jTextField_nomPunt.setVisible(true);
+        jTextArea_descPunt.setVisible(true);
+        jScrollPane4.setVisible(true);
+        jTextField_latPunt.setVisible(true);
+        jTextField_lonPunt.setVisible(true);
+        jTextField_altPunt.setVisible(true);
+        jComboBox_tipusPunt.setVisible(true);
+        jLabel_fotoPunt.setVisible(true);
+        jButton_seleccionarFoto.setVisible(true);
+
+        jButton_pujar.setVisible(true);
+        jButton_baixar.setVisible(true);
+        jButton_eliminar.setVisible(true);
+
+        jButton_netejar.setVisible(true);
+
+        jTextField_ordrePunt.setEditable(false);
+        jTextField_nomPunt.setEditable(true);
+        jTextArea_descPunt.setEditable(true);
+        jTextField_latPunt.setEditable(true);
+        jTextField_lonPunt.setEditable(true);
+        jTextField_altPunt.setEditable(true);
+        jComboBox_tipusPunt.setEnabled(true);
+
+        jButton_desarCanvisPunts.setVisible(true);
+        jButton_desarCanvisPunts.setEnabled(false);
+        
+        jTextField_ordrePunt.setText(llistaPuntsRuta.size()+1+"");
         jTextField_nomPunt.setText("");
         jTextArea_descPunt.setText("");
         jTextField_latPunt.setText("");
         jTextField_lonPunt.setText("");
         jTextField_altPunt.setText("");
-        jLabel_fotoPunt.setIcon(null);//posar imatge però amb imatge de sense imatge per defecte!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        jLabel_fotoPunt.setIcon(fotoNulla);
         jComboBox_tipusPunt.setSelectedIndex(-1);
+        //jList_puntsRuta.getSelectionModel().clearSelection();
         
+  
         jButton_desarCanvisPunts.setVisible(true);
+        
     }//GEN-LAST:event_jButton_afegirActionPerformed
 
     private void jTextField_ordrePuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ordrePuntKeyReleased
@@ -1580,57 +1666,109 @@ public class panellCompartides extends javax.swing.JPanel {
 
     private void jTextField_nomPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_nomPuntKeyReleased
         
-        if(nomPunt.equals(jTextField_nomPunt.getText())){           
-            nomPunt_canviat = false;
-            modificacionsCampsPunt();
-        }else{
-            nomPunt_canviat = true;
-            modificacionsCampsPunt();
-        }
+        if(botoAfegirClicat){
+
+            if (jTextField_ordrePunt.getText().length() != 0 && jTextField_nomPunt.getText().length() != 0 && jTextArea_descPunt.getText().length() != 0 && jTextField_latPunt.getText().length() != 0 && jTextField_lonPunt.getText().length() != 0 && jTextField_altPunt.getText().length() != 0 && jComboBox_tipusPunt.getSelectedItem() != null) {
+                jButton_desarCanvisPunts.setEnabled(true);
+            }else{
+                jButton_desarCanvisPunts.setEnabled(false);
+            }
+        } else {
+
+            if (nomPunt.equals(jTextField_nomPunt.getText())) {
+                nomPunt_canviat = false;
+                modificacionsCampsPunt();
+            } else {
+                nomPunt_canviat = true;
+                modificacionsCampsPunt();
+            }
+        } 
+
     }//GEN-LAST:event_jTextField_nomPuntKeyReleased
 
     private void jTextArea_descPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea_descPuntKeyReleased
-        
-        if(descPunt.equals(jTextArea_descPunt.getText())){           
-            descPunt_canviat = false;
-            modificacionsCampsPunt();
-        }else{
-            descPunt_canviat = true;
-            modificacionsCampsPunt();
+                   
+        if (botoAfegirClicat) {
+            if (jTextField_ordrePunt.getText().length() != 0 && jTextField_nomPunt.getText().length() != 0 && jTextArea_descPunt.getText().length() != 0 && jTextField_latPunt.getText().length() != 0 && jTextField_lonPunt.getText().length() != 0 && jTextField_altPunt.getText().length() != 0 && jComboBox_tipusPunt.getSelectedItem() != null) {
+                jButton_desarCanvisPunts.setEnabled(true);
+            }else{
+                jButton_desarCanvisPunts.setEnabled(false);
+            }
+        } else {
+            if (descPunt.equals(jTextArea_descPunt.getText())) {
+                descPunt_canviat = false;
+                modificacionsCampsPunt();
+            } else {
+                descPunt_canviat = true;
+                modificacionsCampsPunt();
+            }
         }
+
     }//GEN-LAST:event_jTextArea_descPuntKeyReleased
 
     private void jTextField_latPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_latPuntKeyReleased
-        
-        if(lat.equals(jTextField_latPunt.getText())){           
-            lat_canviat = false;
-            modificacionsCampsPunt();
-        }else{
-            lat_canviat = true;
-            modificacionsCampsPunt();
+             
+        if (botoAfegirClicat) {
+
+            if (jTextField_ordrePunt.getText().length() != 0 && jTextField_nomPunt.getText().length() != 0 && jTextArea_descPunt.getText().length() != 0 && jTextField_latPunt.getText().length() != 0 && jTextField_lonPunt.getText().length() != 0 && jTextField_altPunt.getText().length() != 0 && jComboBox_tipusPunt.getSelectedItem() != null) {
+                jButton_desarCanvisPunts.setEnabled(true);
+            }else{
+                jButton_desarCanvisPunts.setEnabled(false);
+            }
+        } else {
+            if (lat.equals(jTextField_latPunt.getText())) {
+                lat_canviat = false;
+                modificacionsCampsPunt();
+            } else {
+                lat_canviat = true;
+                modificacionsCampsPunt();
+            }
         }
+
+
     }//GEN-LAST:event_jTextField_latPuntKeyReleased
 
     private void jTextField_lonPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_lonPuntKeyReleased
-        
-        if(lon.equals(jTextField_lonPunt.getText())){           
-            lon_canviat = false;
-            modificacionsCampsPunt();
-        }else{
-            lon_canviat = true;
-            modificacionsCampsPunt();
-        }
+          
+        if (botoAfegirClicat) {
+
+            if (jTextField_ordrePunt.getText().length() != 0 && jTextField_nomPunt.getText().length() != 0 && jTextArea_descPunt.getText().length() != 0 && jTextField_latPunt.getText().length() != 0 && jTextField_lonPunt.getText().length() != 0 && jTextField_altPunt.getText().length() != 0 && jComboBox_tipusPunt.getSelectedItem() != null) {
+                jButton_desarCanvisPunts.setEnabled(true);
+            }else{
+                jButton_desarCanvisPunts.setEnabled(false);
+            }
+
+        } else {
+            if (lon.equals(jTextField_lonPunt.getText())) {
+                lon_canviat = false;
+                modificacionsCampsPunt();
+            } else {
+                lon_canviat = true;
+                modificacionsCampsPunt();
+            }
+        }    
+
     }//GEN-LAST:event_jTextField_lonPuntKeyReleased
 
     private void jTextField_altPuntKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_altPuntKeyReleased
-        
-        if(alt.equals(jTextField_altPunt.getText())){           
-            alt_canviat = false;
-            modificacionsCampsPunt();
-        }else{
-            alt_canviat = true;
-            modificacionsCampsPunt();
-        }
+            
+        if (botoAfegirClicat) {
+
+            if (jTextField_ordrePunt.getText().length() != 0 && jTextField_nomPunt.getText().length() != 0 && jTextArea_descPunt.getText().length() != 0 && jTextField_latPunt.getText().length() != 0 && jTextField_lonPunt.getText().length() != 0 && jTextField_altPunt.getText().length() != 0 && jComboBox_tipusPunt.getSelectedItem() != null) {
+                jButton_desarCanvisPunts.setEnabled(true);
+            }else{
+                jButton_desarCanvisPunts.setEnabled(false);
+            }
+        } else {
+            if (alt.equals(jTextField_altPunt.getText())) {
+                alt_canviat = false;
+                modificacionsCampsPunt();
+            } else {
+                alt_canviat = true;
+                modificacionsCampsPunt();
+            }
+        }  
+
     }//GEN-LAST:event_jTextField_altPuntKeyReleased
 
     private void jButton_seleccionarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_seleccionarFotoActionPerformed
@@ -1664,11 +1802,22 @@ public class panellCompartides extends javax.swing.JPanel {
             
             if(Arrays.equals(punt_seleccionat.getFoto(), bt)){
                 fotoPunt_canviada = true;
-                modificacionsCampsPunt();
+                //modificacionsCampsPunt();
             }else{
                 fotoPunt_canviada = false;
-                modificacionsCampsPunt();
+                //modificacionsCampsPunt();
             }
+            
+            if(jTextField_ordrePunt.getText().length() != 0 && jTextField_nomPunt.getText().length() != 0 && jTextArea_descPunt.getText().length() != 0 && jTextField_latPunt.getText().length() != 0 && jTextField_lonPunt.getText().length() != 0 && jTextField_altPunt.getText().length() != 0 && jComboBox_tipusPunt.getSelectedItem() != null){
+                jButton_desarCanvisPunts.setEnabled(true);
+                
+            }else{
+                jButton_desarCanvisPunts.setEnabled(false);
+            }
+            
+        
+        }else{
+            jLabel_fotoPunt.setIcon(fotoNulla);
         }
 
         
@@ -1686,16 +1835,27 @@ public class panellCompartides extends javax.swing.JPanel {
 
                     JComboBox cb = (JComboBox) evt.getSource();
 
-                    Tipus tipus_nou = (Tipus) cb.getSelectedItem();
+                    if (botoAfegirClicat) {
 
-                    if (t.getId() != tipus_nou.getId()) {
-                        tipusPunt_canviada = true;
-                        modificacionsCampsPunt();
-
+                        if (jTextField_ordrePunt.getText().length() != 0 && jTextField_nomPunt.getText().length() != 0 && jTextArea_descPunt.getText().length() != 0 && jTextField_latPunt.getText().length() != 0 && jTextField_lonPunt.getText().length() != 0 && jTextField_altPunt.getText().length() != 0 && jComboBox_tipusPunt.getSelectedItem() != null) {
+                            jButton_desarCanvisPunts.setEnabled(true);
+                        }else{
+                            jButton_desarCanvisPunts.setEnabled(false);
+                        }
                     } else {
-                        tipusPunt_canviada = false;
-                        modificacionsCampsPunt();
+
+                        Tipus tipus_nou = (Tipus) cb.getSelectedItem();
+
+                        if (t.getId() != tipus_nou.getId()) {
+                            tipusPunt_canviada = true;
+                            modificacionsCampsPunt();
+
+                        } else {
+                            tipusPunt_canviada = false;
+                            modificacionsCampsPunt();
+                        }
                     }
+
                 }
                 
             }
@@ -2098,6 +2258,17 @@ public class panellCompartides extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton_baixarActionPerformed
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        
+        provaaaaa provaaaaa = new provaaaaa(llistaPuntsRuta);
+        provaaaaa.setVisible(true);
+        provaaaaa.setSize(new Dimension(400,400));
+        provaaaaa.pack();
+                
+
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
     public BufferedImage byteArrayToImage(byte[] bytes) {
         BufferedImage bufferedImage = null;
         try {
@@ -2148,10 +2319,33 @@ public class panellCompartides extends javax.swing.JPanel {
         }
         
     }
+    
+    
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+
+        // Dibuja el gráfico de altimetría
+        //if (puntos != null && puntos.size() > 1) {
+            for (int i = 0; i < llistaPuntsRuta.size() - 1; i++) {
+                Punt puntoActual = llistaPuntsRuta.get(i);
+                Punt puntoSiguiente = llistaPuntsRuta.get(i + 1);
+
+                int x1 = i * 10; // Ajusta la escala horizontal
+                int y1 = getHeight() - (int) puntoActual.getAlt();
+                int x2 = (i + 1) * 10;
+                int y2 = getHeight() - (int) puntoSiguiente.getAlt();
+
+                g.drawLine(x1, y1, x2, y2);
+            }
+        //}
+    }
+    
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_afegir;
     private javax.swing.JButton jButton_baixar;
     private javax.swing.JButton jButton_desarCanvisPunts;
@@ -2175,6 +2369,7 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel_altimetria;
     private javax.swing.JPanel jPanel_compartidesCanviant;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

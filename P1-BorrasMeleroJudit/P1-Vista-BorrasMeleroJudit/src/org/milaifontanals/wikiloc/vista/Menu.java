@@ -5,6 +5,7 @@
 package org.milaifontanals.wikiloc.vista;
 
 import java.awt.Color;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -427,6 +428,9 @@ public class Menu extends javax.swing.JFrame {
     private void rSButtonMenuAfegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuAfegirActionPerformed
         
         new CambiaPanel(jPanel_principal,new panellAfegir(jPanel_menu, jPanel_principal,usuari_loginat));
+        
+        File fitxer = new File("info_ruta.txt");
+        fitxer.delete();
         
         if(this.rSButtonMenuAfegir.isSelected()){
             this.rSButtonMenuAfegir.setColorNormal(new Color(255,163,0));

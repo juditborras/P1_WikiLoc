@@ -4,6 +4,9 @@
  */
 package org.milaifontanals.wikiloc.vista;
 
+import java.awt.Color;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -23,44 +26,42 @@ public class panellAfegir extends javax.swing.JPanel {
      */
     
     Usuari usuari_loginat;
+    public panellAfegir(){
+        
+    }
     public panellAfegir(JPanel jPanel_menu, JPanel jPanel_principal, Usuari usuari_loginat) {
         
         initComponents();
-        
+
+                
         this.usuari_loginat = usuari_loginat;
         
-        breadcrumb1.addItem("Item 1");
-        breadcrumb1.addItem("Item 2");
-        breadcrumb1.addItem("Item 3");
+//        breadcrumb1.addItem("Item 1");
+//        breadcrumb1.addItem("Item 2");
+//        breadcrumb1.addItem("Item 3");
+        
+        
         
         breadcrumb1.setEvent(new EventItemSelected() {
             @Override
             public void selected(BreadcrumbItem item) {
                 
                 jPanel_menu.setVisible(false);
-                
+                System.out.println("ITEM SELECTED: "+item.getIndex());
                 switch(item.getIndex()){
                     case 0:
-                        
-                        
-                    {
-                        try {
-                            new CambiaPanel(jPanel_formulari,new panellCompartides(jPanel_menu,jPanel_principal,usuari_loginat));
-                        } catch (GestorBDWikilocException ex) {
-                            
-                        }
-                    }
-                        
-                        
-                        
+                                                                                     
+                        new CambiaPanel(jPanel_formulari,new panellAfegir_ruta(breadcrumb1, usuari_loginat));
+
                         break;
 
                     case 1:
-                        new CambiaPanel(jPanel_formulari,new panellAfegir_ruta());
+                        new CambiaPanel(jPanel_formulari,new panellAfegir_rutaPunts());
                        
                         
                         break;
                 }
+                
                 
            
                 
@@ -71,6 +72,8 @@ public class panellAfegir extends javax.swing.JPanel {
 
         
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +107,7 @@ public class panellAfegir extends javax.swing.JPanel {
 
         jPanel_formulari.setBackground(new java.awt.Color(204, 255, 255));
         jPanel_formulari.setLayout(new javax.swing.BoxLayout(jPanel_formulari, javax.swing.BoxLayout.LINE_AXIS));
-        add(jPanel_formulari, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1190, 570));
+        add(jPanel_formulari, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1190, 570));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
 
