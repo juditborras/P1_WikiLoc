@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +26,7 @@ import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.io.IOUtil
 import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.shef.Demo;
 import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.shef.HTMLEditorPane;
 import org.milaifontanals.wikiloc.components.TextPrompt;
+import org.milaifontanals.wikiloc.model.Punt;
 import org.milaifontanals.wikiloc.model.Ruta;
 import org.milaifontanals.wikiloc.model.Usuari;
 
@@ -41,15 +45,22 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
     Demo demo;
     Breadcrumb breadcrumb1; 
     int dific = 1;
+    int total;
     
     boolean dadesCorrectes = false;
-    Ruta r;
+    static Ruta r;
     
-    public panellAfegir_ruta(Breadcrumb breadcrumb1, Usuari usuari_loginat) {
+    String html_s = "";
+    int hores = 0, minuts = 0;
+    
+    List<Punt> llistaPunts;
+    
+    public panellAfegir_ruta(Breadcrumb breadcrumb1, Usuari usuari_loginat, List<Punt> llistaPunts) {
         initComponents();
         //TextPrompt placeHolder_titol = new TextPrompt("títol de la ruta",jTextField_titolRuta);
         this.breadcrumb1 = breadcrumb1;
         this.usuari_loginat = usuari_loginat;
+        this.llistaPunts = llistaPunts;
         
         for(int i = 1; i <= 24; i++ ){            
             jComboBox_tempsHruta.addItem(i+"");
@@ -71,6 +82,62 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jPanel2.add(editor);
         */
         
+        if(r!=null){
+            System.out.println("RUTA INFO: "+r.getTitol());
+            jTextField_titolRuta.setText(r.getTitol());
+            jTextField_dist.setText(r.getDist()+"");
+            jTextArea1.setText(r.getDescRuta());
+                        
+            
+            int r_total = r.getTemps();
+            System.out.println("TEMPS: "+r.getTemps());
+            
+            int r_hores = r_total / 60;
+            int r_minuts = r_total % 60;
+            System.out.println("HORES: "+r_hores);
+            System.out.println("MINUTS: "+r_minuts);
+            
+            jComboBox_tempsHruta.setSelectedItem(r_hores+"");
+            jComboBox_tempsMruta.setSelectedItem(r_minuts+"");
+                                    
+            jTextField_desnPruta.setText(r.getDesnP()+"");
+            jTextField_desnNruta.setText(r.getDesnN()+"");
+                             
+            int r_dific = r.getDific();
+            System.out.println("DIFICULTAT: "+r_dific);
+            
+            if (r_dific == 1) {
+                jLabel_estrella1.setIcon(estrellaGroga);
+                jLabel_estrella2.setIcon(estrellaBlanca);
+                jLabel_estrella3.setIcon(estrellaBlanca);
+                jLabel_estrella4.setIcon(estrellaBlanca);
+                jLabel_estrella5.setIcon(estrellaBlanca);
+            } else if (r_dific == 2) {
+                jLabel_estrella1.setIcon(estrellaGroga);
+                jLabel_estrella2.setIcon(estrellaGroga);
+                jLabel_estrella3.setIcon(estrellaBlanca);
+                jLabel_estrella4.setIcon(estrellaBlanca);
+                jLabel_estrella5.setIcon(estrellaBlanca);
+            } else if (r_dific == 3) {
+                jLabel_estrella1.setIcon(estrellaGroga);
+                jLabel_estrella2.setIcon(estrellaGroga);
+                jLabel_estrella3.setIcon(estrellaGroga);
+                jLabel_estrella4.setIcon(estrellaBlanca);
+                jLabel_estrella5.setIcon(estrellaBlanca);
+            } else if (r_dific == 4) {
+                jLabel_estrella1.setIcon(estrellaGroga);
+                jLabel_estrella2.setIcon(estrellaGroga);
+                jLabel_estrella3.setIcon(estrellaGroga);
+                jLabel_estrella4.setIcon(estrellaGroga);
+                jLabel_estrella5.setIcon(estrellaBlanca);
+            } else if (r_dific == 5) {
+                jLabel_estrella1.setIcon(estrellaGroga);
+                jLabel_estrella2.setIcon(estrellaGroga);
+                jLabel_estrella3.setIcon(estrellaGroga);
+                jLabel_estrella4.setIcon(estrellaGroga);
+                jLabel_estrella5.setIcon(estrellaGroga);
+            }
+        }
 
     }
 
@@ -361,6 +428,8 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaBlanca);
         
         dific = 1;
+        r.setDific(dific);
+        afegirItemBreadcrumb();
         
     }//GEN-LAST:event_jLabel_estrella1MouseClicked
 
@@ -373,6 +442,8 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaBlanca);
         
         dific = 2;
+        r.setDific(dific);
+        afegirItemBreadcrumb();
     }//GEN-LAST:event_jLabel_estrella2MouseClicked
 
     private void jLabel_estrella3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_estrella3MouseClicked
@@ -384,6 +455,8 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaBlanca);
         
         dific = 3;
+        r.setDific(dific);
+        afegirItemBreadcrumb();
     }//GEN-LAST:event_jLabel_estrella3MouseClicked
 
     private void jLabel_estrella4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_estrella4MouseClicked
@@ -395,6 +468,8 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaBlanca);
         
         dific = 4;
+        r.setDific(dific);
+        afegirItemBreadcrumb();
     }//GEN-LAST:event_jLabel_estrella4MouseClicked
 
     private void jLabel_estrella5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_estrella5MouseClicked
@@ -406,19 +481,63 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaGroga);
 
         dific = 5;
+        r.setDific(dific);
+        afegirItemBreadcrumb();
     }//GEN-LAST:event_jLabel_estrella5MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         
         
-
-    demo = new Demo("",0,true);
-
+    
+        demo = new Demo("",0,true,this);
+        
+        
             
 
 
     }//GEN-LAST:event_jButton1MouseClicked
 
+    public void provas(){
+       
+        try {
+                //Llegir fitxer
+                File f = new File("info_ruta.txt");
+                System.out.println(f.getAbsoluteFile());
+                if(f.exists()){
+                    System.out.println("EL FITXER EXISTEIX");
+                    Scanner myReader = new Scanner(f);
+
+                    while (myReader.hasNextLine()) {
+                        String data = myReader.nextLine();
+                        html_s += data;
+                    }
+                    myReader.close();
+                }else{
+                    System.out.println("El fitxer no existeix???");
+                }
+
+            } catch (FileNotFoundException ex) {
+                System.out.println("error: " + ex.getMessage());
+                Path currentRelativePath = Paths.get("");
+                String s = currentRelativePath.toAbsolutePath().toString();
+                System.out.println("Current absolute path is: " + s);
+            } finally{
+
+            }
+        
+        //html_s = "prova";
+        try{
+            System.out.println("DIFIC: "+dific);
+            System.out.println("PROCEDIM A CREAR EL OBJECTE RUTA");
+            r = new Ruta(jTextField_titolRuta.getText(),jTextArea1.getText(),html_s,Double.parseDouble(jTextField_dist.getText()),total,Integer.parseInt(jTextField_desnPruta.getText()),Integer.parseInt(jTextField_desnNruta.getText()),dific,usuari_loginat);
+            System.out.println("RUTA CREADA: "+r);
+        
+        }catch(Exception ex){
+            
+        }
+
+    }
+    
     private void jTextField_titolRutaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_titolRutaKeyReleased
         
         if (jTextField_titolRuta.getText().length() != 0 && jTextArea1.getText().length() != 0 && jTextField_dist.getText().length() != 0 && jComboBox_tempsHruta.getSelectedItem() != null && jComboBox_tempsMruta.getSelectedItem() != null && jTextField_desnPruta.getText().length() != 0 && jTextField_desnNruta.getText().length() != 0) {
@@ -495,32 +614,63 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
     public void afegirItemBreadcrumb(){
         
         if(dadesCorrectes && qtat){
-            qtat = false;
-            breadcrumb1.addItem("Item 1");
-
-            
-        }
-        String html_s = "";
-        try {
-            //Llegir fitxer
-            File myObj = new File("info_ruta.txt");
-            Scanner myReader = new Scanner(myObj);
-            
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                html_s += data;
+            if(r==null){
+                qtat = false;
+                breadcrumb1.addItem("Item 1"); 
             }
-            editor.wysEditor.setText(html_s);
-            myReader.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("error: " + ex.getMessage());
+             
+        }
+
+         try {
+                //Llegir fitxer
+                File f = new File("info_ruta.txt");
+                System.out.println(f.getAbsoluteFile());
+                if(f.exists()){
+                    System.out.println("EL FITXER EXISTEIX");
+                    Scanner myReader = new Scanner(f);
+
+                    while (myReader.hasNextLine()) {
+                        String data = myReader.nextLine();
+                        html_s += data;
+                    }
+                    myReader.close();
+                }else{
+                    System.out.println("El fitxer no existeix???");
+                }
+
+            } catch (FileNotFoundException ex) {
+                System.out.println("error: " + ex.getMessage());
+                Path currentRelativePath = Paths.get("");
+                String s = currentRelativePath.toAbsolutePath().toString();
+                System.out.println("Current absolute path is: " + s);
+            } finally{
+
+            }
+        
+        
+        if(jComboBox_tempsHruta.getSelectedIndex()!=-1){
+            hores = Integer.parseInt(jComboBox_tempsHruta.getSelectedItem().toString());
         }
         
-        int hores = (int) jComboBox_tempsHruta.getSelectedItem();
-        int minuts = (int) jComboBox_tempsMruta.getSelectedItem();
-        int total = (hores * 60) + minuts;
+        if(jComboBox_tempsMruta.getSelectedIndex()!=-1){
+            minuts = Integer.parseInt(jComboBox_tempsMruta.getSelectedItem().toString());
+        }
         
-        r = new Ruta(jTextField_titolRuta.getText(),jTextArea1.getText(),html_s,Double.parseDouble(jTextField_dist.getText()),total,Integer.parseInt(jTextField_desnPruta.getText()),Integer.parseInt(jTextField_desnNruta.getText()),dific,usuari_loginat);
+        total = (hores * 60) + minuts;
+        
+        System.out.println("LEN: "+html_s.length());
+        if(dadesCorrectes && html_s.length()>0){
+            //html_s = "prova";
+            System.out.println("PROCEDIM A CREAR EL OBJECTE RUTA");
+            r = new Ruta(jTextField_titolRuta.getText(),jTextArea1.getText(),html_s,Double.parseDouble(jTextField_dist.getText()),total,Integer.parseInt(jTextField_desnPruta.getText()),Integer.parseInt(jTextField_desnNruta.getText()),dific,usuari_loginat);
+            System.out.println("RUTA CREADA: "+r);
+        }
+        
+    }
+    
+    public static Ruta retornarNovaRuta(){
+        
+        return r;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

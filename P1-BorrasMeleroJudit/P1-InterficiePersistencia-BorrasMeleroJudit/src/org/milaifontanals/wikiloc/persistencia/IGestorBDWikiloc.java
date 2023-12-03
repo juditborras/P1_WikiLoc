@@ -76,6 +76,18 @@ public interface IGestorBDWikiloc {
     boolean afegirRuta(Ruta r) throws GestorBDWikilocException;  
         
     /**
+     * Insereix ruta i els seus punts de ruta
+     *
+     * @param ruta ruta a inserir
+     * @param List<Punt> punts de ruta
+     * @return S'ha confirmat o no la inserció de la ruta
+     * @throws GestorBDWikilocException
+     */
+    boolean afegirRutaAmbPunts(Ruta ruta, List<Punt> punts_ruta) throws GestorBDWikilocException;
+    
+    
+    
+    /**
      * Editar ruta a la BD
      *
      * @param r Ruta a editar

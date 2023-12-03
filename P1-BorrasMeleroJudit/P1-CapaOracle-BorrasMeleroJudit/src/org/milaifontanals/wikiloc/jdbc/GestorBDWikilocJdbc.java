@@ -114,8 +114,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             inst = "insert into usuari(login,pwd,email) values(?,?,?)";
             psAfegirUsuari = conn.prepareStatement(inst);
             
+            String returnCols[] = {"ID","TITOL","DESC_RUTA","TEXT_RUTA","DIST","TEMPS","DESN_P","DESN_N","DIFIC","LOGIN_USUARI"};
             inst = "insert into ruta(titol,desc_ruta,text_ruta,dist,temps,desn_p,desn_n,dific,login_usuari) values(?,?,?,?,?,?,?,?,?)";
-            psAfegirRuta = conn.prepareStatement(inst);
+            psAfegirRuta = conn.prepareStatement(inst,returnCols);
             
             inst = "update ruta set titol = ?, desc_ruta = ?, text_ruta = ?, dist = ?, temps = ?, desn_p = ?, desn_n = ?, dific = ? where id = ?";
             psEditarRuta = conn.prepareStatement(inst);
@@ -1480,6 +1481,75 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         }catch(Exception ex){
             return false;
         }
+        
+    }
+
+    @Override
+    public boolean afegirRutaAmbPunts(Ruta ruta, List<Punt> punts_ruta) throws GestorBDWikilocException {
+        
+        
+        try{
+         
+            psAfegirRuta.setString(1, ruta.getTitol());
+            psAfegirRuta.setString(2, ruta.getDescRuta());
+            psAfegirRuta.setString(3, ruta.getTextRuta());
+            psAfegirRuta.setDouble(4, ruta.getDist());
+            psAfegirRuta.setInt(5, ruta.getTemps());
+            psAfegirRuta.setInt(6, ruta.getDesnP());
+            psAfegirRuta.setInt(7, ruta.getDesnN());
+            psAfegirRuta.setInt(8, ruta.getDific());
+            psAfegirRuta.setString(9, ruta.getLoginUsuari().getLogin());
+
+            
+            int registres_afectats = psAfegirRuta.executeUpdate();
+            
+            if(registres_afectats != 1){
+                return false;
+            }
+            
+            
+            try (ResultSet generatedKeys = psAfegirRuta.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    System.out.println("ENTRO ID CORRECTAMENT");
+                    System.out.println(generatedKeys.toString());
+                    long id_ruta = generatedKeys.getLong(1);
+                    System.out.println(id_ruta);
+                    
+                    //Comptar que es facin tots els inserts dels punts correctament
+                    int i = 0;
+                    System.out.println("ENTRO BUCLE");
+                    //Afegir punts de ruta el id acabat de crear, introduir 
+                    for(Punt punt_ruta : punts_ruta){
+                        punt_ruta.setIdRuta(new Ruta((int)id_ruta));
+                        if(afegirPuntRuta(punt_ruta,punt_ruta.getTmpUrlFoto())){
+                            i++;
+                        }else{
+                            break;
+                        }
+                    }
+                    
+                    
+                    if(i==punts_ruta.size()){
+                        System.out.println("TOT OK!!!!");
+                        confirmarCanvis();
+                        return true;
+                    }else{
+                        System.out.println("ERROR!! ALGUN PUNT NO ESTA BE");
+                        return false;
+                    }
+
+                }
+                else {
+                    System.out.println("ERROR!! RELACIONAT AMB ID AUTONUMERIC");
+                    return false;
+                }
+            }
+       
+        }catch(Exception ex){
+            System.out.println("ERROR BASE DE DADES: "+ex.getMessage());
+            return false;
+        }
+           
         
     }
 

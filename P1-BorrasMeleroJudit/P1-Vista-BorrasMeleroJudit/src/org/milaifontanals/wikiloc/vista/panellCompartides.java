@@ -1083,7 +1083,7 @@ public class panellCompartides extends javax.swing.JPanel {
             llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
             text_html = llistaRutesCreades.get(row_sel).getTextRuta();
             
-            demo = new Demo(text_html, id,false);
+            demo = new Demo(text_html, id,false,null);
         } catch (GestorBDWikilocException ex) {
             
         }

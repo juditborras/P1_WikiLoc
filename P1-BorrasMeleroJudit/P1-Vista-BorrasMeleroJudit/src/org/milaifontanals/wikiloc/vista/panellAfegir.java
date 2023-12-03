@@ -7,11 +7,14 @@ package org.milaifontanals.wikiloc.vista;
 import java.awt.Color;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import org.milaifontanals.wikiloc.breadcrumb.com.raven.component.BreadcrumbItem;
 import org.milaifontanals.wikiloc.breadcrumb.com.raven.event.EventItemSelected;
+import org.milaifontanals.wikiloc.model.Punt;
+import org.milaifontanals.wikiloc.model.Ruta;
 import org.milaifontanals.wikiloc.model.Usuari;
 import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
 
@@ -26,6 +29,9 @@ public class panellAfegir extends javax.swing.JPanel {
      */
     
     Usuari usuari_loginat;
+    Ruta nova_ruta;
+    List<Punt> llistaPunts;
+    
     public panellAfegir(){
         
     }
@@ -51,14 +57,31 @@ public class panellAfegir extends javax.swing.JPanel {
                 switch(item.getIndex()){
                     case 0:
                                                                                      
-                        new CambiaPanel(jPanel_formulari,new panellAfegir_ruta(breadcrumb1, usuari_loginat));
-
+                        new CambiaPanel(jPanel_formulari,new panellAfegir_ruta(breadcrumb1, usuari_loginat,llistaPunts));
+                        nova_ruta = panellAfegir_ruta.retornarNovaRuta();
+                        llistaPunts = panellAfegir_rutaPunts.retornaLlistaPunts();
+                        System.out.println("NOVA RUTA V1: "+nova_ruta);
+                        if(llistaPunts!=null){
+                            System.out.println("LLISTA DE PUNTS: "+llistaPunts.size());
+                        }
                         break;
 
                     case 1:
-                        new CambiaPanel(jPanel_formulari,new panellAfegir_rutaPunts());
+                        nova_ruta = panellAfegir_ruta.retornarNovaRuta();
+                        llistaPunts = panellAfegir_rutaPunts.retornaLlistaPunts();
+                        if(llistaPunts!=null){
+                            System.out.println("LLISTA DE PUNTS: "+llistaPunts.size());
+                        }
+                        
+                        new CambiaPanel(jPanel_formulari,new panellAfegir_rutaPunts(breadcrumb1,nova_ruta,llistaPunts));
                        
                         
+                        break;
+                        
+                    case 2:
+                        nova_ruta = panellAfegir_ruta.retornarNovaRuta();
+                        llistaPunts = panellAfegir_rutaPunts.retornaLlistaPunts();
+                        new CambiaPanel(jPanel_formulari,new panellAfegir_rutaResum(usuari_loginat,nova_ruta,llistaPunts));
                         break;
                 }
                 

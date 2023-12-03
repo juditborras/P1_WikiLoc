@@ -26,6 +26,8 @@ import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.io.IOUtil
 import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.ui.UIUtils;
 import org.milaifontanals.wikiloc.jdbc.GestorBDWikilocJdbc;
 import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
+import org.milaifontanals.wikiloc.vista.panellAfegir;
+import org.milaifontanals.wikiloc.vista.panellAfegir_ruta;
 import org.milaifontanals.wikiloc.vista.panellCompartides;
 
 /**
@@ -38,10 +40,19 @@ public class Demo {
     private final HTMLEditorPane editor;
     public String text_html;
     
+    private String text_retornat;
+    
     public GestorBDWikilocJdbc gestorBDWikilocJdbc;
     public boolean modeAlta;
     
-    public Demo(String text_html, int id_ruta, boolean modeAlta) {
+    public panellAfegir_ruta panell_afegir_ruta;
+    
+    public String getTextHTML(){
+        return editor.wysEditor.getText();
+    }
+    
+    public Demo(String text_html, int id_ruta, boolean modeAlta, panellAfegir_ruta panell_afegir_ruta) {
+        this.panell_afegir_ruta = panell_afegir_ruta;
         this.modeAlta = modeAlta;
         try {
             gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
@@ -60,6 +71,7 @@ public class Demo {
         
         try{
             editor.setText(IOUtils.read(stream));
+            text_retornat = IOUtils.read(stream);
         }catch(IOException ex) {
             ex.printStackTrace();
         } finally {
@@ -91,6 +103,7 @@ public class Demo {
                     String data = myReader.nextLine();
                     html_s +=  data;
                 }
+                text_retornat = html_s;
                 editor.wysEditor.setText(html_s);
                 myReader.close();
             } catch (FileNotFoundException ex) {
@@ -107,7 +120,7 @@ public class Demo {
                 System.out.println("TEXT-HTML: "+text_html+" FI HTML");
                 
                 
-
+                System.out.println("EL TEXT HTML QUE HI HA: "+editor.wysEditor.getText());
                 
                 
                 int resposta =JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
@@ -156,6 +169,9 @@ public class Demo {
 
 
                 frame.setVisible(false);
+                if(modeAlta){
+                    panell_afegir_ruta.provas();
+                }
                 
             }
         });
@@ -163,7 +179,7 @@ public class Demo {
     }
     
 
-    private void printHtml() {
+    public void printHtml() {
         System.out.println(editor.getText());
     }
     
@@ -180,7 +196,7 @@ public class Demo {
         SwingUtilities.invokeAndWait(new Runnable() {
 
             public void run() {
-               demo = new Demo(null,0,modeAlta);
+               demo = new Demo(null,0,modeAlta,null);
             }
         });
         

@@ -2,6 +2,7 @@ package org.milaifontanals.wikiloc.model;
 
 import java.awt.Image;
 import java.util.Objects;
+import javax.swing.ImageIcon;
 import org.milaifontanals.wikiloc.exception.WikilocModelException;
 
 /**
@@ -22,6 +23,10 @@ public class Punt implements Comparable<Punt>{
     
     private Ruta idRuta;
     private Tipus idTipus;
+
+    //Temporal
+    private ImageIcon tmpFoto;
+    private String tmpUrlFoto;
     
     public Punt(Integer num, String nom, String descPunt, byte[] foto, Integer lat, Integer lon, Integer alt, Integer ordre, Ruta idRuta, Tipus idTipus) {
         setNum(num);
@@ -81,6 +86,8 @@ public class Punt implements Comparable<Punt>{
         }
         this.num = num;
     }
+    
+    
 
     public String getNom() {
         return nom;
@@ -163,9 +170,14 @@ public class Punt implements Comparable<Punt>{
     }
 
     public void setIdRuta(Ruta idRuta) {
-        if(idRuta.getId() == null || idRuta.getId() > 999999){
-            throw new WikilocModelException("És obligatori que el punt pertanyi a una ruta");
+        if(idRuta==null){
+            //throw new WikilocModelException("És obligatori que el punt pertanyi a una ruta");
+        }else{
+            if(idRuta.getId() == null || idRuta.getId() > 999999){
+                throw new WikilocModelException("És obligatori que el punt pertanyi a una ruta");
+            }
         }
+        
         this.idRuta = idRuta;
     }
 
@@ -179,6 +191,23 @@ public class Punt implements Comparable<Punt>{
         }
         this.idTipus = idTipus;
     }    
+    
+    public ImageIcon getTmpFoto() {
+        return tmpFoto;
+    }
+
+    public void setTmpFoto(ImageIcon tmpFoto) {
+        this.tmpFoto = tmpFoto;
+    }
+    
+    
+    public String getTmpUrlFoto() {
+        return tmpUrlFoto;
+    }
+
+    public void setTmpUrlFoto(String tmpUrlFoto) {
+        this.tmpUrlFoto = tmpUrlFoto;
+    }
     
     //Punt idèntic per num i idRuta
     @Override
