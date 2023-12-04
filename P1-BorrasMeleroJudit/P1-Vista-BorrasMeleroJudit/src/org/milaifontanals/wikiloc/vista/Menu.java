@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.milaifontanals.wikiloc.model.Usuari;
 import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
@@ -488,7 +489,7 @@ public class Menu extends javax.swing.JFrame {
         
         //new CambiaPanel(jPanel_principal,new panellSortir());
         
-        JOptionPane.showConfirmDialog(null, "Estàs segur de tancar la sessió?",
+        int opcio = JOptionPane.showConfirmDialog(null, "Estàs segur de tancar la sessió?",
                 "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);
         
@@ -500,7 +501,24 @@ public class Menu extends javax.swing.JFrame {
             this.rSButtonMenuCompletades.setColorNormal(new Color(238,238,238));
             this.rSButtonMenuAfegir.setColorNormal(new Color(238,238,238));
             this.rSButtonMenuPerfil.setColorNormal(new Color(238,238,238));
-        }        
+        }  
+        
+        if(opcio == 0){
+            IniciarSessio iniciarSessio = new IniciarSessio();
+
+            ImageIcon img = new ImageIcon("img" + File.separator + "wikiloc_logo_simple.png");
+
+            iniciarSessio.setIconImage(img.getImage());
+
+            iniciarSessio.setExtendedState(iniciarSessio.MAXIMIZED_BOTH);
+            iniciarSessio.setResizable(false);
+            iniciarSessio.setLocationRelativeTo(null);
+            iniciarSessio.setVisible(true);
+            
+            this.setVisible(false);
+            this.dispose();
+            
+        }
         
     }//GEN-LAST:event_rSButtonMenuSortirActionPerformed
 

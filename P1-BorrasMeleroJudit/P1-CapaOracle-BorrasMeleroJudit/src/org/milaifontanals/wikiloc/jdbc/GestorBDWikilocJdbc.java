@@ -64,6 +64,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     private static PreparedStatement psAfegirComentari;
     private static PreparedStatement psEditarComentari;
     private static PreparedStatement psEliminarComentari;
+    private static PreparedStatement psObtenirLlistaComentaris;
     private static PreparedStatement psQtatComentarisRuta;
     private static PreparedStatement psQtatComentarisRutaFeta;
     private static PreparedStatement psQtatComentarisRutaNoFeta;
@@ -74,8 +75,11 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     
     private static PreparedStatement psAfegirCompany;
     private static PreparedStatement psEliminarCompany;
+    private static PreparedStatement psObtenirCompany;
     
     private static PreparedStatement psPotBorrarRuta;
+    
+    private static PreparedStatement psFiltreRutaCreades;
     
 
     public GestorBDWikilocJdbc() throws GestorBDWikilocException{
@@ -203,6 +207,12 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             inst = "delete from comentari where id = ?";
             psEliminarComentari = conn.prepareStatement(inst);
             
+            inst = "select c.*, co.id_comentari as COMPANY_COMENTARI, co.LOGIN_USUARI as COMPANY_LOGIN\n" +
+                    "from comentari c join companys co on c.id = co.id_comentari\n" +
+                    "where c.id_ruta = ?\n" +
+                    "order by c.mt";
+            psObtenirLlistaComentaris = conn.prepareStatement(inst);
+            
             inst = "select count(*) as qt_comentaris from comentari where id_ruta = ?";
             psQtatComentarisRuta = conn.prepareStatement(inst);
             
@@ -229,6 +239,12 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
             inst = "delete from companys where login_usuari = ? and id_comentari = ?";
             psEliminarCompany = conn.prepareStatement(inst);
+            
+            inst = "select * from companys where id_comentari = ?";
+            psObtenirCompany = conn.prepareStatement(inst);
+            
+            inst = "select r.*, u.* from ruta r join usuari u on u.login = r.login_usuari where (? = '-1' or upper(titol) like upper(?)) and (? = -1 or dific = ?) and (dist = -1.0 or dist >= ?) and login_usuari = ?";
+            psFiltreRutaCreades = conn.prepareStatement(inst);
             
             //inst = "";
             //psPotBorrarRuta = conn.prepareStatement(inst);
@@ -1228,6 +1244,57 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return false;
         }
     }
+    
+    @Override
+    public List<Comentari> obtenirLlistaComentaris(Integer id) throws GestorBDWikilocException {
+                        
+        List<Comentari> comentaris = new ArrayList();
+        
+        try {
+                                 
+            ResultSet rsObtenirLlistaComentaris = null;
+            
+            psObtenirLlistaComentaris.setInt(1, id);
+            rsObtenirLlistaComentaris = psObtenirLlistaComentaris.executeQuery();
+            
+            while(rsObtenirLlistaComentaris.next()){
+                boolean feta = true;
+                if(rsObtenirLlistaComentaris.getInt("feta")==0){
+                    feta = false;
+                }
+                //public Comentari(Integer id, String text, Integer vInf, boolean feta, Integer vSeg, Integer vPai, Integer dific, Date mt, Usuari loginUsuari, Ruta idRuta) {
+                Comentari comentari = new Comentari(rsObtenirLlistaComentaris.getInt("id"), 
+                                    rsObtenirLlistaComentaris.getString("text"),
+                                    rsObtenirLlistaComentaris.getInt("v_inf"),
+                                    feta,
+                                    rsObtenirLlistaComentaris.getInt("v_seg"),
+                                    rsObtenirLlistaComentaris.getInt("v_pai"),
+                                    rsObtenirLlistaComentaris.getInt("dific"),
+                                    rsObtenirLlistaComentaris.getDate("mt"),
+                                    new Usuari(rsObtenirLlistaComentaris.getString("login_usuari")),
+                                    new Ruta(rsObtenirLlistaComentaris.getInt("id_ruta")));
+                                    
+                /*
+                Companys company = null;
+                if(rsObtenirLlistaComentaris.getString("COMPANY_LOGIN")!=null){
+                    company = new Companys(new Usuari(rsObtenirLlistaComentaris.getString("COMPANY_LOGIN")),comentari);
+                }
+                */
+               
+                comentaris.add(comentari);
+            }               
+            
+            if(rsObtenirLlistaComentaris != null){
+                rsObtenirLlistaComentaris.close();
+            }
+            
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir la llista de comentaris.\n" + ex.getMessage());
+        }
+                
+        return comentaris;                
+        
+    }
 
     @Override
     public Integer qtatComentarisRuta(Integer id) throws GestorBDWikilocException {
@@ -1550,6 +1617,89 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return false;
         }
            
+        
+    }
+
+    @Override
+    public Companys obtenirCompany(Integer id_comentari) throws GestorBDWikilocException {
+        try {
+
+            ResultSet rsObtenirCompany = null;
+
+            psObtenirCompany.setInt(1, id_comentari);
+            rsObtenirCompany = psObtenirCompany.executeQuery();
+            
+            Companys company = null;
+            if(rsObtenirCompany.next()){
+                company = new Companys(new Usuari(rsObtenirCompany.getString("login_usuari")), new Comentari(id_comentari));
+                  
+            }
+            
+            
+            if(rsObtenirCompany!=null){
+                rsObtenirCompany.close();
+            }
+
+            
+            return company;
+
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir el company.\n" + ex.getMessage());
+        }
+    }
+
+    @Override
+    public List<Ruta> filtreRutaCreades(String titol, int dific, double dist, String login_usuari) throws GestorBDWikilocException {
+        System.out.println("FUNC: "+titol+" "+dific+" "+dist+" "+login_usuari);
+        List<Ruta> rutes = new ArrayList();
+        //inst = "select * from ruta where (titol = -1 or upper(titol) like upper(?)) and (dific = -1 or dific = ?) and (dist = -1.0 or dist > ?)";
+        try {
+                                 
+            ResultSet rsFiltreRuta = null;
+            System.out.println("TITOL:");
+            psFiltreRutaCreades.setString(1, titol);
+            psFiltreRutaCreades.setString(2, titol+"%");
+            System.out.println("DIFIC:");
+            psFiltreRutaCreades.setInt(3, dific);
+            psFiltreRutaCreades.setInt(4, dific);
+            System.out.println("DIST:");
+            psFiltreRutaCreades.setDouble(5, dist);
+            System.out.println("LOGIN:");
+            psFiltreRutaCreades.setString(6, login_usuari);
+                
+            
+            rsFiltreRuta = psFiltreRutaCreades.executeQuery();
+            
+            while(rsFiltreRuta.next()){
+                System.out.println("PRE USUARI");
+               Usuari u = new Usuari(rsFiltreRuta.getString("login"),rsFiltreRuta.getString("pwd"),rsFiltreRuta.getString("email"));
+                System.out.println("POST USUARI");
+                
+                
+                Ruta r = new Ruta(rsFiltreRuta.getInt("id"), 
+                                    rsFiltreRuta.getString("titol"),
+                                    rsFiltreRuta.getString("desc_ruta"),
+                                    rsFiltreRuta.getString("text_ruta"),
+                                    rsFiltreRuta.getDouble("dist"),
+                                    rsFiltreRuta.getInt("temps"),
+                                    rsFiltreRuta.getInt("desn_p"),
+                                    rsFiltreRuta.getInt("desn_n"),
+                                    rsFiltreRuta.getInt("dific"),
+                                    u);
+                System.out.println("POST RUTA");
+
+                rutes.add(r);
+            }               
+            
+            if(rsFiltreRuta != null){
+                rsFiltreRuta.close();
+            }
+            
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir la llista de rutes filtrades.\n" + ex.getMessage());
+        }
+                
+        return rutes;     
         
     }
 

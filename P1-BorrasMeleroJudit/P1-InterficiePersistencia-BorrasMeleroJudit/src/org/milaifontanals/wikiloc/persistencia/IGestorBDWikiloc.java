@@ -333,6 +333,15 @@ public interface IGestorBDWikiloc {
     boolean eliminarComentari(Integer id) throws GestorBDWikilocException;
         
     /**
+     * Obtenir llistat de comentaris d'una ruta de la BD
+     *
+     * @param id id de la ruta comentada
+     * @return Llista de comentaris
+     * @throws GestorBDWikilocException
+     */
+    List<Comentari> obtenirLlistaComentaris(Integer id) throws GestorBDWikilocException;
+    
+    /**
      * Quantificar total de comentaris d'una ruta de la BD
      *
      * @param id id de la ruta indicada
@@ -417,6 +426,30 @@ public interface IGestorBDWikiloc {
      * @throws GestorBDWikilocException
      */
     boolean eliminarCompany(String login, Integer id) throws GestorBDWikilocException;
+    
+    
+    /**
+     * Obtenir company del comentari de la BD
+     *
+     * @param id_comentari Comentari
+     * @return Company del comentari
+     * @throws GestorBDWikilocException
+     */
+    Companys obtenirCompany(Integer id_comentari) throws GestorBDWikilocException;
+    
+    
+    
+     /**
+     * Obtenir les rutes que compleixin les doncidicons de filtratge
+     *
+     * @param titol Part del titol de la ruta
+     * @param dific Dificultat de la ruta
+     * @param dist Distancia de la ruta
+     * @param login_usuari Usuari que ha creat la ruta
+     * @return Company del comentari
+     * @throws GestorBDWikilocException
+     */
+    List<Ruta> filtreRutaCreades(String titol, int dific, double dist, String login_usuari) throws GestorBDWikilocException;
     
     // </editor-fold>    
 }

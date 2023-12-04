@@ -24,6 +24,10 @@ public class Usuari {
         setEmail(email);
     }
      
+    public Usuari(String login){
+        setLogin(login);
+    }
+    
     public String getLogin() {
         return login;
     }

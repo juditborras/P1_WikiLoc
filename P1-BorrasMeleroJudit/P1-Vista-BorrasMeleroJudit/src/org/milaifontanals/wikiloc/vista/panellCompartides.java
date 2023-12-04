@@ -46,6 +46,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.milaifontanals.wikiloc.htmleditor.net.atlanticbb.tantlinger.shef.Demo;
 import org.milaifontanals.wikiloc.jdbc.GestorBDWikilocJdbc;
+import org.milaifontanals.wikiloc.model.Comentari;
+import org.milaifontanals.wikiloc.model.Companys;
 import org.milaifontanals.wikiloc.model.Punt;
 import org.milaifontanals.wikiloc.model.Ruta;
 import org.milaifontanals.wikiloc.model.Tipus;
@@ -110,6 +112,12 @@ public class panellCompartides extends javax.swing.JPanel {
         
         
         initComponents();    
+        
+        jComboBox_filtreDific.addItem("");
+        for(int i=1; i<=5; i++){
+            jComboBox_filtreDific.addItem(i+"");
+        }
+        jComboBox_filtreDific.setSelectedIndex(-1);
         
         jTabbedPane2.setBackgroundAt(0, new Color(76,140,43));
         jTabbedPane2.setBackgroundAt(1, new Color(76,140,43));
@@ -473,6 +481,232 @@ public class panellCompartides extends javax.swing.JPanel {
         
 
 
+        //pantalla estadístiques
+        try {
+            
+            int qtatComentarisRuta = gestorBDWikilocJdbc.qtatComentarisRuta(id);
+            jLabel_qtatTotalComentaris.setText(qtatComentarisRuta+"");
+            
+            int qtatComentarisRutaFeta = gestorBDWikilocJdbc.qtatComentarisRutaFeta(id);
+            jLabel_qtatFetesAmbComentari.setText(qtatComentarisRutaFeta+"");
+            
+            int qtatComentarisRutaNoFeta = gestorBDWikilocJdbc.qtatComentarisRutaNoFeta(id);
+            jLabel_qtatNoFetesAmbComentari.setText(qtatComentarisRutaNoFeta+"");
+            
+            double mitjaVinf = gestorBDWikilocJdbc.mitjaVinf(id);
+            if(mitjaVinf >= 0.0 && mitjaVinf < 0.5){
+                //buides
+                jLabel_vInfoE1.setIcon(estrellaBlanca);
+                jLabel_vInfoE2.setIcon(estrellaBlanca);
+                jLabel_vInfoE3.setIcon(estrellaBlanca);
+                jLabel_vInfoE4.setIcon(estrellaBlanca);
+                jLabel_vInfoE5.setIcon(estrellaBlanca);
+            }else if(mitjaVinf >= 0.5 && mitjaVinf < 1.5){
+                //estrella 1
+                jLabel_vInfoE1.setIcon(estrellaGroga);
+                jLabel_vInfoE2.setIcon(estrellaBlanca);
+                jLabel_vInfoE3.setIcon(estrellaBlanca);
+                jLabel_vInfoE4.setIcon(estrellaBlanca);
+                jLabel_vInfoE5.setIcon(estrellaBlanca);
+            }else if(mitjaVinf >= 1.5 && mitjaVinf < 2.5){
+                //estrella 2
+                jLabel_vInfoE1.setIcon(estrellaGroga);
+                jLabel_vInfoE2.setIcon(estrellaGroga);
+                jLabel_vInfoE3.setIcon(estrellaBlanca);
+                jLabel_vInfoE4.setIcon(estrellaBlanca);
+                jLabel_vInfoE5.setIcon(estrellaBlanca);
+            }else if(mitjaVinf >= 2.5 && mitjaVinf < 3.5){
+                //estrella 3
+                jLabel_vInfoE1.setIcon(estrellaGroga);
+                jLabel_vInfoE2.setIcon(estrellaGroga);
+                jLabel_vInfoE3.setIcon(estrellaGroga);
+                jLabel_vInfoE4.setIcon(estrellaBlanca);
+                jLabel_vInfoE5.setIcon(estrellaBlanca);
+            }else if(mitjaVinf >= 3.5 && mitjaVinf < 4.5){
+                //estrella 4
+                jLabel_vInfoE1.setIcon(estrellaGroga);
+                jLabel_vInfoE2.setIcon(estrellaGroga);
+                jLabel_vInfoE3.setIcon(estrellaGroga);
+                jLabel_vInfoE4.setIcon(estrellaGroga);
+                jLabel_vInfoE5.setIcon(estrellaBlanca);
+            }else if(mitjaVinf >= 4.5 && mitjaVinf <= 5.0){
+                //estrella 5
+                jLabel_vInfoE1.setIcon(estrellaGroga);
+                jLabel_vInfoE2.setIcon(estrellaGroga);
+                jLabel_vInfoE3.setIcon(estrellaGroga);
+                jLabel_vInfoE4.setIcon(estrellaGroga);
+                jLabel_vInfoE5.setIcon(estrellaGroga);
+            }
+            
+            double mitjaVseg = gestorBDWikilocJdbc.mitjaVseg(id);
+            if(mitjaVseg >= 0.0 && mitjaVseg < 0.5){
+                //buides
+                jLabel_vSegE1.setIcon(estrellaBlanca);
+                jLabel_vSegE2.setIcon(estrellaBlanca);
+                jLabel_vSegE3.setIcon(estrellaBlanca);
+                jLabel_vSegE4.setIcon(estrellaBlanca);
+                jLabel_vSegE5.setIcon(estrellaBlanca);
+            }else if(mitjaVseg >= 0.5 && mitjaVseg < 1.5){
+                //estrella 1
+                jLabel_vSegE1.setIcon(estrellaGroga);
+                jLabel_vSegE2.setIcon(estrellaBlanca);
+                jLabel_vSegE3.setIcon(estrellaBlanca);
+                jLabel_vSegE4.setIcon(estrellaBlanca);
+                jLabel_vSegE5.setIcon(estrellaBlanca);
+            }else if(mitjaVseg >= 1.5 && mitjaVseg < 2.5){
+                //estrella 2
+                jLabel_vSegE1.setIcon(estrellaGroga);
+                jLabel_vSegE2.setIcon(estrellaGroga);
+                jLabel_vSegE3.setIcon(estrellaBlanca);
+                jLabel_vSegE4.setIcon(estrellaBlanca);
+                jLabel_vSegE5.setIcon(estrellaBlanca);
+            }else if(mitjaVseg >= 2.5 && mitjaVseg < 3.5){
+                //estrella 3
+                jLabel_vSegE1.setIcon(estrellaGroga);
+                jLabel_vSegE2.setIcon(estrellaGroga);
+                jLabel_vSegE3.setIcon(estrellaGroga);
+                jLabel_vSegE4.setIcon(estrellaBlanca);
+                jLabel_vSegE5.setIcon(estrellaBlanca);
+            }else if(mitjaVseg >= 3.5 && mitjaVseg < 4.5){
+                //estrella 4
+                jLabel_vSegE1.setIcon(estrellaGroga);
+                jLabel_vSegE2.setIcon(estrellaGroga);
+                jLabel_vSegE3.setIcon(estrellaGroga);
+                jLabel_vSegE4.setIcon(estrellaGroga);
+                jLabel_vSegE5.setIcon(estrellaBlanca);
+            }else if(mitjaVseg >= 4.5 && mitjaVseg <= 5.0){
+                //estrella 5
+                jLabel_vSegE1.setIcon(estrellaGroga);
+                jLabel_vSegE2.setIcon(estrellaGroga);
+                jLabel_vSegE3.setIcon(estrellaGroga);
+                jLabel_vSegE4.setIcon(estrellaGroga);
+                jLabel_vSegE5.setIcon(estrellaGroga);
+            }
+            
+            double mitjaVpai = gestorBDWikilocJdbc.mitjaVpai(id);
+            if(mitjaVpai >= 0.0 && mitjaVpai < 0.5){
+                //buides
+                jLabel_vPaiE1.setIcon(estrellaBlanca);
+                jLabel_vPaiE2.setIcon(estrellaBlanca);
+                jLabel_vPaiE3.setIcon(estrellaBlanca);
+                jLabel_vPaiE4.setIcon(estrellaBlanca);
+                jLabel_vPaiE5.setIcon(estrellaBlanca);
+            }else if(mitjaVpai >= 0.5 && mitjaVpai < 1.5){
+                //estrella 1
+                jLabel_vPaiE1.setIcon(estrellaGroga);
+                jLabel_vPaiE2.setIcon(estrellaBlanca);
+                jLabel_vPaiE3.setIcon(estrellaBlanca);
+                jLabel_vPaiE4.setIcon(estrellaBlanca);
+                jLabel_vPaiE5.setIcon(estrellaBlanca);
+            }else if(mitjaVpai >= 1.5 && mitjaVpai < 2.5){
+                //estrella 2
+                jLabel_vPaiE1.setIcon(estrellaGroga);
+                jLabel_vPaiE2.setIcon(estrellaGroga);
+                jLabel_vPaiE3.setIcon(estrellaBlanca);
+                jLabel_vPaiE4.setIcon(estrellaBlanca);
+                jLabel_vPaiE5.setIcon(estrellaBlanca);
+            }else if(mitjaVpai >= 2.5 && mitjaVpai < 3.5){
+                //estrella 3
+                jLabel_vPaiE1.setIcon(estrellaGroga);
+                jLabel_vPaiE2.setIcon(estrellaGroga);
+                jLabel_vPaiE3.setIcon(estrellaGroga);
+                jLabel_vPaiE4.setIcon(estrellaBlanca);
+                jLabel_vPaiE5.setIcon(estrellaBlanca);
+            }else if(mitjaVpai >= 3.5 && mitjaVpai < 4.5){
+                //estrella 4
+                jLabel_vPaiE1.setIcon(estrellaGroga);
+                jLabel_vPaiE2.setIcon(estrellaGroga);
+                jLabel_vPaiE3.setIcon(estrellaGroga);
+                jLabel_vPaiE4.setIcon(estrellaGroga);
+                jLabel_vPaiE5.setIcon(estrellaBlanca);
+            }else if(mitjaVpai >= 4.5 && mitjaVpai <= 5.0){
+                //estrella 5
+                jLabel_vPaiE1.setIcon(estrellaGroga);
+                jLabel_vPaiE2.setIcon(estrellaGroga);
+                jLabel_vPaiE3.setIcon(estrellaGroga);
+                jLabel_vPaiE4.setIcon(estrellaGroga);
+                jLabel_vPaiE5.setIcon(estrellaGroga);
+            }
+            
+            double mitjaVdific = gestorBDWikilocJdbc.mitjaVdific(id);
+            if(mitjaVdific >= 0.0 && mitjaVdific < 0.5){
+                //buides
+                jLabel_vDificE1.setIcon(estrellaBlanca);
+                jLabel_vDificE2.setIcon(estrellaBlanca);
+                jLabel_vDificE3.setIcon(estrellaBlanca);
+                jLabel_vDificE4.setIcon(estrellaBlanca);
+                jLabel_vDificE5.setIcon(estrellaBlanca);
+            }else if(mitjaVdific >= 0.5 && mitjaVdific < 1.5){
+                //estrella 1
+                jLabel_vDificE1.setIcon(estrellaGroga);
+                jLabel_vDificE2.setIcon(estrellaBlanca);
+                jLabel_vDificE3.setIcon(estrellaBlanca);
+                jLabel_vDificE4.setIcon(estrellaBlanca);
+                jLabel_vDificE5.setIcon(estrellaBlanca);
+            }else if(mitjaVdific >= 1.5 && mitjaVdific < 2.5){
+                //estrella 2
+                jLabel_vDificE1.setIcon(estrellaGroga);
+                jLabel_vDificE2.setIcon(estrellaGroga);
+                jLabel_vDificE3.setIcon(estrellaBlanca);
+                jLabel_vDificE4.setIcon(estrellaBlanca);
+                jLabel_vDificE5.setIcon(estrellaBlanca);
+            }else if(mitjaVdific >= 2.5 && mitjaVdific < 3.5){
+                //estrella 3
+                jLabel_vDificE1.setIcon(estrellaGroga);
+                jLabel_vDificE2.setIcon(estrellaGroga);
+                jLabel_vDificE3.setIcon(estrellaGroga);
+                jLabel_vDificE4.setIcon(estrellaBlanca);
+                jLabel_vDificE5.setIcon(estrellaBlanca);
+            }else if(mitjaVdific >= 3.5 && mitjaVdific < 4.5){
+                //estrella 4
+                jLabel_vDificE1.setIcon(estrellaGroga);
+                jLabel_vDificE2.setIcon(estrellaGroga);
+                jLabel_vDificE3.setIcon(estrellaGroga);
+                jLabel_vDificE4.setIcon(estrellaGroga);
+                jLabel_vDificE5.setIcon(estrellaBlanca);
+            }else if(mitjaVdific >= 4.5 && mitjaVdific <= 5.0){
+                //estrella 5
+                jLabel_vDificE1.setIcon(estrellaGroga);
+                jLabel_vDificE2.setIcon(estrellaGroga);
+                jLabel_vDificE3.setIcon(estrellaGroga);
+                jLabel_vDificE4.setIcon(estrellaGroga);
+                jLabel_vDificE5.setIcon(estrellaGroga);
+            }
+            
+            
+            List<Comentari> llistaComentaris = gestorBDWikilocJdbc.obtenirLlistaComentaris(id);
+            
+            String info_comentari = "";
+            
+            for(Comentari c : llistaComentaris){
+                
+                info_comentari += "COMENTARI FET PER: " + c.getLoginUsuari().getLogin() +"\n";
+                info_comentari += "Contingut: " + c.getText() +"\n";
+                info_comentari += "v_inf: " + c.getVinf() +"\n";
+                info_comentari += "feta: " + c.getFeta() +"\n";
+                info_comentari += "v_seg: " + c.getVseg() +"\n";
+                info_comentari += "v_pai: " + c.getVpai() +"\n";
+                info_comentari += "dific: " + c.getDific() +"\n";
+                info_comentari += "mt: " + c.getMt() +"\n";
+                
+                Companys company = gestorBDWikilocJdbc.obtenirCompany(c.getId());
+                if(company != null){
+                    info_comentari += "Company de ruta: " + company.getLoginUsuari().getLogin() +"\n";
+                }
+                
+                info_comentari += "\n";
+            }
+            
+            
+            jTextArea1.setText(info_comentari);
+            
+            
+        } catch (GestorBDWikilocException ex) {
+            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
 
     }
     
@@ -505,6 +739,11 @@ public class panellCompartides extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_rutesCreadesUsuari = new javax.swing.JTable();
+        jTextField_filtreTitol = new javax.swing.JTextField();
+        jButton_netejarFiltre = new javax.swing.JButton();
+        jButton_cercaFiltre = new javax.swing.JButton();
+        jTextField_filtreDist = new javax.swing.JTextField();
+        jComboBox_filtreDific = new javax.swing.JComboBox<>();
         jPanel_compartidesCanviant = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -545,6 +784,42 @@ public class panellCompartides extends javax.swing.JPanel {
         jPanel_altimetria = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel_qtatTotalComentaris = new javax.swing.JLabel();
+        jLabel_qtatFetesAmbComentari = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel_qtatNoFetesAmbComentari = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel_vInfoE1 = new javax.swing.JLabel();
+        jLabel_vInfoE2 = new javax.swing.JLabel();
+        jLabel_vInfoE3 = new javax.swing.JLabel();
+        jLabel_vInfoE4 = new javax.swing.JLabel();
+        jLabel_vInfoE5 = new javax.swing.JLabel();
+        jLabel_vSegE1 = new javax.swing.JLabel();
+        jLabel_vSegE2 = new javax.swing.JLabel();
+        jLabel_vSegE3 = new javax.swing.JLabel();
+        jLabel_vSegE4 = new javax.swing.JLabel();
+        jLabel_vSegE5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel_vPaiE1 = new javax.swing.JLabel();
+        jLabel_vPaiE2 = new javax.swing.JLabel();
+        jLabel_vPaiE3 = new javax.swing.JLabel();
+        jLabel_vPaiE4 = new javax.swing.JLabel();
+        jLabel_vPaiE5 = new javax.swing.JLabel();
+        jLabel_vDificE1 = new javax.swing.JLabel();
+        jLabel_vDificE2 = new javax.swing.JLabel();
+        jLabel_vDificE3 = new javax.swing.JLabel();
+        jLabel_vDificE4 = new javax.swing.JLabel();
+        jLabel_vDificE5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -576,21 +851,57 @@ public class panellCompartides extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable_rutesCreadesUsuari);
         jTable_rutesCreadesUsuari.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
+        jTextField_filtreTitol.setText("jTextField1");
+
+        jButton_netejarFiltre.setText("netejar filtre");
+        jButton_netejarFiltre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_netejarFiltreMouseClicked(evt);
+            }
+        });
+
+        jButton_cercaFiltre.setText("cercar");
+        jButton_cercaFiltre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_cercaFiltreMouseClicked(evt);
+            }
+        });
+
+        jTextField_filtreDist.setText("jTextField3");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextField_filtreTitol, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField_filtreDist, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox_filtreDific, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123)
+                        .addComponent(jButton_cercaFiltre)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_netejarFiltre))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_filtreTitol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_cercaFiltre)
+                    .addComponent(jTextField_filtreDist, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_netejarFiltre)
+                    .addComponent(jComboBox_filtreDific, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         jPanel_compartidesCanviant.setBackground(new java.awt.Color(255, 255, 255));
@@ -937,7 +1248,6 @@ public class panellCompartides extends javax.swing.JPanel {
                                 .addGap(55, 55, 55)))
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField_ordrePunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -1024,15 +1334,243 @@ public class panellCompartides extends javax.swing.JPanel {
 
         jTabbedPane2.addTab("tab2", jPanel7);
 
+        jLabel1.setText("estadistiques");
+
+        jLabel2.setText("comentaris: QTAT ");
+
+        jLabel3.setText("valoracions:");
+
+        jLabel4.setText("v. info:");
+
+        jLabel5.setText("v. seguiment");
+
+        jLabel6.setText("v. paisatge");
+
+        jLabel7.setText("I MOSTRAR LLISTA COMENTARIS AMB CONTINGUT");
+
+        jLabel8.setText("qtat fetes amb comentari:");
+
+        jLabel9.setText("login_usuari: text, v_inf, feta (v_seg, v_pai, dific), mt, company");
+
+        jLabel10.setText("qtat comentaris sense fer la ruta:");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane5.setViewportView(jTextArea1);
+
+        jLabel_vInfoE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vInfoE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vInfoE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vInfoE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vInfoE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vSegE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vSegE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vSegE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vSegE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vSegE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel11.setText("v. dific");
+
+        jLabel_vPaiE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vPaiE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vPaiE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vPaiE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vPaiE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vDificE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vDificE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vDificE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vDificE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
+        jLabel_vDificE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1391, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_qtatFetesAmbComentari, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel_qtatNoFetesAmbComentari, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_qtatTotalComentaris, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel_vInfoE1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_vInfoE2))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel6)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel_vPaiE1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel_vPaiE2))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel_vSegE1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel_vSegE2))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel_vDificE1)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(jLabel_vDificE2)))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel_vInfoE3)
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel_vInfoE4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_vInfoE5))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel_vSegE3)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(jLabel_vPaiE3)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel_vSegE4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel_vSegE5))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel_vPaiE4)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel_vDificE5)
+                                            .addComponent(jLabel_vPaiE5)))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel_vDificE3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_vDificE4)))))
+                .addGap(288, 288, 288))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel_qtatTotalComentaris, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel_qtatNoFetesAmbComentari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel_qtatFetesAmbComentari, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(49, 49, 49)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel_vInfoE5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel_vSegE5))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel_vInfoE4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel_vSegE4))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel_vInfoE3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel_vSegE3))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel_vInfoE1)
+                                        .addComponent(jLabel_vInfoE2))
+                                    .addGap(76, 76, 76)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel_vSegE1)
+                                        .addComponent(jLabel_vSegE2)))))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(40, 40, 40)
+                            .addComponent(jLabel4)
+                            .addGap(98, 98, 98)
+                            .addComponent(jLabel5))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel_vPaiE1)
+                            .addComponent(jLabel_vPaiE2)
+                            .addComponent(jLabel_vPaiE3)
+                            .addComponent(jLabel_vPaiE4)
+                            .addComponent(jLabel_vPaiE5))
+                        .addGap(77, 77, 77)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel_vDificE1)
+                            .addComponent(jLabel_vDificE2)
+                            .addComponent(jLabel_vDificE3)
+                            .addComponent(jLabel_vDificE4)
+                            .addComponent(jLabel_vDificE5))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("tab3", jPanel2);
@@ -2269,6 +2807,106 @@ public class panellCompartides extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void jButton_cercaFiltreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_cercaFiltreMouseClicked
+        
+        
+        //gestorBDWikilocJdbc
+        
+        String titol_filtre = jTextField_filtreTitol.getText().trim();
+        if(titol_filtre.length()==0){
+            titol_filtre = "-1";
+        }
+        
+        Integer dific_filtre = -1;
+        if(jComboBox_filtreDific.getSelectedIndex()!=-1){
+            try{
+                dific_filtre = Integer.parseInt((String) jComboBox_filtreDific.getSelectedItem());
+            }catch(Exception ex){
+                dific_filtre = -1;
+            }
+            
+        }
+        
+        Double dist_filtre = Double.valueOf(-1);
+        if(jTextField_filtreDist.getText().trim().length()>0){
+            dist_filtre = Double.parseDouble(jTextField_filtreDist.getText().trim());
+        }
+                
+        
+        try {
+            
+            if(tableModel.getRowCount() > 0){
+                for(int i = tableModel.getRowCount()-1; i > -1; i--){
+                    tableModel.removeRow(i);
+                }
+            }
+            
+            llistaRutesCreades = gestorBDWikilocJdbc.filtreRutaCreades(titol_filtre,dific_filtre,dist_filtre,usuari_loginat.getLogin());
+            System.out.println("FILTRE COMPLETAT: "+llistaRutesCreades.size());
+            
+
+            
+            
+            tableModel = (DefaultTableModel) jTable_rutesCreadesUsuari.getModel();
+            Object rowData[] = new Object[5];
+            
+            for (Ruta r : llistaRutesCreades) {
+              
+                rowData[0] = r.getTitol();
+                rowData[1] = r.getDescRuta();
+                rowData[2] = r.getDist();
+                rowData[3] = r.getTemps();
+                rowData[4] = r.getDific();
+                        
+                tableModel.addRow(rowData);
+            }
+            
+            
+        } catch (GestorBDWikilocException ex) {
+            System.out.println("ERROR: "+ex.getMessage());
+        }
+        
+        
+    }//GEN-LAST:event_jButton_cercaFiltreMouseClicked
+
+    private void jButton_netejarFiltreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_netejarFiltreMouseClicked
+        
+        jComboBox_filtreDific.setSelectedIndex(-1);
+        jTextField_filtreDist.setText("");
+        jTextField_filtreTitol.setText("");
+        
+        try {
+            
+            if(tableModel.getRowCount() > 0){
+                for(int i = tableModel.getRowCount()-1; i > -1; i--){
+                    tableModel.removeRow(i);
+                }
+            }
+            
+            llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
+            System.out.println("FILTRE COMPLETAT: "+llistaRutesCreades.size());
+            
+            tableModel = (DefaultTableModel) jTable_rutesCreadesUsuari.getModel();
+            Object rowData[] = new Object[5];
+            
+            for (Ruta r : llistaRutesCreades) {
+              
+                rowData[0] = r.getTitol();
+                rowData[1] = r.getDescRuta();
+                rowData[2] = r.getDist();
+                rowData[3] = r.getTemps();
+                rowData[4] = r.getDific();
+                        
+                tableModel.addRow(rowData);
+            }
+            
+            
+        } catch (GestorBDWikilocException ex) {
+            System.out.println("ERROR: "+ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_jButton_netejarFiltreMouseClicked
+
     public BufferedImage byteArrayToImage(byte[] bytes) {
         BufferedImage bufferedImage = null;
         try {
@@ -2348,22 +2986,59 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_afegir;
     private javax.swing.JButton jButton_baixar;
+    private javax.swing.JButton jButton_cercaFiltre;
     private javax.swing.JButton jButton_desarCanvisPunts;
     private javax.swing.JButton jButton_desarCanvisRuta;
     private javax.swing.JButton jButton_eliminar;
     private javax.swing.JButton jButton_netejar;
+    private javax.swing.JButton jButton_netejarFiltre;
     private javax.swing.JButton jButton_pujar;
     private javax.swing.JButton jButton_seleccionarFoto;
     private javax.swing.JButton jButton_textRuta;
+    private javax.swing.JComboBox<String> jComboBox_filtreDific;
     private javax.swing.JComboBox<String> jComboBox_tempsH;
     private javax.swing.JComboBox<String> jComboBox_tempsM;
     private javax.swing.JComboBox<Tipus> jComboBox_tipusPunt;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_dificEstrella1;
     private javax.swing.JLabel jLabel_dificEstrella2;
     private javax.swing.JLabel jLabel_dificEstrella3;
     private javax.swing.JLabel jLabel_dificEstrella4;
     private javax.swing.JLabel jLabel_dificEstrella5;
     private javax.swing.JLabel jLabel_fotoPunt;
+    private javax.swing.JLabel jLabel_qtatFetesAmbComentari;
+    private javax.swing.JLabel jLabel_qtatNoFetesAmbComentari;
+    private javax.swing.JLabel jLabel_qtatTotalComentaris;
+    private javax.swing.JLabel jLabel_vDificE1;
+    private javax.swing.JLabel jLabel_vDificE2;
+    private javax.swing.JLabel jLabel_vDificE3;
+    private javax.swing.JLabel jLabel_vDificE4;
+    private javax.swing.JLabel jLabel_vDificE5;
+    private javax.swing.JLabel jLabel_vInfoE1;
+    private javax.swing.JLabel jLabel_vInfoE2;
+    private javax.swing.JLabel jLabel_vInfoE3;
+    private javax.swing.JLabel jLabel_vInfoE4;
+    private javax.swing.JLabel jLabel_vInfoE5;
+    private javax.swing.JLabel jLabel_vPaiE1;
+    private javax.swing.JLabel jLabel_vPaiE2;
+    private javax.swing.JLabel jLabel_vPaiE3;
+    private javax.swing.JLabel jLabel_vPaiE4;
+    private javax.swing.JLabel jLabel_vPaiE5;
+    private javax.swing.JLabel jLabel_vSegE1;
+    private javax.swing.JLabel jLabel_vSegE2;
+    private javax.swing.JLabel jLabel_vSegE3;
+    private javax.swing.JLabel jLabel_vSegE4;
+    private javax.swing.JLabel jLabel_vSegE5;
     private javax.swing.JList<String> jList_puntsRuta;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -2375,14 +3050,18 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable_rutesCreadesUsuari;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea_descPunt;
     private javax.swing.JTextArea jTextArea_descRuta;
     private javax.swing.JTextField jTextField_altPunt;
     private javax.swing.JTextField jTextField_desnN;
     private javax.swing.JTextField jTextField_desnP;
     private javax.swing.JTextField jTextField_dist;
+    private javax.swing.JTextField jTextField_filtreDist;
+    private javax.swing.JTextField jTextField_filtreTitol;
     private javax.swing.JTextField jTextField_latPunt;
     private javax.swing.JTextField jTextField_lonPunt;
     private javax.swing.JTextField jTextField_nomPunt;
