@@ -104,6 +104,6 @@ public class Usuari {
     
     @Override
     public String toString() {
-        return "Usuari{" + "login=" + login + ", pwd=" + pwd + ", email=" + email + ", foto=" + foto + '}';
+        return login;
     }
 }

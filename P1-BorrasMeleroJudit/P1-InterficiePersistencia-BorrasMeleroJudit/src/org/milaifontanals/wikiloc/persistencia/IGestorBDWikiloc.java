@@ -101,6 +101,14 @@ public interface IGestorBDWikiloc {
      */
     boolean editarPwdUsuari(Usuari u, String pwd) throws GestorBDWikilocException;
         
+    
+    /**
+     * Edició del camp pwd de l'usuari a la BD
+     *
+     * @return Llista usuaris de l'aplicació
+     * @throws GestorBDWikilocException
+     */
+    List<Usuari> obtenirUsuaris() throws GestorBDWikilocException;
     // </editor-fold>
        
     // <editor-fold defaultstate="collapsed" desc="MÈTODES DE LA CLASSE RUTA">
@@ -519,6 +527,20 @@ public interface IGestorBDWikiloc {
      * @throws GestorBDWikilocException
      */
     List<Ruta> filtreRutaCreades(String titol, int dific, double dist, String login_usuari) throws GestorBDWikilocException;
+    
+    
+    /**
+     * Obtenir les rutes que compleixin les doncidicons de filtratge
+     *
+     * @param titol Part del titol de la ruta
+     * @param dific Dificultat de la ruta
+     * @param dist Distancia de la ruta
+     * @param creador Usuari que ha creat la ruta
+     * @param usuari_fet usuari que ha pogut fer la ruta
+     * @return Company del comentari
+     * @throws GestorBDWikilocException
+     */
+    List<Ruta> filtreTotalRutes(String titol, int dific, double dist, String creador, String usuari_fet) throws GestorBDWikilocException;
     
     // </editor-fold>    
 }

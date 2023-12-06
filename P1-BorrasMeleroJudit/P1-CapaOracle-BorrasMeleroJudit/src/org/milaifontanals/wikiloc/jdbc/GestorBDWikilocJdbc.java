@@ -39,6 +39,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     private static PreparedStatement psEditarFotoUsuari;
     private static PreparedStatement psEditarEmailUsuari;
     private static PreparedStatement psEditarPwdUsuari;
+    private static PreparedStatement psObtenirUsuaris;
 
     private static PreparedStatement psAfegirRuta;
     private static PreparedStatement psEditarRuta;
@@ -87,6 +88,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     private static PreparedStatement psPotBorrarRuta;
 
     private static PreparedStatement psFiltreRutaCreades;
+    private static PreparedStatement psFiltreTotalRutes;
 
 
     public GestorBDWikilocJdbc() throws GestorBDWikilocException{
@@ -270,8 +272,17 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             inst = "select r.*, u.* from ruta r join usuari u on u.login = r.login_usuari where (? = '-1' or upper(titol) like upper(?)) and (? = -1 or dific = ?) and (dist = -1.0 or dist >= ?) and login_usuari = ?";
             psFiltreRutaCreades = conn.prepareStatement(inst);
             
+            inst = "select r.*, u.* \n" +
+                    "from ruta r right join fetes f on r.id = f.id_ruta join usuari u on u.login = r.login_usuari \n" +
+                    "where (? = '-1' or upper(titol) like upper(?)) and (? = -1 or dific = ?) and (? = -1.0 or dist >= ?) \n" +
+                    "and (? = '-1' or r.login_usuari = ?) and (? = '-1' or f.login_usuari = ?) ";
+            psFiltreTotalRutes = conn.prepareStatement(inst);
+            
             inst = "select * from fetes where login_usuari = ? and id_ruta = ?";
             psHaFetRuta = conn.prepareStatement(inst);
+            
+            inst = "select * from usuari";
+            psObtenirUsuaris = conn.prepareStatement(inst);
 
             //inst = "";
             //psPotBorrarRuta = conn.prepareStatement(inst);
@@ -1944,6 +1955,101 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
         return rutes;
 
+    }
+
+    @Override
+    public List<Ruta> filtreTotalRutes(String titol, int dific, double dist, String creador, String usuari_fet) throws GestorBDWikilocException {
+        
+        List<Ruta> rutes = new ArrayList();
+        
+        
+        try {
+            
+            ResultSet rsFiltreTotalRutes = null;
+            
+            psFiltreTotalRutes.setString(1, titol);
+            psFiltreTotalRutes.setString(2, titol+"%");
+            psFiltreTotalRutes.setInt(3, dific);
+            psFiltreTotalRutes.setInt(4, dific);
+            psFiltreTotalRutes.setDouble(5, dist);
+            psFiltreTotalRutes.setDouble(6, dist);
+            psFiltreTotalRutes.setString(7, creador);
+            psFiltreTotalRutes.setString(8, creador);
+            psFiltreTotalRutes.setString(9, usuari_fet);
+            psFiltreTotalRutes.setString(10, usuari_fet);
+            System.out.println("OK");
+
+            /*
+            "select r.* \n" +
+                    "from ruta r right join fetes f on r.id = f.id_ruta \n" +
+                    "where (? = '-1' or upper(titol) like upper(?)) and (? = -1 or dific = ?) and (? = -1.0 or dist >= ?) \n" +
+                    "and (? = '-1' or r.login_usuari = ?) and (? = '-1' or f.login_usuari = ?) ";
+            */
+            
+            
+            rsFiltreTotalRutes = psFiltreTotalRutes.executeQuery();
+            System.out.println("OK2");
+            while(rsFiltreTotalRutes.next()){
+                Usuari u = new Usuari(rsFiltreTotalRutes.getString("login"),rsFiltreTotalRutes.getString("pwd"),rsFiltreTotalRutes.getString("email"));
+                
+                
+                System.out.println("OK3");
+                Ruta r = new Ruta(rsFiltreTotalRutes.getInt("id"),
+                                    rsFiltreTotalRutes.getString("titol"),
+                                    rsFiltreTotalRutes.getString("desc_ruta"),
+                                    rsFiltreTotalRutes.getString("text_ruta"),
+                                    rsFiltreTotalRutes.getDouble("dist"),
+                                    rsFiltreTotalRutes.getInt("temps"),
+                                    rsFiltreTotalRutes.getInt("desn_p"),
+                                    rsFiltreTotalRutes.getInt("desn_n"),
+                                    rsFiltreTotalRutes.getInt("dific"),
+                                    u);
+                System.out.println("OK4");
+
+                rutes.add(r);
+            }
+            
+            if(rsFiltreTotalRutes != null){
+                rsFiltreTotalRutes.close();
+            }
+            
+            
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir la llista de rutes filtrades.\n" + ex.getMessage());
+        }
+
+        return rutes;
+
+        
+    }
+
+    @Override
+    public List<Usuari> obtenirUsuaris() throws GestorBDWikilocException {
+        
+        //psObtenirUsuaris
+        List<Usuari> usuaris = new ArrayList();
+        
+        try {
+            
+            ResultSet rsobtenirUsuaris = null;
+            
+            rsobtenirUsuaris = psObtenirUsuaris.executeQuery();
+            
+            while(rsobtenirUsuaris.next()){
+                usuaris.add(new Usuari(rsobtenirUsuaris.getString("login"),rsobtenirUsuaris.getString("pwd"),rsobtenirUsuaris.getString("email")));  
+            }
+            
+            if(rsobtenirUsuaris != null){
+                rsobtenirUsuaris.close();
+            }
+            
+            
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir la llista de rutes filtrades.\n" + ex.getMessage());
+        }
+        
+        return usuaris;
+        
     }
 
 
