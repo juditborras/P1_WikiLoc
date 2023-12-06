@@ -160,6 +160,11 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
                 try {
                     if(gestorBDWikilocJdbc.afegirRutaAmbPunts(ruta, llistaPuntsRuta)){
                         System.out.println("HAS AFEGIT CORRECTAMENT LA RUTA I ELS SEUS PUNTS");
+                        
+                        
+                        
+                        
+                        
                     }else{
                         System.out.println("NO HAS INTRODUIT LA RUTA BE");
                     }

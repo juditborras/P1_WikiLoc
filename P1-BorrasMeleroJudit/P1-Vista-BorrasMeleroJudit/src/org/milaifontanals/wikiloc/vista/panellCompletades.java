@@ -4,6 +4,9 @@
  */
 package org.milaifontanals.wikiloc.vista;
 
+import javax.swing.JPanel;
+import org.milaifontanals.wikiloc.model.Usuari;
+
 /**
  *
  * @author JUDIT
@@ -13,8 +16,11 @@ public class panellCompletades extends javax.swing.JPanel {
     /**
      * Creates new form panellCompletades
      */
-    public panellCompletades() {
+    Usuari usuari_loginat;
+    
+    public panellCompletades(JPanel jPanel_menu, JPanel jPanel_principal, Usuari usuari_loginat) {
         initComponents();
+        this.usuari_loginat = usuari_loginat;
     }
 
     /**

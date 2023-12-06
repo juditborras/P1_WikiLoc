@@ -4,6 +4,30 @@
  */
 package org.milaifontanals.wikiloc.vista;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
+import org.milaifontanals.wikiloc.components.TextPrompt;
+import org.milaifontanals.wikiloc.jdbc.GestorBDWikilocJdbc;
+import org.milaifontanals.wikiloc.model.Usuari;
+import org.milaifontanals.wikiloc.persistencia.GestorBDWikilocException;
+
 /**
  *
  * @author JUDIT
@@ -13,8 +37,72 @@ public class panellPerfil extends javax.swing.JPanel {
     /**
      * Creates new form panellPerfil
      */
-    public panellPerfil() {
+    Usuari usuari_loginat;
+    private GestorBDWikilocJdbc gestorBDWikilocJdbc;
+    private boolean amagarPwd1 = true;
+    private boolean amagarPwd2 = true;
+    private boolean amagarPwd3 = true;
+    ImageIcon fotoUsuari;
+    ImageIcon fotoNulla = new ImageIcon("img"+File.separator+"foto_nulla.jpg");
+    String filePath;
+    Usuari u_dades;
+    
+    public panellPerfil(JPanel jPanel_menu, Usuari usuari_loginat) {
+        
+        HTMLEditorKit kit = new HTMLEditorKit();
+        StyleSheet styleSheet = kit.getStyleSheet();
+        styleSheet.addRule("a {color:#FFAE00;}");
+        
         initComponents();
+        this.usuari_loginat = usuari_loginat;
+        jPanel2.setVisible(false);
+        jPanel3.setVisible(false);
+        
+        jLabel_canviarPwd.setForeground(new Color(255,174,0));
+        jLabel_canviarEmail.setForeground(new Color(255,174,0));
+        
+        
+        
+        try {
+            
+            gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
+            
+            u_dades = gestorBDWikilocJdbc.obtenirUsuari(usuari_loginat.getLogin());
+            
+            //jLabel_fotoUsuari;
+            
+            if(u_dades.getFoto()!=null){
+                //System.out.println("BYTE[]"+punt_seleccionat.getFoto().length);
+                
+                BufferedImage bf = byteArrayToImage(u_dades.getFoto());
+                fotoUsuari = new ImageIcon(bf);
+                jLabel_fotoUsuari.setIcon(fotoUsuari);
+                             
+             
+            }else{
+                jLabel_fotoUsuari.setIcon(fotoNulla);
+            }
+            
+                        
+            jTextField_login.setText(u_dades.getLogin());
+            jTextField_email.setText(u_dades.getEmail());
+            
+            
+            
+            int qtat_punts = u_dades.getPwd().length();
+            String punts = "";
+            for(int i = 0; i < qtat_punts; i++){
+                punts += "●";
+            }
+            TextPrompt placeHolder_pwd = new TextPrompt(punts,jTextField_pwd);
+            TextPrompt placeHolder_novaPwd = new TextPrompt(punts, jPasswordField_novaPwd);
+            TextPrompt placeHolder_repetirPwd = new TextPrompt(punts, jPasswordField_repetirPwd);
+            
+            //jPasswordField_pwd.setText(punts);
+            
+        } catch (GestorBDWikilocException ex) {
+            System.out.println("No s'han pogut obtenir les dades de l'usuari connectat");
+        }
     }
 
     /**
@@ -26,32 +114,588 @@ public class panellPerfil extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel_fotoUsuari = new javax.swing.JLabel();
+        jTextField_login = new javax.swing.JTextField();
+        jTextField_email = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPasswordField_novaPwd = new javax.swing.JPasswordField();
+        jPasswordField_repetirPwd = new javax.swing.JPasswordField();
+        jLabel_mostrarPwd2 = new javax.swing.JLabel();
+        jLabel_mostrarPwd3 = new javax.swing.JLabel();
+        jLabel_canviarPwd = new javax.swing.JLabel();
+        jLabel_mostrarPwd1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel_canviarEmail = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jTextField_nouEmail = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jTextField_pwd = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("perfil");
+        jLabel_fotoUsuari.setText("jLabel2");
+
+        jTextField_login.setEditable(false);
+        jTextField_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_loginActionPerformed(evt);
+            }
+        });
+
+        jTextField_email.setEditable(false);
+
+        jPanel2.setBackground(new java.awt.Color(255, 153, 255));
+
+        jButton1.setText("desar contra");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        jLabel_mostrarPwd2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/ull.png"))); // NOI18N
+        jLabel_mostrarPwd2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_mostrarPwd2MouseClicked(evt);
+            }
+        });
+
+        jLabel_mostrarPwd3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/ull.png"))); // NOI18N
+        jLabel_mostrarPwd3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_mostrarPwd3MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(262, 262, 262)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPasswordField_novaPwd)
+                            .addComponent(jPasswordField_repetirPwd, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_mostrarPwd2))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel_mostrarPwd3))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(448, 448, 448)
+                        .addComponent(jButton1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordField_novaPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_mostrarPwd2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordField_repetirPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_mostrarPwd3))
+                .addGap(37, 37, 37)
+                .addComponent(jButton1)
+                .addGap(0, 44, Short.MAX_VALUE))
+        );
+
+        jLabel_canviarPwd.setText("Canviar la contrasenya");
+        jLabel_canviarPwd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_canviarPwdMouseClicked(evt);
+            }
+        });
+
+        jLabel_mostrarPwd1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/ull.png"))); // NOI18N
+        jLabel_mostrarPwd1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_mostrarPwd1MouseClicked(evt);
+            }
+        });
+
+        jButton2.setText("canviar foto");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel_canviarEmail.setText("Canviar el correu");
+        jLabel_canviarEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_canviarEmailMouseClicked(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 0));
+
+        jButton3.setText("desar email");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(266, 266, 266)
+                        .addComponent(jTextField_nouEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(446, 446, 446)
+                        .addComponent(jButton3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jTextField_nouEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(jButton3)
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+
+        jTextField_pwd.setEditable(false);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(406, 406, 406)
+                                .addComponent(jLabel_fotoUsuari, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(258, 258, 258)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField_pwd, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                                    .addComponent(jTextField_login)
+                                    .addComponent(jTextField_email))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_mostrarPwd1)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2)
+                                    .addComponent(jLabel_canviarPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel_canviarEmail)))
+                        .addGap(0, 536, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel_fotoUsuari, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jButton2)))
+                .addGap(29, 29, 29)
+                .addComponent(jTextField_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_canviarEmail))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel_canviarPwd)
+                            .addComponent(jLabel_mostrarPwd1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(504, 504, 504)
-                .addComponent(jLabel1)
-                .addContainerGap(586, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(325, 325, 325)
-                .addComponent(jLabel1)
-                .addContainerGap(384, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_loginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_loginActionPerformed
+
+    private void jLabel_canviarPwdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_canviarPwdMouseClicked
+        
+        
+        jPanel2.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jLabel_canviarPwdMouseClicked
+
+    private void jLabel_mostrarPwd1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_mostrarPwd1MouseClicked
+        
+        amagarPwd1 = !amagarPwd1;
+        
+        ImageIcon image1 = new ImageIcon("img"+File.separator+"ull.png");
+        ImageIcon image2 = new ImageIcon("img"+File.separator+"ull_amagar.png");
+
+        if (amagarPwd1) {
+
+            int qtat_punts = u_dades.getPwd().length();
+            String punts = "";
+            for(int i = 0; i < qtat_punts; i++){
+                punts += "●";
+            }
+            jTextField_pwd.setText(punts);
+            jLabel_mostrarPwd1.setIcon(image1);
+
+        } else {
+
+            jTextField_pwd.setText(u_dades.getPwd());
+            jLabel_mostrarPwd1.setIcon(image2);
+        }
+    }//GEN-LAST:event_jLabel_mostrarPwd1MouseClicked
+
+    private void jLabel_mostrarPwd2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_mostrarPwd2MouseClicked
+        
+        amagarPwd2 = !amagarPwd2;
+        
+        ImageIcon image1 = new ImageIcon("img"+File.separator+"ull.png");
+        ImageIcon image2 = new ImageIcon("img"+File.separator+"ull_amagar.png");
+
+        if (amagarPwd2) {
+
+            jPasswordField_novaPwd.setEchoChar('●');
+            jLabel_mostrarPwd2.setIcon(image1);
+
+        } else {
+
+            jPasswordField_novaPwd.setEchoChar((char) 0);
+            jLabel_mostrarPwd2.setIcon(image2);
+        }
+    }//GEN-LAST:event_jLabel_mostrarPwd2MouseClicked
+
+    private void jLabel_mostrarPwd3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_mostrarPwd3MouseClicked
+        
+        amagarPwd3 = !amagarPwd3;
+        
+        ImageIcon image1 = new ImageIcon("img"+File.separator+"ull.png");
+        ImageIcon image2 = new ImageIcon("img"+File.separator+"ull_amagar.png");
+
+        if (amagarPwd3) {
+
+            jPasswordField_repetirPwd.setEchoChar('●');
+            jLabel_mostrarPwd3.setIcon(image1);
+
+        } else {
+
+            jPasswordField_repetirPwd.setEchoChar((char) 0);
+            jLabel_mostrarPwd3.setIcon(image2);
+        }
+        
+    }//GEN-LAST:event_jLabel_mostrarPwd3MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        JFileChooser jfc = new JFileChooser();
+                
+        FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+        
+        jfc.setFileFilter(imageFilter);
+        
+        jfc.showOpenDialog(jfc);
+        
+        File imgFile = jfc.getSelectedFile();
+        
+        if(imgFile != null){
+            
+           
+            filePath = imgFile.getAbsolutePath();
+            ImageIcon novaImatgeSeleccionada = new ImageIcon(filePath);
+            
+            jLabel_fotoUsuari.setIcon(novaImatgeSeleccionada);
+            
+            BufferedImage bi = new BufferedImage(
+            novaImatgeSeleccionada.getIconWidth(),
+            novaImatgeSeleccionada.getIconHeight(),
+            BufferedImage.TYPE_INT_RGB);
+            
+            
+            String extensio = filePath.substring(filePath.length() - 3);
+            byte[] bt = imageToByteArray(bi, extensio);
+            
+//            if(Arrays.equals(u_dades.getFoto(), bt)){
+//                fotoUs_canviada = true;
+//                //modificacionsCampsPunt();
+//            }else{
+//                fotoPunt_canviada = false;
+//                //modificacionsCampsPunt();
+//            }                       
+        
+        }else{
+            jLabel_fotoUsuari.setIcon(fotoNulla);
+            filePath = null;
+        }
+        
+        
+        try {
+               
+            boolean editat = gestorBDWikilocJdbc.editarFotoUsuari(usuari_loginat, filePath);
+
+            if(editat){
+                
+                gestorBDWikilocJdbc.confirmarCanvis();
+
+                JOptionPane.showConfirmDialog(null, "La foto s'ha desat correctament",
+                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                System.out.println("no editadaaaa");
+            }         
+            
+        } catch (GestorBDWikilocException ex) {
+            System.out.println("fotoooooo: " + ex.getMessage());
+        }
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        
+        
+        try {
+
+            if(jPasswordField_novaPwd.getText().equals(jPasswordField_repetirPwd.getText())){
+                
+                boolean editat = gestorBDWikilocJdbc.editarPwdUsuari(usuari_loginat, jPasswordField_novaPwd.getText());
+
+                if (editat) {
+
+                    gestorBDWikilocJdbc.confirmarCanvis();
+
+                    JOptionPane.showConfirmDialog(null, "La contrassenya s'ha desat correctament",
+                            "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE);
+                    
+                    jTextField_pwd.setText("");
+                    jPasswordField_novaPwd.setText("");
+                    jPasswordField_repetirPwd.setText("");
+                    
+                    try {
+
+                        u_dades = gestorBDWikilocJdbc.obtenirUsuari(usuari_loginat.getLogin());
+
+                        //jLabel_fotoUsuari;
+                        if (u_dades.getFoto() != null) {
+                            //System.out.println("BYTE[]"+punt_seleccionat.getFoto().length);
+
+                            BufferedImage bf = byteArrayToImage(u_dades.getFoto());
+                            fotoUsuari = new ImageIcon(bf);
+                            jLabel_fotoUsuari.setIcon(fotoUsuari);
+
+                        } else {
+                            jLabel_fotoUsuari.setIcon(fotoNulla);
+                        }
+
+                        jTextField_login.setText(u_dades.getLogin());
+                        jTextField_email.setText(u_dades.getEmail());
+
+                        int qtat_punts = u_dades.getPwd().length();
+                        String punts = "";
+                        for (int i = 0; i < qtat_punts; i++) {
+                            punts += "●";
+                        }
+                        TextPrompt placeHolder_pwd = new TextPrompt(punts, jTextField_pwd);
+                        TextPrompt placeHolder_novaPwd = new TextPrompt(punts, jPasswordField_novaPwd);
+                        TextPrompt placeHolder_repetirPwd = new TextPrompt(punts, jPasswordField_repetirPwd);
+                        
+                        
+
+                        //jPasswordField_pwd.setText(punts);
+                    } catch (GestorBDWikilocException ex) {
+                        System.out.println("No s'han pogut obtenir les dades de l'usuari connectat");
+                    }
+                    
+                    
+                    
+                } else {
+
+                    JOptionPane.showConfirmDialog(null, "La contrassenya no s'ha pogut canviar",
+                            "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                
+                jPanel2.setVisible(false);
+            
+            }else{
+                JOptionPane.showConfirmDialog(null, "Els camps de la nova contrasenya no coincideixen",
+                            "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE);
+                
+                jPasswordField_novaPwd.setText("");
+                jPasswordField_repetirPwd.setText("");
+            }
+            
+            
+
+
+        } catch (GestorBDWikilocException ex) {
+            Logger.getLogger(panellPerfil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        
+        
+        try {
+
+            boolean editat = gestorBDWikilocJdbc.editarEmailUsuari(usuari_loginat,jTextField_nouEmail.getText().trim());
+
+            if (editat) {
+
+                gestorBDWikilocJdbc.confirmarCanvis();
+
+                JOptionPane.showConfirmDialog(null, "L'email s'ha desat correctament",
+                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
+                
+                jTextField_nouEmail.setText("");
+                
+                try {
+
+                    u_dades = gestorBDWikilocJdbc.obtenirUsuari(usuari_loginat.getLogin());
+
+                    //jLabel_fotoUsuari;
+                    if (u_dades.getFoto() != null) {
+                        //System.out.println("BYTE[]"+punt_seleccionat.getFoto().length);
+
+                        BufferedImage bf = byteArrayToImage(u_dades.getFoto());
+                        fotoUsuari = new ImageIcon(bf);
+                        jLabel_fotoUsuari.setIcon(fotoUsuari);
+
+                    } else {
+                        jLabel_fotoUsuari.setIcon(fotoNulla);
+                    }
+
+                    jTextField_login.setText(u_dades.getLogin());
+                    jTextField_email.setText(u_dades.getEmail());
+
+                    int qtat_punts = u_dades.getPwd().length();
+                    String punts = "";
+                    for (int i = 0; i < qtat_punts; i++) {
+                        punts += "●";
+                    }
+                    TextPrompt placeHolder_pwd = new TextPrompt(punts, jTextField_pwd);
+                    TextPrompt placeHolder_novaPwd = new TextPrompt(punts, jPasswordField_novaPwd);
+                    TextPrompt placeHolder_repetirPwd = new TextPrompt(punts, jPasswordField_repetirPwd);
+                    
+                    //jPasswordField_pwd.setText(punts);
+                } catch (GestorBDWikilocException ex) {
+                    System.out.println("No s'han pogut obtenir les dades de l'usuari connectat");
+                }
+                
+                
+            } else {
+
+                JOptionPane.showConfirmDialog(null, "L'email no s'ha pogut canviar",
+                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            jPanel3.setVisible(false);
+
+        } catch (GestorBDWikilocException ex) {
+            Logger.getLogger(panellPerfil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jLabel_canviarEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_canviarEmailMouseClicked
+        
+        
+        jPanel3.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jLabel_canviarEmailMouseClicked
+
+    public BufferedImage byteArrayToImage(byte[] bytes) {
+        BufferedImage bufferedImage = null;
+        try {
+            InputStream inputStream = new ByteArrayInputStream(bytes);
+            bufferedImage = ImageIO.read(inputStream);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return bufferedImage;
+    }
+    
+    public byte[] imageToByteArray(BufferedImage bi,String format){
+        
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bi, format, baos);
+            
+            byte[] bytes = baos.toByteArray();
+            
+            return bytes;
+            
+        } catch (IOException ex) {
+            throw new RuntimeException("Error"+ex.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel_canviarEmail;
+    private javax.swing.JLabel jLabel_canviarPwd;
+    private javax.swing.JLabel jLabel_fotoUsuari;
+    private javax.swing.JLabel jLabel_mostrarPwd1;
+    private javax.swing.JLabel jLabel_mostrarPwd2;
+    private javax.swing.JLabel jLabel_mostrarPwd3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPasswordField_novaPwd;
+    private javax.swing.JPasswordField jPasswordField_repetirPwd;
+    private javax.swing.JTextField jTextField_email;
+    private javax.swing.JTextField jTextField_login;
+    private javax.swing.JTextField jTextField_nouEmail;
+    private javax.swing.JTextField jTextField_pwd;
     // End of variables declaration//GEN-END:variables
 }

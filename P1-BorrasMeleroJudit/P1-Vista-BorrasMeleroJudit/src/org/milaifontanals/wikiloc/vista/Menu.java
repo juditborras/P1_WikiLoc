@@ -401,7 +401,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void rSButtonMenuCompletadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuCompletadesActionPerformed
         
-        new CambiaPanel(jPanel_principal,new panellCompletades());
+        new CambiaPanel(jPanel_principal,new panellCompletades(jPanel_menu, jPanel_principal,usuari_loginat));
         
         if(this.rSButtonMenuCompletades.isSelected()){
             this.rSButtonMenuCompletades.setColorNormal(new Color(255,163,0));
@@ -459,7 +459,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void rSButtonMenuPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuPerfilActionPerformed
         
-        new CambiaPanel(jPanel_principal,new panellPerfil());
+        new CambiaPanel(jPanel_principal,new panellPerfil(jPanel_menu, usuari_loginat));
         
         if(this.rSButtonMenuPerfil.isSelected()){
             this.rSButtonMenuPerfil.setColorNormal(new Color(255,163,0));

@@ -61,6 +61,45 @@ public interface IGestorBDWikiloc {
      * @throws GestorBDWikilocException
      */
     boolean afegirUsuari(Usuari u) throws GestorBDWikilocException;
+    
+    /**
+     * Obtenir usuari de la BD
+     *
+     * @param login login de l'usuari
+     * @return usuari
+     * @throws GestorBDWikilocException
+     */
+    Usuari obtenirUsuari(String login) throws GestorBDWikilocException;
+    
+    /**
+     * Edició del camp foto de l'usuari a la BD
+     *
+     * @param u Usuari a editar
+     * @param url_foto foto de l'usuari a editar
+     * @return S'ha verificat o no l'edició del camp foto
+     * @throws GestorBDWikilocException
+     */
+    boolean editarFotoUsuari(Usuari u, String url_foto) throws GestorBDWikilocException;
+    
+    /**
+     * Edició del camp email de l'usuari a la BD
+     *
+     * @param u Usuari a editar
+     * @param email email a editar
+     * @return S'ha verificat o no l'edició del camp email
+     * @throws GestorBDWikilocException
+     */
+    boolean editarEmailUsuari(Usuari u, String email) throws GestorBDWikilocException;
+    
+    /**
+     * Edició del camp pwd de l'usuari a la BD
+     *
+     * @param u Usuari a editar
+     * @param pwd pwd a editar
+     * @return S'ha verificat o no l'edició del camp pwd
+     * @throws GestorBDWikilocException
+     */
+    boolean editarPwdUsuari(Usuari u, String pwd) throws GestorBDWikilocException;
         
     // </editor-fold>
        
@@ -172,6 +211,17 @@ public interface IGestorBDWikiloc {
      * @throws GestorBDWikilocException
      */
     boolean afegirFetes(Fetes f) throws GestorBDWikilocException;
+    
+    
+    /**
+     * Inserir fetes a la BD
+     *
+     * @param login Login usuari
+     * @param id_ruta Ruta afegir com a feta
+     * @return S'ha verificat o no la inserció de fetes
+     * @throws GestorBDWikilocException
+     */
+    boolean afegirFetes(String login, int id_ruta) throws GestorBDWikilocException;
     
     /**
      * Obtenir llistat fetes de la BD

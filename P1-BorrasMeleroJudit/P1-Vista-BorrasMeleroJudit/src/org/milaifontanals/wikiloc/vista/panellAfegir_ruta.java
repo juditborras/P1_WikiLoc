@@ -428,7 +428,10 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaBlanca);
         
         dific = 1;
-        r.setDific(dific);
+        if(r!=null){
+            r.setDific(dific);
+        }
+        
         afegirItemBreadcrumb();
         
     }//GEN-LAST:event_jLabel_estrella1MouseClicked
@@ -442,7 +445,9 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaBlanca);
         
         dific = 2;
-        r.setDific(dific);
+        if(r!=null){
+            r.setDific(dific);
+        }
         afegirItemBreadcrumb();
     }//GEN-LAST:event_jLabel_estrella2MouseClicked
 
@@ -455,7 +460,9 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaBlanca);
         
         dific = 3;
-        r.setDific(dific);
+        if(r!=null){
+            r.setDific(dific);
+        }
         afegirItemBreadcrumb();
     }//GEN-LAST:event_jLabel_estrella3MouseClicked
 
@@ -468,7 +475,9 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaBlanca);
         
         dific = 4;
-        r.setDific(dific);
+        if(r!=null){
+            r.setDific(dific);
+        }
         afegirItemBreadcrumb();
     }//GEN-LAST:event_jLabel_estrella4MouseClicked
 
@@ -481,7 +490,9 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         jLabel_estrella5.setIcon(estrellaGroga);
 
         dific = 5;
-        r.setDific(dific);
+        if(r!=null){
+            r.setDific(dific);
+        }
         afegirItemBreadcrumb();
     }//GEN-LAST:event_jLabel_estrella5MouseClicked
 
