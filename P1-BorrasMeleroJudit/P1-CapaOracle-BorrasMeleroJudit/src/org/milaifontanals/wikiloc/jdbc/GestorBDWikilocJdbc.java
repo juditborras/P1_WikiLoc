@@ -52,6 +52,8 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
     private static PreparedStatement psAfegirFetes;
     private static PreparedStatement psObtenirLlistaFetes;
+    private static PreparedStatement psObtenirLlistaFetesUsuari;
+    private static PreparedStatement psHaFetRuta;
 
     private static PreparedStatement psObtenirTipusPerId;
     private static PreparedStatement psObtenirLlistaTipus;
@@ -149,8 +151,8 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             psEliminarRuta = conn.prepareStatement(inst);
 
             inst = "select r.*, u.* from ruta r join usuari u on r.login_usuari = u.login";
-            psObtenirLlistaRuta = conn.prepareStatement(inst);
-
+            psObtenirLlistaRuta = conn.prepareStatement(inst);            
+            
             inst = "select r.*, u.* from ruta r join usuari u on r.login_usuari = u.login where r.login_usuari = ?";
             psObtenirLlistaRutaUsuari = conn.prepareStatement(inst);
 
@@ -170,6 +172,11 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                     "from fetes f join usuari u on f.login_usuari = u.login\n" +
                     "             join ruta r on f.id_ruta = r.id where f.id_ruta = ?";
             psObtenirLlistaFetes = conn.prepareStatement(inst);
+            
+            inst = "select f.*, u.*, r.* \n"
+                    + "from fetes f join usuari u on f.login_usuari = u.login\n"
+                    + "             join ruta r on f.id_ruta = r.id where f.login_usuari = ?";
+            psObtenirLlistaFetesUsuari = conn.prepareStatement(inst);
 
             inst = "select * from tipus where id = ?";
             psObtenirTipusPerId = conn.prepareStatement(inst);
@@ -262,6 +269,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
             inst = "select r.*, u.* from ruta r join usuari u on u.login = r.login_usuari where (? = '-1' or upper(titol) like upper(?)) and (? = -1 or dific = ?) and (dist = -1.0 or dist >= ?) and login_usuari = ?";
             psFiltreRutaCreades = conn.prepareStatement(inst);
+            
+            inst = "select * from fetes where login_usuari = ? and id_ruta = ?";
+            psHaFetRuta = conn.prepareStatement(inst);
 
             //inst = "";
             //psPotBorrarRuta = conn.prepareStatement(inst);
@@ -620,7 +630,6 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
     }
 
-
     @Override
     public List<Ruta> obtenirLlistaRutaUsuari(String usuari) throws GestorBDWikilocException {
         //psObtenirLlistaRutaUsuari
@@ -855,6 +864,79 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         return fetes;
     }
 
+    @Override
+    public List<Fetes> obtenirLlistaFetesUsuari(String login_usuari) throws GestorBDWikilocException {
+
+        List<Fetes> fetes = new ArrayList();
+
+        try {
+
+            ResultSet rsObtenirLlistaFetesUsuari = null;
+
+            psObtenirLlistaFetesUsuari.setString(1, login_usuari);
+            rsObtenirLlistaFetesUsuari = psObtenirLlistaFetesUsuari.executeQuery();
+
+            while(rsObtenirLlistaFetesUsuari.next()){
+
+                Usuari u = new Usuari(rsObtenirLlistaFetesUsuari.getString("login"),rsObtenirLlistaFetesUsuari.getString("pwd"),rsObtenirLlistaFetesUsuari.getString("email"));
+                Ruta ruta = new Ruta(rsObtenirLlistaFetesUsuari.getInt("id"),
+                                    rsObtenirLlistaFetesUsuari.getString("titol"),
+                                    rsObtenirLlistaFetesUsuari.getString("desc_ruta"),
+                                    rsObtenirLlistaFetesUsuari.getString("text_ruta"),
+                                    rsObtenirLlistaFetesUsuari.getDouble("dist"),
+                                    rsObtenirLlistaFetesUsuari.getInt("temps"),
+                                    rsObtenirLlistaFetesUsuari.getInt("desn_p"),
+                                    rsObtenirLlistaFetesUsuari.getInt("desn_n"),
+                                    rsObtenirLlistaFetesUsuari.getInt("dific"),
+                                    u);
+
+                Fetes f = new Fetes(u,rsObtenirLlistaFetesUsuari.getDate("mt"),ruta);
+
+                fetes.add(f);
+            }
+
+            if(rsObtenirLlistaFetesUsuari != null){
+                rsObtenirLlistaFetesUsuari.close();
+            }
+
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir la llista de rutes que ha fet l'usuari indicat per paràmetre.\n" + ex.getMessage());
+        }
+
+        return fetes;
+    }    
+    
+    
+    @Override
+    public Fetes haFetRuta(Ruta ruta, Usuari usuari_loginat) throws GestorBDWikilocException {
+        try {
+            //psHaFetRuta
+            
+            ResultSet rsHaFetRuta = null;
+            
+            psHaFetRuta.setString(1, usuari_loginat.getLogin());
+            psHaFetRuta.setInt(2, ruta.getId());
+            
+            rsHaFetRuta = psHaFetRuta.executeQuery();
+            
+            if(rsHaFetRuta.next()){
+            
+                Fetes f = new Fetes(usuari_loginat,rsHaFetRuta.getDate("MT"),ruta);
+                
+                return f;
+            
+            }else{
+                return null;
+            }
+            
+        } catch (SQLException ex) {
+            throw new GestorBDWikilocException("Error en obtenir si l'usuari ha fet la ruta.\n" + ex.getMessage());
+        }
+        
+    }
+    
+    
+    
     @Override
     public Tipus obtenirTipusPerId(Integer id) throws GestorBDWikilocException {
 
@@ -1863,6 +1945,8 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         return rutes;
 
     }
+
+
 
 
 

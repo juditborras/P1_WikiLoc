@@ -232,6 +232,25 @@ public interface IGestorBDWikiloc {
      */
     List<Fetes> obtenirLlistaFetes(Integer id) throws GestorBDWikilocException;
     
+    /**
+     * Obtenir llistat fetes de l'usuari de la BD
+     *
+     * @param login_usuari login de l'usuari
+     * @return Llista de Fetes
+     * @throws GestorBDWikilocException
+     */
+    List<Fetes> obtenirLlistaFetesUsuari(String login_usuari) throws GestorBDWikilocException;
+    
+    /**
+     * Obtenir llistat fetes de l'usuari de la BD
+     *
+     * @param login login de l'usuari
+     * @param id_ruta la ruta que se volem saber si ha fet
+     * @return Llista de Fetes
+     * @throws GestorBDWikilocException
+     */
+    Fetes haFetRuta(Ruta ruta, Usuari usuari_loginat) throws GestorBDWikilocException;
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="MÈTODES DE LA CLASSE TIPUS">

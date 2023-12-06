@@ -166,7 +166,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         rSButtonMenuCompletades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/completada.png"))); // NOI18N
-        rSButtonMenuCompletades.setText("Completades");
+        rSButtonMenuCompletades.setText("Catàleg");
         rSButtonMenuCompletades.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         rSButtonMenuCompletades.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         rSButtonMenuCompletades.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -401,7 +401,11 @@ public class Menu extends javax.swing.JFrame {
 
     private void rSButtonMenuCompletadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuCompletadesActionPerformed
         
-        new CambiaPanel(jPanel_principal,new panellCompletades(jPanel_menu, jPanel_principal,usuari_loginat));
+        try {
+            new CambiaPanel(jPanel_principal,new panellCataleg(jPanel_menu, jPanel_principal,usuari_loginat));
+        } catch (GestorBDWikilocException ex) {
+            
+        }
         
         if(this.rSButtonMenuCompletades.isSelected()){
             this.rSButtonMenuCompletades.setColorNormal(new Color(255,163,0));
