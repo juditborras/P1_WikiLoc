@@ -224,8 +224,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             inst = "update punt set ordre = ? where num = ? and id_ruta = ?";
             psEditarOrdrePuntRuta = conn.prepareStatement(inst);
 
+            String returnColsComentari[] = {"ID","TEXT","V_INF","FETA","V_SEG","V_PAI","DIFIC","LOGIN_USUARI","ID_RUTA"};
             inst = "insert into comentari(text,v_inf,feta,v_seg,v_pai,dific,login_usuari,id_ruta) values (?,?,?,?,?,?,?,?)";
-            psAfegirComentari = conn.prepareStatement(inst);
+            psAfegirComentari = conn.prepareStatement(inst,returnColsComentari);
 
             inst = "update comentari set text = ?, v_inf = ?, v_seg = ?, v_pai = ?, dific = ? where id = ?";
             psEditarComentari = conn.prepareStatement(inst);
@@ -283,7 +284,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
             inst = "select * from usuari";
             psObtenirUsuaris = conn.prepareStatement(inst);
-
+            
             //inst = "";
             //psPotBorrarRuta = conn.prepareStatement(inst);
 
@@ -1402,7 +1403,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
 
     @Override
-    public boolean afegirComentari(Comentari c, String login, Integer id) throws GestorBDWikilocException {
+    public int afegirComentari(Comentari c, String login, Integer id) throws GestorBDWikilocException {
 
         try{
 
@@ -1431,15 +1432,32 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
 
             int registres_afectats = psAfegirComentari.executeUpdate();
-
-            if(registres_afectats != 1){
-                return false;
+            
+            
+            
+            
+            try (ResultSet generatedKeys = psAfegirComentari.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    System.out.println("ENTRO ID CORRECTAMENT");
+                    System.out.println(generatedKeys.toString());
+                    long id_ruta = generatedKeys.getLong(1);
+                    System.out.println(id_ruta);
+                    
+                    return (int)id_ruta;
+                   
+                }
+                else {
+                    System.out.println("ERROR!! RELACIONAT AMB ID AUTONUMERIC");
+                    return -1;
+                }
             }
+           
 
-            return true;
+
 
         }catch(Exception ex){
-            return false;
+            System.out.println("ERROR: "+ex.getMessage());
+            return -1;
         }
     }
 
@@ -1752,12 +1770,12 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     }
 
     @Override
-    public boolean afegirCompany(Companys c) throws GestorBDWikilocException {
+    public boolean afegirCompany(Usuari usuari_company, int id_comentari) throws GestorBDWikilocException {
 
         try{
 
-            psAfegirCompany.setString(1, c.getLoginUsuari().getLogin());
-            psAfegirCompany.setInt(2, c.getIdComentari().getId());
+            psAfegirCompany.setString(1, usuari_company.getLogin());
+            psAfegirCompany.setInt(2, id_comentari);
 
 
             int registres_afectats = psAfegirCompany.executeUpdate();
@@ -1769,6 +1787,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         }catch(Exception ex){
+            System.out.println("ERORR: ??? "+ex.getMessage());
             return false;
         }
     }

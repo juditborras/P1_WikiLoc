@@ -387,7 +387,7 @@ public interface IGestorBDWikiloc {
      * @return S'ha verificat o no la inserció del comentari
      * @throws GestorBDWikilocException
      */
-    boolean afegirComentari(Comentari c, String login, Integer id) throws GestorBDWikilocException;
+    int afegirComentari(Comentari c, String login, Integer id) throws GestorBDWikilocException;
         
     /**
      * Editar comentari d'una ruta de la BD
@@ -488,11 +488,12 @@ public interface IGestorBDWikiloc {
     /**
      * Inserir company a la ruta de la BD
      *
-     * @param c Company que volem inserir a la ruta
+     * @param usuari_company Company que volem afegir
+     * @param id_comentari Comentari 
      * @return S'ha verificat o no la inserció del company de ruta
      * @throws GestorBDWikilocException
      */
-    boolean afegirCompany(Companys c) throws GestorBDWikilocException;
+    boolean afegirCompany(Usuari usuari_company, int id_comentari) throws GestorBDWikilocException;
         
     /**
      * Eliminar company de la ruta de la BD

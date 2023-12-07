@@ -100,7 +100,7 @@ CREATE TABLE PUNT (
     FOTO         BLOB,
     LAT          NUMBER(6) CONSTRAINT PUNT_NN_LAT NOT NULL,
     LON          NUMBER(6) CONSTRAINT PUNT_NN_LON NOT NULL,
-    ALT          NUMBER(6) CONSTRAINT PUNT_NN_LON NOT NULL,
+    ALT          NUMBER(6) CONSTRAINT PUNT_NN_ALT NOT NULL,
     ORDRE        NUMBER(6) CONSTRAINT PUNT_NN_ORDRE NOT NULL,
                            CONSTRAINT PUNT_CK_ORDRE CHECK (ORDRE >=1),
     
@@ -208,7 +208,7 @@ BEGIN
             WHEN NO_DATA_FOUND THEN
                 total := NULL;
         END;
-        
+        /*
         BEGIN
             select MT into v_data2 from FETES where LOGIN_USUARI = v_propietari_comentari and ID_RUTA = v_id_ruta;
         EXCEPTION
@@ -222,13 +222,16 @@ BEGIN
             WHEN NO_DATA_FOUND THEN
                 total := NULL;
         END;
+        */
 
         IF total is null or total = 0 then
             RAISE_APPLICATION_ERROR(-20002,'NO ES PODEN AFEGIR COMPANYS SI NO S''HA COMPLETAT LA RUTA');
         ELSIF v_propietari_comentari = :NEW.LOGIN_USUARI then
             RAISE_APPLICATION_ERROR(-20003,'NO ES POT AFEGIR COM A COMPANY EL MATEIX USUARI QUE REALITZA EL COMENTARI');
+        /*
         ELSIF v_data1 != v_data2 then
             RAISE_APPLICATION_ERROR(-20004,'EL COMPANY DE RUTA L''HA D''HAVER FET EL MATEIX DIA QUE L''USUARI');
+        */
         END IF;
     END;
 END;

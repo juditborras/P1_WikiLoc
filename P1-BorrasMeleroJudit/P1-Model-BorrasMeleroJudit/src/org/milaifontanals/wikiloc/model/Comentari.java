@@ -35,6 +35,17 @@ public class Comentari {
         setLoginUsuari(loginUsuari);
         setIdRuta(idRuta);
     }
+
+    public Comentari(String text, Integer vInf, boolean feta, Integer vSeg, Integer vPai, Integer dific, Usuari loginUsuari, Ruta idRuta) {
+        setText(text);
+        setVinf(vInf);
+        setFeta(feta);
+        setVseg(vSeg);
+        setVpai(vPai);
+        setDific(dific);
+        setLoginUsuari(loginUsuari);
+        setIdRuta(idRuta);
+    }
     
     //Constructor mínim
     public Comentari(String text, Integer vInf, Usuari loginUsuari, Ruta idRuta) {
