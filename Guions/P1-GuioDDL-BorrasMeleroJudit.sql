@@ -172,9 +172,9 @@ CREATE OR REPLACE TRIGGER TRG_FETA_COMENTARI
     FOR EACH ROW
 BEGIN
     IF :new.FETA != 1 THEN
-            :new.V_SEG := NULL;
-            :new.V_PAI := NULL;
-            :new.DIFIC := NULL;
+            :new.V_SEG := 1;
+            :new.V_PAI := 1;
+            :new.DIFIC := 1;
             DELETE FROM COMPANYS WHERE ID_COMENTARI = :NEW.ID;
     END IF;
 END;

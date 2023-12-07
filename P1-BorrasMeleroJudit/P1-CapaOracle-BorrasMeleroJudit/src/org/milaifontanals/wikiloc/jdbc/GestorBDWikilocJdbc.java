@@ -235,7 +235,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             psEliminarComentari = conn.prepareStatement(inst);
 
             inst = "select c.*, co.id_comentari as COMPANY_COMENTARI, co.LOGIN_USUARI as COMPANY_LOGIN\n" +
-                    "from comentari c join companys co on c.id = co.id_comentari\n" +
+                    "from comentari c left join companys co on c.id = co.id_comentari\n" +
                     "where c.id_ruta = ?\n" +
                     "order by c.mt";
             psObtenirLlistaComentaris = conn.prepareStatement(inst);

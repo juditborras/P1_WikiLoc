@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -59,6 +60,8 @@ public class panellCataleg extends javax.swing.JPanel {
         jPanel2.setVisible(false);
         jPanel4.setVisible(false);
         jPanel3.setVisible(false);
+        jComboBox_seleccionarCompany.setVisible(false);
+        jButton_desarValoracio.setEnabled(false);
         
         jComboBox_filtreDific.addItem("");
         for (int i = 1; i <= 5; i++) {
@@ -151,7 +154,49 @@ public class panellCataleg extends javax.swing.JPanel {
                 jPanel2.setVisible(true);
                 
                 ruta_seleccionada = llistaRutes.get(row);
+                
+                if(ruta_seleccionada.getLoginUsuari().getLogin().equals(usuari_loginat.getLogin())){
+                    jButton_valorarRuta.setVisible(false);
+                }else{
+                    jButton_valorarRuta.setVisible(true);
+                }
+                
                 obtenirDadesRuta(llistaRutes, row);
+                
+                try {
+                    Fetes f = gestorBDWikilocJdbc.haFetRuta(ruta_seleccionada, usuari_loginat);
+                    
+                    if(f!=null){
+                        jLabel1.setVisible(false);
+                        jLabel30.setVisible(false);
+                        toggleButton_haFetRuta.setVisible(false);
+                        jLabel31.setVisible(false);
+                        jLabel2.setVisible(false);
+                        jLabel3.setVisible(false);
+                        jLabel_valorarInfE1.setVisible(false);
+                        jLabel_valorarInfE2.setVisible(false);
+                        jLabel_valorarInfE3.setVisible(false);
+                        jLabel_valorarInfE4.setVisible(false);
+                        jLabel_valorarInfE5.setVisible(false);
+
+                        
+                    }else{
+                        jLabel1.setVisible(true);
+                        jLabel30.setVisible(true);
+                        toggleButton_haFetRuta.setVisible(true);
+                        jLabel31.setVisible(true);
+                        jLabel2.setVisible(true);
+                        jLabel3.setVisible(true);
+                        jLabel_valorarInfE1.setVisible(true);
+                        jLabel_valorarInfE2.setVisible(true);
+                        jLabel_valorarInfE3.setVisible(true);
+                        jLabel_valorarInfE4.setVisible(true);
+                        jLabel_valorarInfE5.setVisible(true);
+                    }
+                } catch (GestorBDWikilocException ex) {
+                   
+                }
+                
                 
                 
             }
@@ -190,9 +235,13 @@ public class panellCataleg extends javax.swing.JPanel {
                 if(selected){
                     jPanel3.setVisible(true);
                     feta = true;
+                    
+                    jComboBox_seleccionarCompany.setVisible(true);
                 }else{
                     jPanel3.setVisible(false);
                     feta = false;
+                    
+                    jComboBox_seleccionarCompany.setVisible(false);
                 }
                 
             }
@@ -395,6 +444,8 @@ public class panellCataleg extends javax.swing.JPanel {
             
             List<Comentari> llistaComentaris = gestorBDWikilocJdbc.obtenirLlistaComentaris(id);
             
+            
+            System.out.println("SIZE LLISTA COMENTARIS "+llistaComentaris.size());
             String info_comentari = "";
             
             for(Comentari c : llistaComentaris){
@@ -415,13 +466,14 @@ public class panellCataleg extends javax.swing.JPanel {
                 
                 info_comentari += "\n";
             }
-            
+            System.out.println("INFO COMENTARI: "+info_comentari);
             
             jTextArea_comentarisTotals.setText(info_comentari);
             
             
             
         } catch (GestorBDWikilocException ex) {
+            System.out.println("ERROR DEL CATCH: "+ex.getMessage());
             Logger.getLogger(panellCataleg.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -570,6 +622,11 @@ public class panellCataleg extends javax.swing.JPanel {
 
         jTextArea_escriureComentari.setColumns(20);
         jTextArea_escriureComentari.setRows(5);
+        jTextArea_escriureComentari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea_escriureComentariKeyReleased(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTextArea_escriureComentari);
 
         jLabel1.setText("Has fet aquesta ruta?");
@@ -1214,7 +1271,7 @@ public class panellCataleg extends javax.swing.JPanel {
         jComboBox_filtreDific.setSelectedIndex(-1);
         jComboBox_filtreCreador.setSelectedIndex(-1);
         jCheckBox_feta.setSelected(false);
-
+        jButton_desarValoracio.setEnabled(false);
 
         try {
   
@@ -1266,6 +1323,41 @@ public class panellCataleg extends javax.swing.JPanel {
         
         
         jPanel4.setVisible(true);
+        
+        try {
+            Fetes f = gestorBDWikilocJdbc.haFetRuta(ruta_seleccionada, usuari_loginat);
+
+            if (f != null) {
+                jLabel1.setVisible(false);
+                jLabel30.setVisible(false);
+                toggleButton_haFetRuta.setVisible(false);
+                jLabel31.setVisible(false);
+                jLabel2.setVisible(false);
+                jLabel3.setVisible(false);
+                jLabel_valorarInfE1.setVisible(false);
+                jLabel_valorarInfE2.setVisible(false);
+                jLabel_valorarInfE3.setVisible(false);
+                jLabel_valorarInfE4.setVisible(false);
+                jLabel_valorarInfE5.setVisible(false);
+
+            } else {
+                jLabel1.setVisible(true);
+                jLabel30.setVisible(true);
+                toggleButton_haFetRuta.setVisible(true);
+                jLabel31.setVisible(true);
+                jLabel2.setVisible(true);
+                jLabel3.setVisible(true);
+                jLabel_valorarInfE1.setVisible(true);
+                jLabel_valorarInfE2.setVisible(true);
+                jLabel_valorarInfE3.setVisible(true);
+                jLabel_valorarInfE4.setVisible(true);
+                jLabel_valorarInfE5.setVisible(true);
+            }
+        } catch (GestorBDWikilocException ex) {
+
+        }
+        
+        
     }//GEN-LAST:event_jButton_valorarRutaMouseClicked
 
     private void jLabel_valorarInfE1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_valorarInfE1MouseClicked
@@ -1573,12 +1665,18 @@ public class panellCataleg extends javax.swing.JPanel {
             text = jTextArea_escriureComentari.getText();
             
             Usuari usuari_company = (Usuari) jComboBox_seleccionarCompany.getSelectedItem();
-            if(usuari_company !=null){
+            if(usuari_company != null){
                 login_usuari_company = usuari_company.getLogin();
             }
             
             //public Comentari(String text, Integer vInf, boolean feta, Integer vSeg, Integer vPai, Integer dific, Usuari loginUsuari, Ruta idRuta)
-            Comentari c = new Comentari(text,v_inf,feta,v_seg,v_pai,dific,usuari_company,ruta_seleccionada);
+            Comentari c;
+            if(usuari_company!=null){
+                c = new Comentari(text,v_inf,feta,v_seg,v_pai,dific,usuari_company,ruta_seleccionada);
+            }else{
+                c = new Comentari(text,v_inf,feta,v_seg,v_pai,dific,usuari_loginat,ruta_seleccionada);
+            }
+            
             
             
             
@@ -1587,33 +1685,73 @@ public class panellCataleg extends javax.swing.JPanel {
             int comentari_inserit = gestorBDWikilocJdbc.afegirComentari(c, usuari_loginat.getLogin(), ruta_seleccionada.getId());
             
             if(comentari_inserit!=-1){
-                System.out.println("Comentari inserit correctament!");
+                System.out.println("Comentari inserit correctament!");             
                 
-                if(gestorBDWikilocJdbc.afegirCompany(usuari_company, comentari_inserit)){
+                if(usuari_company!=null){
+                    
+                    
                     
                     //public Fetes(Usuari loginUsuari, Date mt, Ruta idRuta) {
-                    
-                    
-                    if(gestorBDWikilocJdbc.afegirFetes(new Fetes(usuari_loginat,new Date(),ruta_seleccionada))){
-                        
-                        if(gestorBDWikilocJdbc.afegirFetes(new Fetes(usuari_company,new Date(),ruta_seleccionada))){
-                            gestorBDWikilocJdbc.confirmarCanvis();
-                        }else{
+                    if (gestorBDWikilocJdbc.afegirFetes(new Fetes(usuari_loginat, new Date(), ruta_seleccionada))) {
+
+                        if (gestorBDWikilocJdbc.afegirFetes(new Fetes(usuari_company, new Date(), ruta_seleccionada))) {
+                            
+                            if (gestorBDWikilocJdbc.afegirCompany(usuari_company, comentari_inserit)) {
+
+                                gestorBDWikilocJdbc.confirmarCanvis();
+
+                                JOptionPane.showConfirmDialog(null, "Comentari inserit correctament",
+                                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                        JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                System.out.println("El company no s'ha inserit");
+                                gestorBDWikilocJdbc.desferCanvis();
+                                JOptionPane.showConfirmDialog(null, "Error el company no s'ha inserit",
+                                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                        JOptionPane.INFORMATION_MESSAGE);
+                            }
+                            
+                            
+
+                        } else {
                             System.out.println("ERROR AL INSERIR EL COMPANY A FETES");
+                            JOptionPane.showConfirmDialog(null, "Error a l'inserir el company a fetes",
+                                    "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                    JOptionPane.INFORMATION_MESSAGE);
                         }
-                        
-                        
-                    }else{
+
+                    } else {
                         gestorBDWikilocJdbc.desferCanvis();
                         System.out.println("ERROR AL INSERIR EL USUARI A FETES");
-                    }      
+                        JOptionPane.showConfirmDialog(null, "Error a l'inserir l'usuari a fetes",
+                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    
+
+                    
+                    
+                    
                 }else{
-                    System.out.println("El company no s'ha inserit");
-                    gestorBDWikilocJdbc.desferCanvis();
+                    
+                    if (gestorBDWikilocJdbc.afegirFetes(new Fetes(usuari_loginat, new Date(), ruta_seleccionada))) {
+                        gestorBDWikilocJdbc.confirmarCanvis();
+                    
+                        JOptionPane.showConfirmDialog(null, "Comentari inserit correctament",
+                                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                        JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    
                 }
+                
+
+                
             }else{
                 System.out.println("El comentari no s'ha inserit");
                 gestorBDWikilocJdbc.desferCanvis();
+                JOptionPane.showConfirmDialog(null, "Error el comentari no s'ha inserit",
+                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (GestorBDWikilocException ex) {
             System.out.println("Error: "+ex.getMessage());
@@ -1624,7 +1762,317 @@ public class panellCataleg extends javax.swing.JPanel {
             }
         }
         
+        try {
+  
+            if(tableModel.getRowCount() > 0){
+                for(int i = tableModel.getRowCount()-1; i > -1; i--){
+                    tableModel.removeRow(i);
+                }
+            }
+            
+            llistaRutes = gestorBDWikilocJdbc.obtenirLlistaRuta();
+            
+            tableModel = (DefaultTableModel) jTable_rutesTotals.getModel();
+            Object rowData[] = new Object[8];
+            
+            format = new SimpleDateFormat("dd/MM/yyyy");
+            System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
+            for (Ruta r : llistaRutes) {
+              
+                Fetes f = gestorBDWikilocJdbc.haFetRuta(r, usuari_loginat);
+                
+                if(f!=null){
+                    
+                    rowData[0] = format.format(f.getMt());
+                    rowData[5] = true;
+                }else{
+                    rowData[5] = false;
+                }
+                
+                
+                rowData[1] = r.getTitol();
+                rowData[2] = r.getDist();
+                rowData[3] = r.getTemps();
+                rowData[4] = r.getDific();
+                //rowData[5] = (f!=null?"Si":"No");
+                        
+                tableModel.addRow(rowData);
+            }
+                        
+            
+        } catch (GestorBDWikilocException ex) {
+            System.out.println("Error en carregar la taula de rutes fetes");
+        }
+
+        jTextArea_escriureComentari.setText("");
+
+        try {
+            
+            double mitjaVinf = gestorBDWikilocJdbc.mitjaVinf(ruta_seleccionada.getId());
+            if (mitjaVinf >= 0.0 && mitjaVinf < 0.5) {
+                //buides
+                jLabel_mostrarInfE1.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE2.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE3.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE4.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE5.setIcon(estrellaBlanca);
+            } else if (mitjaVinf >= 0.5 && mitjaVinf < 1.5) {
+                //estrella 1
+                jLabel_mostrarInfE1.setIcon(estrellaGroga);
+                jLabel_mostrarInfE2.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE3.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE4.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE5.setIcon(estrellaBlanca);
+            } else if (mitjaVinf >= 1.5 && mitjaVinf < 2.5) {
+                //estrella 2
+                jLabel_mostrarInfE1.setIcon(estrellaGroga);
+                jLabel_mostrarInfE2.setIcon(estrellaGroga);
+                jLabel_mostrarInfE3.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE4.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE5.setIcon(estrellaBlanca);
+            } else if (mitjaVinf >= 2.5 && mitjaVinf < 3.5) {
+                //estrella 3
+                jLabel_mostrarInfE1.setIcon(estrellaGroga);
+                jLabel_mostrarInfE2.setIcon(estrellaGroga);
+                jLabel_mostrarInfE3.setIcon(estrellaGroga);
+                jLabel_mostrarInfE4.setIcon(estrellaBlanca);
+                jLabel_mostrarInfE5.setIcon(estrellaBlanca);
+            } else if (mitjaVinf >= 3.5 && mitjaVinf < 4.5) {
+                //estrella 4
+                jLabel_mostrarInfE1.setIcon(estrellaGroga);
+                jLabel_mostrarInfE2.setIcon(estrellaGroga);
+                jLabel_mostrarInfE3.setIcon(estrellaGroga);
+                jLabel_mostrarInfE4.setIcon(estrellaGroga);
+                jLabel_mostrarInfE5.setIcon(estrellaBlanca);
+            } else if (mitjaVinf >= 4.5 && mitjaVinf <= 5.0) {
+                //estrella 5
+                jLabel_mostrarInfE1.setIcon(estrellaGroga);
+                jLabel_mostrarInfE2.setIcon(estrellaGroga);
+                jLabel_mostrarInfE3.setIcon(estrellaGroga);
+                jLabel_mostrarInfE4.setIcon(estrellaGroga);
+                jLabel_mostrarInfE5.setIcon(estrellaGroga);
+            }
+            
+            double mitjaVseg = gestorBDWikilocJdbc.mitjaVseg(ruta_seleccionada.getId());
+            if (mitjaVseg >= 0.0 && mitjaVseg < 0.5) {
+                //buides
+                jLabel_mostrarSegE1.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE2.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE3.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE4.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE5.setIcon(estrellaBlanca);
+            } else if (mitjaVseg >= 0.5 && mitjaVseg < 1.5) {
+                //estrella 1
+                jLabel_mostrarSegE1.setIcon(estrellaGroga);
+                jLabel_mostrarSegE2.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE3.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE4.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE5.setIcon(estrellaBlanca);
+            } else if (mitjaVseg >= 1.5 && mitjaVseg < 2.5) {
+                //estrella 2
+                jLabel_mostrarSegE1.setIcon(estrellaGroga);
+                jLabel_mostrarSegE2.setIcon(estrellaGroga);
+                jLabel_mostrarSegE3.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE4.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE5.setIcon(estrellaBlanca);
+            } else if (mitjaVseg >= 2.5 && mitjaVseg < 3.5) {
+                //estrella 3
+                jLabel_mostrarSegE1.setIcon(estrellaGroga);
+                jLabel_mostrarSegE2.setIcon(estrellaGroga);
+                jLabel_mostrarSegE3.setIcon(estrellaGroga);
+                jLabel_mostrarSegE4.setIcon(estrellaBlanca);
+                jLabel_mostrarSegE5.setIcon(estrellaBlanca);
+            } else if (mitjaVseg >= 3.5 && mitjaVseg < 4.5) {
+                //estrella 4
+                jLabel_mostrarSegE1.setIcon(estrellaGroga);
+                jLabel_mostrarSegE2.setIcon(estrellaGroga);
+                jLabel_mostrarSegE3.setIcon(estrellaGroga);
+                jLabel_mostrarSegE4.setIcon(estrellaGroga);
+                jLabel_mostrarSegE5.setIcon(estrellaBlanca);
+            } else if (mitjaVseg >= 4.5 && mitjaVseg <= 5.0) {
+                //estrella 5
+                jLabel_mostrarSegE1.setIcon(estrellaGroga);
+                jLabel_mostrarSegE2.setIcon(estrellaGroga);
+                jLabel_mostrarSegE3.setIcon(estrellaGroga);
+                jLabel_mostrarSegE4.setIcon(estrellaGroga);
+                jLabel_mostrarSegE5.setIcon(estrellaGroga);
+            }
+            
+            double mitjaVpai = gestorBDWikilocJdbc.mitjaVpai(ruta_seleccionada.getId());
+            if (mitjaVpai >= 0.0 && mitjaVpai < 0.5) {
+                //buides
+                jLabel_mostrarPaiE1.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE2.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE3.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE4.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE5.setIcon(estrellaBlanca);
+            } else if (mitjaVpai >= 0.5 && mitjaVpai < 1.5) {
+                //estrella 1
+                jLabel_mostrarPaiE1.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE2.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE3.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE4.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE5.setIcon(estrellaBlanca);
+            } else if (mitjaVpai >= 1.5 && mitjaVpai < 2.5) {
+                //estrella 2
+                jLabel_mostrarPaiE1.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE2.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE3.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE4.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE5.setIcon(estrellaBlanca);
+            } else if (mitjaVpai >= 2.5 && mitjaVpai < 3.5) {
+                //estrella 3
+                jLabel_mostrarPaiE1.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE2.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE3.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE4.setIcon(estrellaBlanca);
+                jLabel_mostrarPaiE5.setIcon(estrellaBlanca);
+            } else if (mitjaVpai >= 3.5 && mitjaVpai < 4.5) {
+                //estrella 4
+                jLabel_mostrarPaiE1.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE2.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE3.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE4.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE5.setIcon(estrellaBlanca);
+            } else if (mitjaVpai >= 4.5 && mitjaVpai <= 5.0) {
+                //estrella 5
+                jLabel_mostrarPaiE1.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE2.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE3.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE4.setIcon(estrellaGroga);
+                jLabel_mostrarPaiE5.setIcon(estrellaGroga);
+            }
+            
+            double mitjaVdific = gestorBDWikilocJdbc.mitjaVdific(ruta_seleccionada.getId());
+            if (mitjaVdific >= 0.0 && mitjaVdific < 0.5) {
+                //buides
+                jLabel_mostrarDificE1.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE2.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE3.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE4.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE5.setIcon(estrellaBlanca);
+            } else if (mitjaVdific >= 0.5 && mitjaVdific < 1.5) {
+                //estrella 1
+                jLabel_mostrarDificE1.setIcon(estrellaGroga);
+                jLabel_mostrarDificE2.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE3.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE4.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE5.setIcon(estrellaBlanca);
+            } else if (mitjaVdific >= 1.5 && mitjaVdific < 2.5) {
+                //estrella 2
+                jLabel_mostrarDificE1.setIcon(estrellaGroga);
+                jLabel_mostrarDificE2.setIcon(estrellaGroga);
+                jLabel_mostrarDificE3.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE4.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE5.setIcon(estrellaBlanca);
+            } else if (mitjaVdific >= 2.5 && mitjaVdific < 3.5) {
+                //estrella 3
+                jLabel_mostrarDificE1.setIcon(estrellaGroga);
+                jLabel_mostrarDificE2.setIcon(estrellaGroga);
+                jLabel_mostrarDificE3.setIcon(estrellaGroga);
+                jLabel_mostrarDificE4.setIcon(estrellaBlanca);
+                jLabel_mostrarDificE5.setIcon(estrellaBlanca);
+            } else if (mitjaVdific >= 3.5 && mitjaVdific < 4.5) {
+                //estrella 4
+                jLabel_mostrarDificE1.setIcon(estrellaGroga);
+                jLabel_mostrarDificE2.setIcon(estrellaGroga);
+                jLabel_mostrarDificE3.setIcon(estrellaGroga);
+                jLabel_mostrarDificE4.setIcon(estrellaGroga);
+                jLabel_mostrarDificE5.setIcon(estrellaBlanca);
+            } else if (mitjaVdific >= 4.5 && mitjaVdific <= 5.0) {
+                //estrella 5
+                jLabel_mostrarDificE1.setIcon(estrellaGroga);
+                jLabel_mostrarDificE2.setIcon(estrellaGroga);
+                jLabel_mostrarDificE3.setIcon(estrellaGroga);
+                jLabel_mostrarDificE4.setIcon(estrellaGroga);
+                jLabel_mostrarDificE5.setIcon(estrellaGroga);
+            }
+            
+            
+            
+            List<Comentari> llistaComentaris = gestorBDWikilocJdbc.obtenirLlistaComentaris(ruta_seleccionada.getId());
+            
+            
+            System.out.println("SIZE LLISTA COMENTARIS "+llistaComentaris.size());
+            String info_comentari = "";
+            
+            for(Comentari c : llistaComentaris){
+                
+                info_comentari += "COMENTARI FET PER: " + c.getLoginUsuari().getLogin() +"\n";
+                info_comentari += "Contingut: " + c.getText() +"\n";
+                info_comentari += "v_inf: " + c.getVinf() +"\n";
+                info_comentari += "feta: " + c.getFeta() +"\n";
+                info_comentari += "v_seg: " + c.getVseg() +"\n";
+                info_comentari += "v_pai: " + c.getVpai() +"\n";
+                info_comentari += "dific: " + c.getDific() +"\n";
+                info_comentari += "mt: " + c.getMt() +"\n";
+                
+                Companys company = gestorBDWikilocJdbc.obtenirCompany(c.getId());
+                if(company != null){
+                    info_comentari += "Company de ruta: " + company.getLoginUsuari().getLogin() +"\n";
+                }
+                
+                info_comentari += "\n";
+            }
+            System.out.println("INFO COMENTARI: "+info_comentari);
+            
+            jTextArea_comentarisTotals.setText(info_comentari);
+            
+            
+            
+        } catch (GestorBDWikilocException ex) {
+            System.out.println("ERROR DEL CATCH: "+ex.getMessage());
+            Logger.getLogger(panellCataleg.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+        
+        jPanel4.setVisible(false);
+        jPanel3.setVisible(false);
+        jComboBox_seleccionarCompany.setSelectedIndex(-1);
+        jComboBox_seleccionarCompany.setVisible(false);
+        jButton_desarValoracio.setEnabled(false);
+        
+        toggleButton_haFetRuta.setSelected(false);
+        feta = false;
+        
+        jLabel_valorarInfE1.setIcon(estrellaGroga);
+        jLabel_valorarInfE2.setIcon(estrellaBlanca);
+        jLabel_valorarInfE3.setIcon(estrellaBlanca);
+        jLabel_valorarInfE4.setIcon(estrellaBlanca);
+        jLabel_valorarInfE5.setIcon(estrellaBlanca);
+        
+        jLabel_valorarSegE1.setIcon(estrellaGroga);
+        jLabel_valorarSegE2.setIcon(estrellaBlanca);
+        jLabel_valorarSegE3.setIcon(estrellaBlanca);
+        jLabel_valorarSegE4.setIcon(estrellaBlanca);
+        jLabel_valorarSegE5.setIcon(estrellaBlanca);       
+        
+        jLabel_valorarPaiE1.setIcon(estrellaGroga);
+        jLabel_valorarPaiE2.setIcon(estrellaBlanca);
+        jLabel_valorarPaiE3.setIcon(estrellaBlanca);
+        jLabel_valorarPaiE4.setIcon(estrellaBlanca);
+        jLabel_valorarPaiE5.setIcon(estrellaBlanca);
+        
+        jLabel_valorarDificE1.setIcon(estrellaGroga);
+        jLabel_valorarDificE2.setIcon(estrellaBlanca);
+        jLabel_valorarDificE3.setIcon(estrellaBlanca);
+        jLabel_valorarDificE4.setIcon(estrellaBlanca);
+        jLabel_valorarDificE5.setIcon(estrellaBlanca);
+        
+        
     }//GEN-LAST:event_jButton_desarValoracioMouseClicked
+
+    private void jTextArea_escriureComentariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea_escriureComentariKeyReleased
+        
+        if(jTextArea_escriureComentari.getText().length() != 0){
+            
+            jButton_desarValoracio.setEnabled(true);
+            
+        }else{
+            jButton_desarValoracio.setEnabled(false);
+        }
+        
+    }//GEN-LAST:event_jTextArea_escriureComentariKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

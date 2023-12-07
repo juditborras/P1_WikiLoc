@@ -100,7 +100,9 @@ public class Comentari {
     }
 
     public void setVseg(Integer vSeg) {
-        if(vSeg == null || vSeg < 1 || vSeg > 5 || !this.feta){
+        System.out.println("vsegggggg: "+ vSeg);
+        System.out.println("fetaaaaa: "+this.feta);
+        if(vSeg == null || vSeg < 1 || vSeg > 5){
             throw new WikilocModelException("La valoració del seguiment és un camp obligatori en cas que s'hagi realitzat la ruta i els seus valors se situen entre l'1 i el 5");
         }        
         this.vSeg = vSeg;
@@ -111,7 +113,7 @@ public class Comentari {
     }
 
     public void setVpai(Integer vPai) {
-        if(vPai == null || vPai < 1 || vPai > 5 || !this.feta){
+        if(vPai == null || vPai < 1 || vPai > 5){
             throw new WikilocModelException("La valoració del paisatge és un camp obligatori en cas que s'hagi realitzat la ruta i els seus valors se situen entre l'1 i el 5");
         }        
         this.vPai = vPai;
@@ -122,7 +124,7 @@ public class Comentari {
     }
 
     public void setDific(Integer dific) {
-        if(dific == null || dific < 1 || dific > 5 || !this.feta){
+        if(dific == null || dific < 1 || dific > 5){
             throw new WikilocModelException("La valoració de la dificultat és un camp obligatori en cas que s'hagi realitzat la ruta i els seus valors se situen entre l'1 i el 5");
         }        
         this.dific = dific;
@@ -137,7 +139,10 @@ public class Comentari {
     }
 
     public void setLoginUsuari(Usuari loginUsuari) {
-        if(loginUsuari.getLogin() == null || loginUsuari.getLogin().length() == 0 || loginUsuari.getLogin().length() > 15){
+        if(loginUsuari == null){
+            throw new WikilocModelException("És obligatori que el comentari pertanyi a un usuari");
+        }
+        if(loginUsuari.getLogin().length() == 0 || loginUsuari.getLogin().length() > 15){
             throw new WikilocModelException("És obligatori que el comentari pertanyi a un usuari");
         }
         this.loginUsuari = loginUsuari;
