@@ -4,6 +4,7 @@
  */
 package org.milaifontanals.wikiloc.vista;
 
+import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -177,6 +178,8 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
                 try {
                     if(gestorBDWikilocJdbc.afegirRutaAmbPunts(ruta, llistaPuntsRuta)){
                         System.out.println("HAS AFEGIT CORRECTAMENT LA RUTA I ELS SEUS PUNTS");
+                        File f = new File("info_ruta.txt");
+                        f.delete();
                         
                         new CambiaPanel(this,new panellAfegir_ruta(null, usuari_loginat,null,null,1));
                         
