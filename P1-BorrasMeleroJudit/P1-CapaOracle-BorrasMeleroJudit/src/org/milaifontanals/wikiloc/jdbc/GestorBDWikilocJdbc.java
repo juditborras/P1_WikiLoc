@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -815,6 +816,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
             Date d = new Date();
             java.sql.Date getimestmp = new java.sql.Date(d.getTime());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+           
+            System.out.println("HORA DE ENTRADA: "+sdf.format(d));
 
             psAfegirFetes.setString(1, login);
             psAfegirFetes.setDate(2, getimestmp);
@@ -830,6 +834,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         }catch(Exception ex){
+            System.out.println("ERROR AFEGIR FETES!!!! "+ex.getMessage());
             return false;
         }
     }
@@ -1854,6 +1859,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                         if(afegirPuntRuta(punt_ruta,punt_ruta.getTmpUrlFoto())){
                             i++;
                         }else{
+                            System.out.println("NO S'HA AFEGIT EL PUNT DE LA RUTA: punt_ruta: "+punt_ruta+" url_tmp foto: "+punt_ruta.getTmpUrlFoto());
                             break;
                         }
                     }
@@ -1870,6 +1876,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                             confirmarCanvis();
                             return true;
                         }else{
+                            System.out.println("ERROR AMB FETES: "+ruta.getLoginUsuari().getLogin()+" : "+(int)id_ruta);
                             return false;
                         }
        

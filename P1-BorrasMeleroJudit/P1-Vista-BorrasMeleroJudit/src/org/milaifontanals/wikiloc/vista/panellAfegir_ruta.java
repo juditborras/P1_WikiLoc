@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -53,9 +54,15 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
     String html_s = "";
     int hores = 0, minuts = 0;
     
+    
     List<Punt> llistaPunts;
     
-    public panellAfegir_ruta(Breadcrumb breadcrumb1, Usuari usuari_loginat, List<Punt> llistaPunts) {
+    public panellAfegir_ruta(Breadcrumb breadcrumb1, Usuari usuari_loginat, List<Punt> llistaPunts, Ruta ruta, int contador) {
+        System.out.println("CONTADOR: "+contador);
+        System.out.println("RUTAAAAA: "+ruta);
+        
+        
+        this.r = ruta;
         initComponents();
         //TextPrompt placeHolder_titol = new TextPrompt("títol de la ruta",jTextField_titolRuta);
         this.breadcrumb1 = breadcrumb1;
@@ -70,7 +77,36 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
             jComboBox_tempsMruta.addItem(i+"");
         }
         
+        if(contador==1){
+            ruta = null;
+        }
         
+        
+        System.out.println("CONTADOR: "+contador);
+        System.out.println("RUTAAAAA: "+ruta);
+        if(ruta == null && contador >0){
+            System.out.println("ENTROOOO");
+            this.r = null;
+            llistaPunts = new ArrayList();
+            new CambiaPanel(jPanel1,new panellAfegir());
+            try{
+ 
+//                breadcrumb1.remove(1);
+//                breadcrumb1.remove(2);
+//                breadcrumb1.remove(0);
+
+breadcrumb1 = new Breadcrumb();
+                  
+                //breadcrumb1.removeAll();
+
+                  
+            }catch(Exception ex){
+                System.out.println("ERROR: "+ex.getMessage());
+            }
+
+        }else{
+            System.out.println("NO ENTROOOO");
+        }
 
         /*
         JMenuBar menuBar = new JMenuBar();
@@ -83,6 +119,12 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         */
         
         if(r!=null){
+            System.out.println("breadcrumb1.getComponentCount(): "+breadcrumb1.getComponentCount());
+            if(breadcrumb1.getComponentCount()==2){
+                breadcrumb1.addItem("Item 1"); 
+                breadcrumb1.addItem("Item 2"); 
+            }
+            
             System.out.println("RUTA INFO: "+r.getTitol());
             jTextField_titolRuta.setText(r.getTitol());
             jTextField_dist.setText(r.getDist()+"");
@@ -627,7 +669,14 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
         if(dadesCorrectes && qtat){
             if(r==null){
                 qtat = false;
-                breadcrumb1.addItem("Item 1"); 
+                System.out.println("COUNT COMPONENTS "+breadcrumb1.getComponentCount());
+                if(breadcrumb1.getComponentCount()<4){
+                    
+                    breadcrumb1.addItem("Item 1"); 
+                    
+                    
+                }
+                
             }
              
         }

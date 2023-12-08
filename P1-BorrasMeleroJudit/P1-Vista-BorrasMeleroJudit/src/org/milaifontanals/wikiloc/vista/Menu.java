@@ -432,7 +432,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void rSButtonMenuAfegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMenuAfegirActionPerformed
         
-        new CambiaPanel(jPanel_principal,new panellAfegir(jPanel_menu, jPanel_principal,usuari_loginat));
+        new CambiaPanel(jPanel_principal,new panellAfegir(jPanel_menu, jPanel_principal,usuari_loginat,1));
         
         File fitxer = new File("info_ruta.txt");
         fitxer.delete();

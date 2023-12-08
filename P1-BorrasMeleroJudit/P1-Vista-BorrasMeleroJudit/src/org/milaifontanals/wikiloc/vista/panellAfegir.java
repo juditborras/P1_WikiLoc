@@ -7,6 +7,7 @@ package org.milaifontanals.wikiloc.vista;
 import java.awt.Color;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,12 +36,13 @@ public class panellAfegir extends javax.swing.JPanel {
     public panellAfegir(){
         
     }
-    public panellAfegir(JPanel jPanel_menu, JPanel jPanel_principal, Usuari usuari_loginat) {
+    public panellAfegir(JPanel jPanel_menu, JPanel jPanel_principal, Usuari usuari_loginat, int contador) {
         
         initComponents();
 
                 
         this.usuari_loginat = usuari_loginat;
+        
         
 //        breadcrumb1.addItem("Item 1");
 //        breadcrumb1.addItem("Item 2");
@@ -56,10 +58,18 @@ public class panellAfegir extends javax.swing.JPanel {
                 System.out.println("ITEM SELECTED: "+item.getIndex());
                 switch(item.getIndex()){
                     case 0:
-                                                                                     
-                        new CambiaPanel(jPanel_formulari,new panellAfegir_ruta(breadcrumb1, usuari_loginat,llistaPunts));
+                             
                         nova_ruta = panellAfegir_ruta.retornarNovaRuta();
                         llistaPunts = panellAfegir_rutaPunts.retornaLlistaPunts();
+                        if(contador==1){
+                            nova_ruta = null;
+                            llistaPunts = new ArrayList();
+                        }
+                        
+                        new CambiaPanel(jPanel_formulari,new panellAfegir_ruta(breadcrumb1, usuari_loginat,llistaPunts,nova_ruta,contador));
+                        
+                        
+                        
                         System.out.println("NOVA RUTA V1: "+nova_ruta);
                         if(llistaPunts!=null){
                             System.out.println("LLISTA DE PUNTS: "+llistaPunts.size());
@@ -69,6 +79,12 @@ public class panellAfegir extends javax.swing.JPanel {
                     case 1:
                         nova_ruta = panellAfegir_ruta.retornarNovaRuta();
                         llistaPunts = panellAfegir_rutaPunts.retornaLlistaPunts();
+                        
+                        if(contador==1){
+                            nova_ruta = null;
+                            llistaPunts = new ArrayList();
+                        }
+                         
                         if(llistaPunts!=null){
                             System.out.println("LLISTA DE PUNTS: "+llistaPunts.size());
                         }

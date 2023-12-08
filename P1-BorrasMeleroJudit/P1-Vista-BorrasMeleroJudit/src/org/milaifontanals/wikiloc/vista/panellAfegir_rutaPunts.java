@@ -1025,8 +1025,13 @@ public class panellAfegir_rutaPunts extends javax.swing.JPanel {
         if(jTextField_ordrePunt.getText().length() != 0 && jTextField_nomPunt.getText().length() != 0 && jTextArea_descPunt.getText().length() != 0 && jTextField_latPunt.getText().length() != 0 && jTextField_lonPunt.getText().length() != 0 && jTextField_altPunt.getText().length() != 0 && jComboBox_tipusPunt.getSelectedItem() != null){
             System.out.println("DADES CORRECTES");
 
-
+            if(breadcrumb1.getComponentCount()<4){
+                    
                 breadcrumb1.addItem("Item 2"); 
+
+
+            }
+            //breadcrumb1.addItem("Item 2"); 
 
              
         }else{

@@ -178,7 +178,7 @@ public class panellCataleg extends javax.swing.JPanel {
                         jLabel_valorarInfE3.setVisible(false);
                         jLabel_valorarInfE4.setVisible(false);
                         jLabel_valorarInfE5.setVisible(false);
-
+                        feta = true;
                         
                     }else{
                         jLabel1.setVisible(true);
@@ -192,6 +192,7 @@ public class panellCataleg extends javax.swing.JPanel {
                         jLabel_valorarInfE3.setVisible(true);
                         jLabel_valorarInfE4.setVisible(true);
                         jLabel_valorarInfE5.setVisible(true);
+                        feta = false;
                     }
                 } catch (GestorBDWikilocException ex) {
                    
@@ -835,29 +836,32 @@ public class panellCataleg extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel_valorarSegE1)
-                    .addComponent(jLabel_valorarSegE2)
-                    .addComponent(jLabel_valorarSegE3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_valorarSegE3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel_valorarSegE4)
-                    .addComponent(jLabel_valorarSegE5))
+                    .addComponent(jLabel_valorarSegE5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(jLabel_valorarSegE1)
+                        .addComponent(jLabel_valorarSegE2)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel_valorarPaiE1)
-                    .addComponent(jLabel_valorarPaiE2)
-                    .addComponent(jLabel_valorarPaiE3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_valorarPaiE3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel_valorarPaiE4)
-                    .addComponent(jLabel_valorarPaiE5))
+                    .addComponent(jLabel_valorarPaiE5)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(jLabel_valorarPaiE1)
+                        .addComponent(jLabel_valorarPaiE2)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel_valorarDificE1)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_valorarDificE2)
                     .addComponent(jLabel_valorarDificE3)
                     .addComponent(jLabel_valorarDificE4)
-                    .addComponent(jLabel_valorarDificE5))
+                    .addComponent(jLabel_valorarDificE5)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel_valorarDificE1)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -1084,37 +1088,41 @@ public class panellCataleg extends javax.swing.JPanel {
                             .addComponent(jLabel14)
                             .addComponent(jButton_valorarRuta))
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel_mostrarInfE1)
-                            .addComponent(jLabel_mostrarInfE2)
-                            .addComponent(jLabel_mostrarInfE3)
-                            .addComponent(jLabel_mostrarInfE4)
-                            .addComponent(jLabel_mostrarInfE5))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_mostrarInfE5)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel_mostrarInfE1)
+                                .addComponent(jLabel_mostrarInfE2)
+                                .addComponent(jLabel_mostrarInfE3)
+                                .addComponent(jLabel_mostrarInfE4)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel_mostrarSegE1)
-                            .addComponent(jLabel_mostrarSegE2)
-                            .addComponent(jLabel_mostrarSegE3)
-                            .addComponent(jLabel_mostrarSegE4)
-                            .addComponent(jLabel_mostrarSegE5))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_mostrarSegE5)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel_mostrarSegE1)
+                                .addComponent(jLabel_mostrarSegE2)
+                                .addComponent(jLabel_mostrarSegE3)
+                                .addComponent(jLabel_mostrarSegE4)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel_mostrarPaiE1)
-                            .addComponent(jLabel_mostrarPaiE2)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_mostrarPaiE3)
-                            .addComponent(jLabel_mostrarPaiE4)
-                            .addComponent(jLabel_mostrarPaiE5))
+                            .addComponent(jLabel_mostrarPaiE4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel_mostrarPaiE5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel_mostrarPaiE1)
+                                .addComponent(jLabel_mostrarPaiE2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel_mostrarDificE1)
-                            .addComponent(jLabel_mostrarDificE2)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_mostrarDificE3)
-                            .addComponent(jLabel_mostrarDificE4)
-                            .addComponent(jLabel_mostrarDificE5)))
+                            .addComponent(jLabel_mostrarDificE4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel_mostrarDificE5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel_mostrarDificE1)
+                                .addComponent(jLabel_mostrarDificE2))))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1733,15 +1741,21 @@ public class panellCataleg extends javax.swing.JPanel {
                     
                     
                 }else{
-                    
-                    if (gestorBDWikilocJdbc.afegirFetes(new Fetes(usuari_loginat, new Date(), ruta_seleccionada))) {
+                    if(feta){
+                        if (gestorBDWikilocJdbc.afegirFetes(new Fetes(usuari_loginat, new Date(), ruta_seleccionada))) {
+                            gestorBDWikilocJdbc.confirmarCanvis();
+
+                            JOptionPane.showConfirmDialog(null, "Comentari inserit correctament",
+                                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                        JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }else{
                         gestorBDWikilocJdbc.confirmarCanvis();
-                    
+
                         JOptionPane.showConfirmDialog(null, "Comentari inserit correctament",
                                         "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
                                         JOptionPane.INFORMATION_MESSAGE);
                     }
-                    
                 }
                 
 

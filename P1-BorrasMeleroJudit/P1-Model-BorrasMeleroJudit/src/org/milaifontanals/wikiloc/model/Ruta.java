@@ -89,7 +89,7 @@ public class Ruta {
 
     public void setTextRuta(String textRuta) {
         System.out.println("TR: "+textRuta);
-        if(textRuta == null || textRuta.length() == 0 || textRuta.length() > 1200){
+        if(textRuta == null || textRuta.length() == 0 || textRuta.length() > 4000){
             throw new WikilocModelException("La ruta ha de tenir obligatòriament una descripció format html i no pot sobrepassar els 1200 caràcters");
         }        
         this.textRuta = textRuta;

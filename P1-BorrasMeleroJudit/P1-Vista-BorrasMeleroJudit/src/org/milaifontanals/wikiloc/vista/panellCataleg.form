@@ -305,40 +305,48 @@
                                   <Component id="jButton_valorarRuta" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarInfE1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarInfE2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarInfE3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarInfE4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel_mostrarInfE5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarInfE1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarInfE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarInfE3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarInfE4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarSegE1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarSegE2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarSegE3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarSegE4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel_mostrarSegE5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarSegE1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarSegE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarSegE3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarSegE4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarPaiE1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarPaiE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel_mostrarPaiE3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_mostrarPaiE4" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_mostrarPaiE5" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarPaiE1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarPaiE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarDificE1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_mostrarDificE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel_mostrarDificE3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_mostrarDificE4" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_mostrarDificE5" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarDificE1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_mostrarDificE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Component id="jScrollPane2" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
@@ -620,31 +628,37 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_valorarSegE1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_valorarSegE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel_valorarSegE3" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_valorarSegE4" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_valorarSegE5" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_valorarSegE1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_valorarSegE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_valorarPaiE1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_valorarPaiE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel_valorarPaiE3" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_valorarPaiE4" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_valorarPaiE5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_valorarPaiE1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_valorarPaiE2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel_valorarDificE1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel_valorarDificE2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_valorarDificE3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_valorarDificE4" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel_valorarDificE5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel_valorarDificE1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace pref="22" max="32767" attributes="0"/>
                           </Group>
