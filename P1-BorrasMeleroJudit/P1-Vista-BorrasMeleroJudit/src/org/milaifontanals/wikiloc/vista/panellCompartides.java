@@ -468,9 +468,9 @@ public class panellCompartides extends javax.swing.JPanel {
 
                     }
 
-                    jList_puntsRuta.setModel(dlm);
-                    jList_puntsRuta = new JList(dlm);
-                    System.out.println(jList_puntsRuta.getModel().toString());
+                    //jList_puntsRuta.setModel(dlm);
+                    //jList_puntsRuta = new JList(dlm);
+                    //System.out.println(jList_puntsRuta.getModel().toString());
 
                 } catch (GestorBDWikilocException ex) {
                     Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
@@ -597,9 +597,9 @@ public class panellCompartides extends javax.swing.JPanel {
                 dlm.addElement(p.getOrdre().toString() + " - " + p.getNom().toString());
                                 
             }
-            jList_puntsRuta.setModel(dlm);
-            jList_puntsRuta = new JList(dlm);
-            System.out.println(jList_puntsRuta.getModel().toString());
+            //jList_puntsRuta.setModel(dlm);
+            //jList_puntsRuta = new JList(dlm);
+            //System.out.println(jList_puntsRuta.getModel().toString());
             
           
         } catch (GestorBDWikilocException ex) {
@@ -916,8 +916,6 @@ public class panellCompartides extends javax.swing.JPanel {
         jTextArea_descRuta = new javax.swing.JTextArea();
         jButton_desarCanvisRuta = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList_puntsRuta = new javax.swing.JList<>();
         jTextField_nomPunt = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea_descPunt = new javax.swing.JTextArea();
@@ -1266,19 +1264,6 @@ public class panellCompartides extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jList_puntsRuta.setDragEnabled(true);
-        jList_puntsRuta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList_puntsRutaMouseClicked(evt);
-            }
-        });
-        jList_puntsRuta.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jList_puntsRutaValueChanged(evt);
-            }
-        });
-        jScrollPane3.setViewportView(jList_puntsRuta);
-
         jTextField_nomPunt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_nomPuntKeyReleased(evt);
@@ -1405,9 +1390,9 @@ public class panellCompartides extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(11, 11, 11)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton_pujar)
                                     .addComponent(jButton_baixar)))
@@ -1424,7 +1409,7 @@ public class panellCompartides extends javax.swing.JPanel {
                                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jButton_desarCanvisPunts))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                                         .addComponent(jPanel_altimetria, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel7Layout.createSequentialGroup()
                                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1436,8 +1421,6 @@ public class panellCompartides extends javax.swing.JPanel {
                                             .addGroup(jPanel7Layout.createSequentialGroup()
                                                 .addGap(248, 248, 248)
                                                 .addComponent(jButton_seleccionarFoto)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -1462,14 +1445,15 @@ public class panellCompartides extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGap(229, 229, 229)
                                 .addComponent(jButton_pujar)
                                 .addGap(35, 35, 35)
-                                .addComponent(jButton_baixar)))
-                        .addGap(8, 8, 8)
+                                .addComponent(jButton_baixar)
+                                .addGap(152, 152, 152))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)))
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton_afegir)
                             .addComponent(jButton_eliminar))
@@ -1499,10 +1483,7 @@ public class panellCompartides extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jTextField_altPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel_altimetria, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel_altimetria, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -2158,147 +2139,6 @@ public class panellCompartides extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jTabbedPane2MouseClicked
 
-    private void jList_puntsRutaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList_puntsRutaMouseClicked
-        
-        //String value = (String)jList_puntsRuta.getModel().getElementAt(jList_puntsRuta.locationToIndex(evt.getPoint()));
-        //System.out.println("value:"+value);
-        
-        //Punt punt = (Punt) jList_puntsRuta.getModel().getElementAt(0);
-        //Punt punt = (Punt)dlm.getElementAt(jList_puntsRuta.getSelectedIndex());
-        //System.out.println("punt: "+punt);
-    }//GEN-LAST:event_jList_puntsRutaMouseClicked
-
-    private void jList_puntsRutaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList_puntsRutaValueChanged
-/*
-        if (!evt.getValueIsAdjusting()) {
-            JList jlist = (JList)evt.getSource();
-            
-            int idx = jlist.getSelectedIndex();
-
-            if(editarPuntRuta){
-                jTextField_ordrePunt.setVisible(true);
-                jTextField_nomPunt.setVisible(true);
-                jTextArea_descPunt.setVisible(true);
-                jScrollPane4.setVisible(true);
-                jTextField_latPunt.setVisible(true);
-                jTextField_lonPunt.setVisible(true);
-                jTextField_altPunt.setVisible(true);
-                jComboBox_tipusPunt.setVisible(true);
-                jLabel_fotoPunt.setVisible(true);
-                jButton_seleccionarFoto.setVisible(true);
-
-                jButton_pujar.setVisible(true);
-                jButton_baixar.setVisible(true);
-                jButton_eliminar.setVisible(true);
-
-                jButton_netejar.setVisible(true);
-                
-                jTextField_ordrePunt.setEditable(false);
-                jTextField_nomPunt.setEditable(true);
-                jTextArea_descPunt.setEditable(true);
-                jTextField_latPunt.setEditable(true);
-                jTextField_lonPunt.setEditable(true);
-                jTextField_altPunt.setEditable(true);
-                jComboBox_tipusPunt.setEnabled(true);
-
-                jButton_desarCanvisPunts.setVisible(true);
-                jButton_desarCanvisPunts.setEnabled(false);
-                
-            }else{
-                
-                jTextField_ordrePunt.setVisible(true);
-                jTextField_nomPunt.setVisible(true);
-                jTextArea_descPunt.setVisible(true);
-                jScrollPane4.setVisible(true);
-                jTextField_latPunt.setVisible(true);
-                jTextField_lonPunt.setVisible(true);
-                jTextField_altPunt.setVisible(true);
-                jComboBox_tipusPunt.setVisible(true);
-                jLabel_fotoPunt.setVisible(true);             
-
-                
-                jTextField_ordrePunt.setEditable(false);
-                jTextField_nomPunt.setEditable(false);
-                jTextArea_descPunt.setEditable(false);
-                jTextField_latPunt.setEditable(false);
-                jTextField_lonPunt.setEditable(false);
-                jTextField_altPunt.setEditable(false);
-                jComboBox_tipusPunt.setEnabled(false);
-
-
-//                jButton_pujar.setVisible(false);
-//                jButton_baixar.setVisible(false);
-//                jButton_eliminar.setVisible(false);
-//                jButton_afegir.setEnabled(false);
-//                jButton_netejar.setEnabled(false);
-//
-                jButton_desarCanvisPunts.setVisible(false);
-            }
-
-            
-            if(llistaPuntsRuta.size()>0 && idx!= -1){
-                System.out.println("INDEX: "+idx);
-                punt_seleccionat = llistaPuntsRuta.get(idx);
-            }
-            
-            
-            
-            jTextField_ordrePunt.setText(punt_seleccionat.getOrdre().toString());
-            jTextField_nomPunt.setText(punt_seleccionat.getNom());
-            jTextArea_descPunt.setText(punt_seleccionat.getDescPunt());
-            
-
-            
-            num = punt_seleccionat.getNum()+"";
-            nomPunt = punt_seleccionat.getNom();
-            descPunt = punt_seleccionat.getDescPunt();
-            lat = punt_seleccionat.getLat()+"";
-            lon = punt_seleccionat.getLon()+"";
-            alt = punt_seleccionat.getAlt()+"";
-            ordre = punt_seleccionat.getOrdre()+"";
-            
-            try {
-                System.out.println("PUNT SELECCIONAT: "+punt_seleccionat.getNum()+" ID RUTA: "+id);
-                t = gestorBDWikilocJdbc.obtenirTipusPunt(punt_seleccionat.getNum(), id);
-                System.out.println("t: "+t);
-                System.out.println("tipus punt: SELECCIONAT: "+t);
-                jComboBox_tipusPunt.getModel().setSelectedItem(t);
-                
-                
-                
-                //jComboBox_tipusPunt.setSelectedItem(t);
-                
-                            
-
-                
-            } catch (GestorBDWikilocException ex) {
-                System.out.println("catch: error");
-                System.out.println(ex.getMessage());
-            }
-            
-            
-            //jLabel1
-            if(punt_seleccionat.getFoto()!=null){
-                System.out.println("BYTE[]"+punt_seleccionat.getFoto().length);
-                
-                BufferedImage bf = byteArrayToImage(punt_seleccionat.getFoto());
-                fotoPunt = new ImageIcon(bf);
-                jLabel_fotoPunt.setIcon(fotoPunt);
-                             
-             
-            }else{
-                jLabel_fotoPunt.setIcon(fotoNulla);
-            }
-            
-            
-            jTextField_latPunt.setText(punt_seleccionat.getLat().toString());
-            jTextField_lonPunt.setText(punt_seleccionat.getLon().toString());
-            jTextField_altPunt.setText(punt_seleccionat.getAlt().toString());
-
-        }
-        */
-    }//GEN-LAST:event_jList_puntsRutaValueChanged
-
     private void jButton_afegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_afegirActionPerformed
         
         botoAfegirClicat = true;
@@ -2315,7 +2155,7 @@ public class panellCompartides extends javax.swing.JPanel {
                 dlm.addElement(p.getOrdre().toString() + " - " + p.getNom().toString());
 
             }
-            jList_puntsRuta.setModel(dlm);
+            //jList_puntsRuta.setModel(dlm);
             /*
             
             jList_puntsRuta = new JList(dlm);
@@ -2637,9 +2477,9 @@ public class panellCompartides extends javax.swing.JPanel {
                                 dlm.addElement(p.getOrdre().toString() + " - " + p.getNom().toString());
 
                             }
-                            jList_puntsRuta.setModel(dlm);
-                            jList_puntsRuta = new JList(dlm);
-                            System.out.println(jList_puntsRuta.getModel().toString());
+                            //jList_puntsRuta.setModel(dlm);
+                            //jList_puntsRuta = new JList(dlm);
+                            //System.out.println(jList_puntsRuta.getModel().toString());
 
                         } catch (GestorBDWikilocException ex) {
                             Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
@@ -2716,9 +2556,9 @@ public class panellCompartides extends javax.swing.JPanel {
                                 dlm.addElement(p.getOrdre().toString() + " - " + p.getNom().toString());
 
                             }
-                            jList_puntsRuta.setModel(dlm);
-                            jList_puntsRuta = new JList(dlm);
-                            System.out.println(jList_puntsRuta.getModel().toString());
+                            //jList_puntsRuta.setModel(dlm);
+                            //jList_puntsRuta = new JList(dlm);
+                            //System.out.println(jList_puntsRuta.getModel().toString());
 
                         } catch (GestorBDWikilocException ex) {
                             Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
@@ -3368,7 +3208,6 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel_vSegE4;
     private javax.swing.JLabel jLabel_vSegE5;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList_puntsRuta;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
@@ -3377,7 +3216,6 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel_compartidesCanviant;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
