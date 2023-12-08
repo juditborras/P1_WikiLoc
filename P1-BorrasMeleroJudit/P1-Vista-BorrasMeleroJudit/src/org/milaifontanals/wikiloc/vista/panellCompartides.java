@@ -113,7 +113,9 @@ public class panellCompartides extends javax.swing.JPanel {
         
         
         
-        initComponents();    
+        initComponents();  
+        
+        jLabel_missatge.setVisible(false);
         
         jComboBox_filtreDific.addItem("");
         for(int i=1; i<=5; i++){
@@ -156,6 +158,27 @@ public class panellCompartides extends javax.swing.JPanel {
 //            gestorBDWikilocJdbc.confirmarCanvis();
             
             llistaRutesCreades = gestorBDWikilocJdbc.obtenirLlistaRutaUsuari(usuari_loginat.getLogin());
+            
+            
+            if(llistaRutesCreades.size()==0){
+                jLabel_missatge.setVisible(true);
+                jTextField_filtreTitol.setVisible(false);
+                jTextField_filtreDist.setVisible(false);
+                jComboBox_filtreDific.setVisible(false);
+                jButton_cercaFiltre.setVisible(false);
+                jButton_netejarFiltre.setVisible(false);
+                jTable_rutesCreadesUsuari.setVisible(false);
+                jScrollPane1.setVisible(false);
+            }else{
+                jLabel_missatge.setVisible(false);
+                jTextField_filtreTitol.setVisible(true);
+                jTextField_filtreDist.setVisible(true);
+                jComboBox_filtreDific.setVisible(true);
+                jButton_cercaFiltre.setVisible(true);
+                jButton_netejarFiltre.setVisible(true);
+                jTable_rutesCreadesUsuari.setVisible(true);
+                jScrollPane1.setVisible(true);
+            }
             
             tableModel = (DefaultTableModel) jTable_rutesCreadesUsuari.getModel();
             Object rowData[] = new Object[5];
@@ -973,6 +996,7 @@ public class panellCompartides extends javax.swing.JPanel {
         jLabel_vDificE3 = new javax.swing.JLabel();
         jLabel_vDificE4 = new javax.swing.JLabel();
         jLabel_vDificE5 = new javax.swing.JLabel();
+        jLabel_missatge = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1745,8 +1769,10 @@ public class panellCompartides extends javax.swing.JPanel {
             .addGroup(jPanel_compartidesCanviantLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
+
+        jLabel_missatge.setText("NO HAS COMPARTIT CAP RUTA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1754,13 +1780,19 @@ public class panellCompartides extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel_compartidesCanviant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(268, 268, 268)
+                .addComponent(jLabel_missatge, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_compartidesCanviant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel_missatge, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jPanel_compartidesCanviant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -3184,6 +3216,7 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel_dificEstrella4;
     private javax.swing.JLabel jLabel_dificEstrella5;
     private javax.swing.JLabel jLabel_fotoPunt;
+    private javax.swing.JLabel jLabel_missatge;
     private javax.swing.JLabel jLabel_qtatFetesAmbComentari;
     private javax.swing.JLabel jLabel_qtatNoFetesAmbComentari;
     private javax.swing.JLabel jLabel_qtatTotalComentaris;
