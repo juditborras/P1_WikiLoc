@@ -40,36 +40,44 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
             
         }
         
-        String info_ruta = "";
         
-        info_ruta += "Títol: " + ruta.getTitol() + "\n\n";
-        info_ruta += "Descripció: " + ruta.getDescRuta() + "\n";
-        info_ruta += "Descripció en fitxer HTML: " + ruta.getTextRuta() + "\n";
-        info_ruta += "Distància: " + ruta.getDist() + "\n";
-        info_ruta += "Temps: " + ruta.getTemps() + "\n";
-        info_ruta += "DesnP: " + ruta.getDesnP() + "\n";
-        info_ruta += "DesnN: " + ruta.getDesnN() + "\n";
-        info_ruta += "Dificultat: " + ruta.getDific() + "\n";
-        
-        jTextArea_dadesRuta.setText(info_ruta);
-        
-        String info_punts = "";
-        
-        for(Punt p : llistaPuntsRuta){
+        try{
             
+            String info_ruta = "";
+
+            info_ruta += "Títol: " + ruta.getTitol() + "\n\n";
+            info_ruta += "Descripció: " + ruta.getDescRuta() + "\n";
+            info_ruta += "Descripció en fitxer HTML: " + ruta.getTextRuta() + "\n";
+            info_ruta += "Distància: " + ruta.getDist() + "\n";
+            info_ruta += "Temps: " + ruta.getTemps() + "\n";
+            info_ruta += "DesnP: " + ruta.getDesnP() + "\n";
+            info_ruta += "DesnN: " + ruta.getDesnN() + "\n";
+            info_ruta += "Dificultat: " + ruta.getDific() + "\n";
+
+            jTextArea_dadesRuta.setText(info_ruta);
+
+            String info_punts = "";
+
+            for (Punt p : llistaPuntsRuta) {
+
+                info_punts += "PUNT " + p.getOrdre() + "\n";
+                info_punts += "Nom: " + p.getNom() + "\n";
+                info_punts += "Descripció: " + p.getDescPunt() + "\n";
+                info_punts += "Latitud: " + p.getLat() + "\n";
+                info_punts += "Longitud: " + p.getLon() + "\n";
+                info_punts += "Altitud: " + p.getAlt() + "\n";
+                info_punts += "Tipus de punt: " + p.getIdTipus().getNom() + "\n";
+                info_punts += "Imatge: " + p.getTmpFoto() + "\n\n\n";
+
+            }
+
+            jTextArea_dadesPunts.setText(info_punts);           
             
-            info_punts += "PUNT " + p.getOrdre() + "\n";
-            info_punts += "Nom: " + p.getNom() + "\n";
-            info_punts += "Descripció: " + p.getDescPunt() + "\n";
-            info_punts += "Latitud: " + p.getLat() + "\n";
-            info_punts += "Longitud: " + p.getLon() + "\n";
-            info_punts += "Altitud: " + p.getAlt() + "\n";
-            info_punts += "Tipus de punt: " + p.getIdTipus().getNom() + "\n";
-            info_punts += "Imatge: " + p.getTmpFoto() + "\n\n\n";
+        }catch(Exception ex){
             
         }
         
-        jTextArea_dadesPunts.setText(info_punts);
+
         
     }
 
@@ -89,6 +97,7 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
         jButton_desarBD = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea_dadesPunts = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
 
         jTextArea_dadesRuta.setEditable(false);
         jTextArea_dadesRuta.setColumns(20);
@@ -109,38 +118,46 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
         jTextArea_dadesPunts.setRows(5);
         jScrollPane2.setViewportView(jTextArea_dadesPunts);
 
+        jLabel2.setText("Atenció: els canvis no es desaran si no completes les dades requerides de la ruta i els punts de ruta seguint l'ordre de les pantalles!");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(137, 137, 137)
+                .addGap(130, 130, 130)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton_desarBD)
-                        .addGap(462, 462, 462))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(452, 452, 452))))
+                        .addGap(454, 454, 454))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton_desarBD)
+                        .addGap(468, 468, 468))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(271, 271, 271)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(62, 62, 62)
                 .addComponent(jLabel1)
-                .addGap(71, 71, 71)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(jLabel2)
                 .addGap(37, 37, 37)
                 .addComponent(jButton_desarBD)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -209,6 +226,7 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_desarBD;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
