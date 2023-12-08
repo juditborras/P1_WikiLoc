@@ -54,10 +54,13 @@ public class panellAfegir_ruta extends javax.swing.JPanel {
     String html_s = "";
     int hores = 0, minuts = 0;
     
+    int contador;
+    
     
     List<Punt> llistaPunts;
     
     public panellAfegir_ruta(Breadcrumb breadcrumb1, Usuari usuari_loginat, List<Punt> llistaPunts, Ruta ruta, int contador) {
+        this.contador = contador;
         System.out.println("CONTADOR: "+contador);
         System.out.println("RUTAAAAA: "+ruta);
         
@@ -577,6 +580,11 @@ breadcrumb1 = new Breadcrumb();
             } finally{
 
             }
+        System.out.println("provas: "+html_s);
+       
+//            if(this.contador == 1){
+//                html_s = "";
+//            }
         
         //html_s = "prova";
         try{
@@ -706,7 +714,10 @@ breadcrumb1 = new Breadcrumb();
             } finally{
 
             }
-        
+        System.out.println("afegirItemBreadcrumb: "+html_s);
+         if(this.contador == 1){
+             html_s = "";
+         }
         
         if(jComboBox_tempsHruta.getSelectedIndex()!=-1){
             hores = Integer.parseInt(jComboBox_tempsHruta.getSelectedItem().toString());
