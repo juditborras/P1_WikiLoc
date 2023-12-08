@@ -10,6 +10,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -550,8 +551,8 @@ public class panellCompartides extends javax.swing.JPanel {
         
         text_html = llistaRutesCreades.get(row).getTextRuta();
 
-        
-        jTextField_dist.setText(llistaRutesCreades.get(row).getDist()+"");
+        String reempl = (llistaRutesCreades.get(row).getDist()+"").replace('.', ',');
+        jTextField_dist.setText(reempl);
         dist = llistaRutesCreades.get(row).getDist()+"";
         
         int temps_total = llistaRutesCreades.get(row).getTemps();
@@ -1062,11 +1063,9 @@ public class panellCompartides extends javax.swing.JPanel {
                         .addGap(123, 123, 123)
                         .addComponent(jButton_cercaFiltre)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton_netejarFiltre)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jButton_netejarFiltre))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1119,6 +1118,9 @@ public class panellCompartides extends javax.swing.JPanel {
         jTextField_dist.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_distKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_distKeyTyped(evt);
             }
         });
 
@@ -3106,6 +3108,16 @@ public class panellCompartides extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_jList1ValueChanged
+
+    private void jTextField_distKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_distKeyTyped
+        
+        
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE) || c==',')) {
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_jTextField_distKeyTyped
 
     public BufferedImage byteArrayToImage(byte[] bytes) {
         BufferedImage bufferedImage = null;
