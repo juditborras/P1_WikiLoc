@@ -1711,23 +1711,47 @@ public class panellCataleg extends javax.swing.JPanel {
             tableModel = (DefaultTableModel) jTable_rutesTotals.getModel();
             Object rowData[] = new Object[6];
 
+            String reempl;
+            int hours, minutes;        
+            int e1 =1, e2 =2, e3 =3, e4 =4, e5 =5;
+            
+            
             for (Ruta r : llistaRutes) {
-
+              
                 Fetes f = gestorBDWikilocJdbc.haFetRuta(r, usuari_loginat);
                 
                 if(f!=null){
                     
-                    rowData[0] = format.format(f.getMt());
+                    rowData[0] = format.format(f.getMt())+"         ";
                     rowData[5] = true;
                 }else{
                     rowData[5] = false;
                 }
                 
+                reempl = r.getDist()+"";
+                reempl = reempl.replace('.', ',');
+                
+                hours = r.getTemps() / 60;
+                minutes = r.getTemps() % 60;
+                
                 
                 rowData[1] = r.getTitol();
-                rowData[2] = r.getDist();
-                rowData[3] = r.getTemps();
-                rowData[4] = r.getDific();
+                rowData[2] = reempl + " km";
+                rowData[3] = hours + "h " + minutes + "m";
+                
+                
+                if(r.getDific() ==1){
+                    rowData[4] = "*";
+                }else if(r.getDific() ==2){
+                    rowData[4] = "* *";
+                }else if(r.getDific() ==3){
+                    rowData[4] = "* * *";
+                }else if(r.getDific() ==4){
+                    rowData[4] = "* * * *";
+                }else if(r.getDific() ==5){
+                    rowData[4] = "* * * * *";
+                }
+                
                 //rowData[5] = (f!=null?"Si":"No");
                         
                 tableModel.addRow(rowData);
@@ -1769,27 +1793,52 @@ public class panellCataleg extends javax.swing.JPanel {
             
             format = new SimpleDateFormat("dd/MM/yyyy");
             System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
+
+            String reempl;
+            int hours, minutes;        
+            int e1 =1, e2 =2, e3 =3, e4 =4, e5 =5;
+            
+            
             for (Ruta r : llistaRutes) {
               
                 Fetes f = gestorBDWikilocJdbc.haFetRuta(r, usuari_loginat);
                 
                 if(f!=null){
                     
-                    rowData[0] = format.format(f.getMt());
+                    rowData[0] = format.format(f.getMt())+"         ";
                     rowData[5] = true;
                 }else{
                     rowData[5] = false;
                 }
                 
+                reempl = r.getDist()+"";
+                reempl = reempl.replace('.', ',');
+                
+                hours = r.getTemps() / 60;
+                minutes = r.getTemps() % 60;
+                
                 
                 rowData[1] = r.getTitol();
-                rowData[2] = r.getDist();
-                rowData[3] = r.getTemps();
-                rowData[4] = r.getDific();
+                rowData[2] = reempl + " km";
+                rowData[3] = hours + "h " + minutes + "m";
+                
+                
+                if(r.getDific() ==1){
+                    rowData[4] = "*";
+                }else if(r.getDific() ==2){
+                    rowData[4] = "* *";
+                }else if(r.getDific() ==3){
+                    rowData[4] = "* * *";
+                }else if(r.getDific() ==4){
+                    rowData[4] = "* * * *";
+                }else if(r.getDific() ==5){
+                    rowData[4] = "* * * * *";
+                }
+                
                 //rowData[5] = (f!=null?"Si":"No");
                         
                 tableModel.addRow(rowData);
-            }
+            }            
                         
             
         } catch (GestorBDWikilocException ex) {
@@ -2296,27 +2345,52 @@ public class panellCataleg extends javax.swing.JPanel {
             
             format = new SimpleDateFormat("dd/MM/yyyy");
             System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
+
+            String reempl;
+            int hours, minutes;        
+            int e1 =1, e2 =2, e3 =3, e4 =4, e5 =5;
+            
+            
             for (Ruta r : llistaRutes) {
               
                 Fetes f = gestorBDWikilocJdbc.haFetRuta(r, usuari_loginat);
                 
                 if(f!=null){
                     
-                    rowData[0] = format.format(f.getMt());
+                    rowData[0] = format.format(f.getMt())+"         ";
                     rowData[5] = true;
                 }else{
                     rowData[5] = false;
                 }
                 
+                reempl = r.getDist()+"";
+                reempl = reempl.replace('.', ',');
+                
+                hours = r.getTemps() / 60;
+                minutes = r.getTemps() % 60;
+                
                 
                 rowData[1] = r.getTitol();
-                rowData[2] = r.getDist();
-                rowData[3] = r.getTemps();
-                rowData[4] = r.getDific();
+                rowData[2] = reempl + " km";
+                rowData[3] = hours + "h " + minutes + "m";
+                
+                
+                if(r.getDific() ==1){
+                    rowData[4] = "*";
+                }else if(r.getDific() ==2){
+                    rowData[4] = "* *";
+                }else if(r.getDific() ==3){
+                    rowData[4] = "* * *";
+                }else if(r.getDific() ==4){
+                    rowData[4] = "* * * *";
+                }else if(r.getDific() ==5){
+                    rowData[4] = "* * * * *";
+                }
+                
                 //rowData[5] = (f!=null?"Si":"No");
                         
                 tableModel.addRow(rowData);
-            }
+            }            
                         
             
         } catch (GestorBDWikilocException ex) {
