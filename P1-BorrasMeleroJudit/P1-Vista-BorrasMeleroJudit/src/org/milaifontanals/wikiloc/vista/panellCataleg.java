@@ -6,6 +6,8 @@ package org.milaifontanals.wikiloc.vista;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.FilteredImageSource;
@@ -137,6 +139,32 @@ public class panellCataleg extends javax.swing.JPanel {
         
         initComponents();
         
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        jTable_rutesTotals.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+        jTable_rutesTotals.getColumnModel().getColumn(1).setCellRenderer(leftRenderer);
+        jTable_rutesTotals.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        jTable_rutesTotals.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        jTable_rutesTotals.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        
+        jTable_rutesTotals.setCellSelectionEnabled(false);
+        jTable_rutesTotals.setRowSelectionAllowed(true);
+        jTable_rutesTotals.setSelectionBackground(new Color(255,163,0));
+        
+        
+        jTable_rutesTotals.setShowGrid(false);
+        jTable_rutesTotals.setIntercellSpacing(new Dimension(0, 0));
+        
+        jTable_rutesTotals.getTableHeader().setBackground(new Color(76,140,43));
+        jTable_rutesTotals.getTableHeader().setForeground(Color.white);
+        jTable_rutesTotals.getTableHeader().setFont(new Font("Calibri",Font.BOLD,20));
+        jTable_rutesTotals.getTableHeader().setPreferredSize(new Dimension(100,50));
+        
+        
         jComboBox_filtreDific.setSize(87, 80);
         jComboBox_filtreDific.setUI(ColorArrowUI.createUI(jComboBox_filtreDific));
         
@@ -156,8 +184,8 @@ public class panellCataleg extends javax.swing.JPanel {
         jButton_desarValoracio.setEnabled(false);
         
         TextPrompt placeHolder_titol = new TextPrompt("Ascensió al Pedraforca",jTextField_filtreTitol);
-        TextPrompt placeHolder_dist = new TextPrompt("201,19 km",jTextField_filtreDist);
-        
+        TextPrompt placeHolder_dist = new TextPrompt(" >= 201,19 km",jTextField_filtreDist);
+        TextPrompt placeHolder_comentari = new TextPrompt("Escriu el teu comentari...",jTextArea_escriureComentari);
         
         jComboBox_filtreDific.addItem("");
 //        for (int i = 1; i <= 5; i++) {
@@ -216,23 +244,48 @@ public class panellCataleg extends javax.swing.JPanel {
             
             format = new SimpleDateFormat("dd/MM/yyyy");
             System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
+            
+            
+            String reempl;
+            int hours, minutes;        
+            int e1 =1, e2 =2, e3 =3, e4 =4, e5 =5;
+            
+            
             for (Ruta r : llistaRutes) {
               
                 Fetes f = gestorBDWikilocJdbc.haFetRuta(r, usuari_loginat);
                 
                 if(f!=null){
                     
-                    rowData[0] = format.format(f.getMt());
+                    rowData[0] = format.format(f.getMt())+"         ";
                     rowData[5] = true;
                 }else{
                     rowData[5] = false;
                 }
                 
+                reempl = r.getDist()+"";
+                reempl = reempl.replace('.', ',');
+                
+                hours = r.getTemps() / 60;
+                minutes = r.getTemps() % 60;
+                
                 
                 rowData[1] = r.getTitol();
-                rowData[2] = r.getDist();
-                rowData[3] = r.getTemps();
-                rowData[4] = r.getDific();
+                rowData[2] = reempl + " km";
+                rowData[3] = hours + "h " + minutes + "m";
+                
+                
+                if(r.getDific() ==1){
+                    rowData[4] = "*";
+                }else if(r.getDific() ==2){
+                    rowData[4] = "* *";
+                }else if(r.getDific() ==3){
+                    rowData[4] = "* * *";
+                }else if(r.getDific() ==4){
+                    rowData[4] = "* * * *";
+                }else if(r.getDific() ==5){
+                    rowData[4] = "* * * * *";
+                }
                 
                 //rowData[5] = (f!=null?"Si":"No");
                         
@@ -383,6 +436,7 @@ public class panellCataleg extends javax.swing.JPanel {
             public void onSelected(boolean selected){
                 //super.onSelected(selected);
                 System.out.println(selected);
+                
                 
                 if(selected){
                     jPanel3.setVisible(true);
@@ -774,11 +828,11 @@ public class panellCataleg extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Data de realització", "Títol", "Quilòmetres", "Durada", "Dificultat", "Completada", ""
+                "Data de realització", "Títol", "Distància", "Durada", "Dificultat", "Completada", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, true
@@ -793,10 +847,26 @@ public class panellCataleg extends javax.swing.JPanel {
             }
         });
         jTable_rutesTotals.setColumnSelectionAllowed(true);
-        jTable_rutesTotals.setRowHeight(40);
+        jTable_rutesTotals.setGridColor(new java.awt.Color(76, 140, 43));
+        jTable_rutesTotals.setRowHeight(55);
+        jTable_rutesTotals.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable_rutesTotals.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable_rutesTotals);
-        jTable_rutesTotals.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable_rutesTotals.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (jTable_rutesTotals.getColumnModel().getColumnCount() > 0) {
+            jTable_rutesTotals.getColumnModel().getColumn(0).setMinWidth(190);
+            jTable_rutesTotals.getColumnModel().getColumn(0).setMaxWidth(190);
+            jTable_rutesTotals.getColumnModel().getColumn(2).setMinWidth(150);
+            jTable_rutesTotals.getColumnModel().getColumn(2).setMaxWidth(150);
+            jTable_rutesTotals.getColumnModel().getColumn(3).setMinWidth(150);
+            jTable_rutesTotals.getColumnModel().getColumn(3).setMaxWidth(150);
+            jTable_rutesTotals.getColumnModel().getColumn(4).setMinWidth(150);
+            jTable_rutesTotals.getColumnModel().getColumn(4).setMaxWidth(150);
+            jTable_rutesTotals.getColumnModel().getColumn(5).setMinWidth(130);
+            jTable_rutesTotals.getColumnModel().getColumn(5).setMaxWidth(130);
+            jTable_rutesTotals.getColumnModel().getColumn(6).setMinWidth(120);
+            jTable_rutesTotals.getColumnModel().getColumn(6).setMaxWidth(120);
+        }
 
         jTextField_filtreTitol.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jTextField_filtreTitol.setForeground(new java.awt.Color(204, 204, 204));
@@ -1077,6 +1147,8 @@ public class panellCataleg extends javax.swing.JPanel {
         jTextArea_comentarisTotals.setEditable(false);
         jTextArea_comentarisTotals.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea_comentarisTotals.setColumns(20);
+        jTextArea_comentarisTotals.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextArea_comentarisTotals.setForeground(new java.awt.Color(153, 153, 153));
         jTextArea_comentarisTotals.setRows(5);
         jTextArea_comentarisTotals.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jScrollPane2.setViewportView(jTextArea_comentarisTotals);
@@ -1354,8 +1426,8 @@ public class panellCataleg extends javax.swing.JPanel {
                                 .addComponent(jLabel_valorarDificE4)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel_valorarDificE5))))
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 848, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 72, Short.MAX_VALUE))
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 45, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1411,6 +1483,8 @@ public class panellCataleg extends javax.swing.JPanel {
         );
 
         jTextArea_escriureComentari.setColumns(20);
+        jTextArea_escriureComentari.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextArea_escriureComentari.setForeground(new java.awt.Color(153, 153, 153));
         jTextArea_escriureComentari.setRows(5);
         jTextArea_escriureComentari.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jTextArea_escriureComentari.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1552,17 +1626,15 @@ public class panellCataleg extends javax.swing.JPanel {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_netejaFiltre, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_cercaFiltre, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_filtreTitol, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_filtreDist, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_filtreDific, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox_filtreCreador)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jCheckBox_feta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton_netejaFiltre, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_cercaFiltre, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_filtreTitol, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_filtreDist, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jComboBox_filtreDific, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCheckBox_feta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
