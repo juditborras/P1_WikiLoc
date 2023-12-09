@@ -279,20 +279,70 @@ public class panellCataleg extends javax.swing.JPanel {
                         jLabel_valorarInfE3.setVisible(false);
                         jLabel_valorarInfE4.setVisible(false);
                         jLabel_valorarInfE5.setVisible(false);
+                        jLabel10.setVisible(false);
+                        
+                        jLabel11.setVisible(false);
+                        jLabel_valorarSegE1.setVisible(false);
+                        jLabel_valorarSegE2.setVisible(false);
+                        jLabel_valorarSegE3.setVisible(false);
+                        jLabel_valorarSegE4.setVisible(false);
+                        jLabel_valorarSegE5.setVisible(false);
+                        jLabel12.setVisible(false);
+                        jLabel_valorarPaiE1.setVisible(false);
+                        jLabel_valorarPaiE2.setVisible(false);
+                        jLabel_valorarPaiE3.setVisible(false);
+                        jLabel_valorarPaiE4.setVisible(false);
+                        jLabel_valorarPaiE5.setVisible(false);
+                        jLabel13.setVisible(false);
+                        jLabel_valorarDificE1.setVisible(false);
+                        jLabel_valorarDificE2.setVisible(false);
+                        jLabel_valorarDificE3.setVisible(false);
+                        jLabel_valorarDificE4.setVisible(false);
+                        jLabel_valorarDificE5.setVisible(false);
+                        jTextArea_escriureComentari.setVisible(false);
+                        jScrollPane3.setVisible(false);
+                        jComboBox_seleccionarCompany.setVisible(false);
+                        jButton_desarValoracio.setVisible(false);
                         feta = true;
                         
                     }else{
-                        jLabel1.setVisible(true);
-                        jLabel30.setVisible(true);
-                        toggleButton_haFetRuta.setVisible(true);
-                        jLabel31.setVisible(true);
-                        jLabel15.setVisible(true);
-                        jSeparator4.setVisible(true);
-                        jLabel_valorarInfE1.setVisible(true);
-                        jLabel_valorarInfE2.setVisible(true);
-                        jLabel_valorarInfE3.setVisible(true);
-                        jLabel_valorarInfE4.setVisible(true);
-                        jLabel_valorarInfE5.setVisible(true);
+                        jLabel1.setVisible(false);
+                        jLabel30.setVisible(false);
+                        toggleButton_haFetRuta.setVisible(false);
+                        jLabel31.setVisible(false);
+                        jLabel15.setVisible(false);
+                        jSeparator4.setVisible(false);
+                        jLabel_valorarInfE1.setVisible(false);
+                        jLabel_valorarInfE2.setVisible(false);
+                        jLabel_valorarInfE3.setVisible(false);
+                        jLabel_valorarInfE4.setVisible(false);
+                        jLabel_valorarInfE5.setVisible(false);
+                        
+                        jLabel10.setVisible(false);
+
+                        jLabel11.setVisible(false);
+                        jLabel_valorarSegE1.setVisible(false);
+                        jLabel_valorarSegE2.setVisible(false);
+                        jLabel_valorarSegE3.setVisible(false);
+                        jLabel_valorarSegE4.setVisible(false);
+                        jLabel_valorarSegE5.setVisible(false);
+                        jLabel12.setVisible(false);
+                        jLabel_valorarPaiE1.setVisible(false);
+                        jLabel_valorarPaiE2.setVisible(false);
+                        jLabel_valorarPaiE3.setVisible(false);
+                        jLabel_valorarPaiE4.setVisible(false);
+                        jLabel_valorarPaiE5.setVisible(false);
+                        jLabel13.setVisible(false);
+                        jLabel_valorarDificE1.setVisible(false);
+                        jLabel_valorarDificE2.setVisible(false);
+                        jLabel_valorarDificE3.setVisible(false);
+                        jLabel_valorarDificE4.setVisible(false);
+                        jLabel_valorarDificE5.setVisible(false);
+                        jTextArea_escriureComentari.setVisible(false);
+                        jScrollPane3.setVisible(false);
+                        jComboBox_seleccionarCompany.setVisible(false);
+                        jButton_desarValoracio.setVisible(false);
+                        
                         feta = false;
                     }
                 } catch (GestorBDWikilocException ex) {
@@ -339,11 +389,50 @@ public class panellCataleg extends javax.swing.JPanel {
                     feta = true;
                     
                     jComboBox_seleccionarCompany.setVisible(true);
+                    
+                    jLabel11.setVisible(true);
+                    jLabel_valorarSegE1.setVisible(true);
+                    jLabel_valorarSegE2.setVisible(true);
+                    jLabel_valorarSegE3.setVisible(true);
+                    jLabel_valorarSegE4.setVisible(true);
+                    jLabel_valorarSegE5.setVisible(true);
+                    jLabel12.setVisible(true);
+                    jLabel_valorarPaiE1.setVisible(true);
+                    jLabel_valorarPaiE2.setVisible(true);
+                    jLabel_valorarPaiE3.setVisible(true);
+                    jLabel_valorarPaiE4.setVisible(true);
+                    jLabel_valorarPaiE5.setVisible(true);
+                    jLabel13.setVisible(true);
+                    jLabel_valorarDificE1.setVisible(true);
+                    jLabel_valorarDificE2.setVisible(true);
+                    jLabel_valorarDificE3.setVisible(true);
+                    jLabel_valorarDificE4.setVisible(true);
+                    jLabel_valorarDificE5.setVisible(true);
+                    
                 }else{
                     jPanel3.setVisible(false);
                     feta = false;
                     
                     jComboBox_seleccionarCompany.setVisible(false);
+                    
+                    jLabel11.setVisible(false);
+                    jLabel_valorarSegE1.setVisible(false);
+                    jLabel_valorarSegE2.setVisible(false);
+                    jLabel_valorarSegE3.setVisible(false);
+                    jLabel_valorarSegE4.setVisible(false);
+                    jLabel_valorarSegE5.setVisible(false);
+                    jLabel12.setVisible(false);
+                    jLabel_valorarPaiE1.setVisible(false);
+                    jLabel_valorarPaiE2.setVisible(false);
+                    jLabel_valorarPaiE3.setVisible(false);
+                    jLabel_valorarPaiE4.setVisible(false);
+                    jLabel_valorarPaiE5.setVisible(false);
+                    jLabel13.setVisible(false);
+                    jLabel_valorarDificE1.setVisible(false);
+                    jLabel_valorarDificE2.setVisible(false);
+                    jLabel_valorarDificE3.setVisible(false);
+                    jLabel_valorarDificE4.setVisible(false);
+                    jLabel_valorarDificE5.setVisible(false);
                 }
                 
             }
@@ -603,42 +692,7 @@ public class panellCataleg extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel_valorarSegE1 = new javax.swing.JLabel();
-        jLabel_valorarSegE2 = new javax.swing.JLabel();
-        jLabel_valorarSegE3 = new javax.swing.JLabel();
-        jLabel_valorarSegE4 = new javax.swing.JLabel();
-        jLabel_valorarSegE5 = new javax.swing.JLabel();
-        jLabel_valorarPaiE1 = new javax.swing.JLabel();
-        jLabel_valorarPaiE2 = new javax.swing.JLabel();
-        jLabel_valorarPaiE3 = new javax.swing.JLabel();
-        jLabel_valorarPaiE4 = new javax.swing.JLabel();
-        jLabel_valorarPaiE5 = new javax.swing.JLabel();
-        jLabel_valorarDificE1 = new javax.swing.JLabel();
-        jLabel_valorarDificE2 = new javax.swing.JLabel();
-        jLabel_valorarDificE3 = new javax.swing.JLabel();
-        jLabel_valorarDificE4 = new javax.swing.JLabel();
-        jLabel_valorarDificE5 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea_escriureComentari = new javax.swing.JTextArea();
-        jComboBox_seleccionarCompany = new javax.swing.JComboBox<>();
-        jButton_desarValoracio = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
-        toggleButton_haFetRuta = new org.milaifontanals.wikiloc.toggle.ToggleButton();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel_valorarInfE1 = new javax.swing.JLabel();
-        jLabel_valorarInfE2 = new javax.swing.JLabel();
-        jLabel_valorarInfE3 = new javax.swing.JLabel();
-        jLabel_valorarInfE4 = new javax.swing.JLabel();
-        jLabel_valorarInfE5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
@@ -670,6 +724,41 @@ public class panellCataleg extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea_comentarisTotals = new javax.swing.JTextArea();
         jButton_valorarRuta = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        toggleButton_haFetRuta = new org.milaifontanals.wikiloc.toggle.ToggleButton();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel_valorarInfE1 = new javax.swing.JLabel();
+        jLabel_valorarInfE2 = new javax.swing.JLabel();
+        jLabel_valorarInfE3 = new javax.swing.JLabel();
+        jLabel_valorarInfE4 = new javax.swing.JLabel();
+        jLabel_valorarInfE5 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel_valorarPaiE4 = new javax.swing.JLabel();
+        jLabel_valorarPaiE3 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel_valorarDificE2 = new javax.swing.JLabel();
+        jLabel_valorarDificE4 = new javax.swing.JLabel();
+        jLabel_valorarPaiE2 = new javax.swing.JLabel();
+        jLabel_valorarDificE5 = new javax.swing.JLabel();
+        jLabel_valorarDificE1 = new javax.swing.JLabel();
+        jLabel_valorarPaiE5 = new javax.swing.JLabel();
+        jLabel_valorarPaiE1 = new javax.swing.JLabel();
+        jLabel_valorarDificE3 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel_valorarSegE1 = new javax.swing.JLabel();
+        jLabel_valorarSegE2 = new javax.swing.JLabel();
+        jLabel_valorarSegE3 = new javax.swing.JLabel();
+        jLabel_valorarSegE4 = new javax.swing.JLabel();
+        jLabel_valorarSegE5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea_escriureComentari = new javax.swing.JTextArea();
+        jComboBox_seleccionarCompany = new javax.swing.JComboBox<>();
+        jButton_desarValoracio = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -770,353 +859,28 @@ public class panellCataleg extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel11.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel11.setText("Seguiment:");
-
-        jLabel12.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel12.setText("Paisatge:");
-
-        jLabel13.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel13.setText("Dificultat:");
-
-        jLabel_valorarSegE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
-        jLabel_valorarSegE1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarSegE1MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarSegE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarSegE2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarSegE2MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarSegE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarSegE3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarSegE3MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarSegE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarSegE4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarSegE4MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarSegE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarSegE5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarSegE5MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarPaiE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
-        jLabel_valorarPaiE1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarPaiE1MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarPaiE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarPaiE2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarPaiE2MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarPaiE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarPaiE3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarPaiE3MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarPaiE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarPaiE4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarPaiE4MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarPaiE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarPaiE5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarPaiE5MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarDificE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
-        jLabel_valorarDificE1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarDificE1MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarDificE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarDificE2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarDificE2MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarDificE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarDificE3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarDificE3MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarDificE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarDificE4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarDificE4MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarDificE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarDificE5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarDificE5MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel11))
-                .addGap(47, 47, 47)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel_valorarSegE1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarSegE2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarSegE3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarSegE4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarSegE5))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel_valorarPaiE1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarPaiE2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarPaiE3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarPaiE4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarPaiE5))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel_valorarDificE1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarDificE2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarDificE3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarDificE4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarDificE5)))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 952, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel_valorarSegE1)
-                            .addComponent(jLabel_valorarSegE2)
-                            .addComponent(jLabel_valorarSegE3)
-                            .addComponent(jLabel_valorarSegE4)
-                            .addComponent(jLabel_valorarSegE5))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel12))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel_valorarPaiE2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel_valorarPaiE3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel_valorarPaiE4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel_valorarPaiE5, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                    .addComponent(jLabel_valorarPaiE1))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel_valorarDificE1)
-                    .addComponent(jLabel_valorarDificE2)
-                    .addComponent(jLabel_valorarDificE3)
-                    .addComponent(jLabel_valorarDificE4)
-                    .addComponent(jLabel_valorarDificE5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 167, Short.MAX_VALUE)
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTextArea_escriureComentari.setColumns(20);
-        jTextArea_escriureComentari.setRows(5);
-        jTextArea_escriureComentari.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jTextArea_escriureComentari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextArea_escriureComentariKeyReleased(evt);
-            }
-        });
-        jScrollPane3.setViewportView(jTextArea_escriureComentari);
-
-        jButton_desarValoracio.setBackground(new java.awt.Color(76, 140, 43));
-        jButton_desarValoracio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/desarCanvis.png"))); // NOI18N
-        jButton_desarValoracio.setBorder(null);
-        jButton_desarValoracio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton_desarValoracioMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton_desarValoracioMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton_desarValoracioMouseExited(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox_seleccionarCompany, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_desarValoracio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 497, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox_seleccionarCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jButton_desarValoracio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel30.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel30.setText("NO");
-
-        jLabel31.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel31.setText("SÍ");
-
-        jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel10.setText("Has realitzat aquesta ruta?");
-
-        jLabel15.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel15.setText("Valoració de l'usuari");
-
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel1.setText("Informació:");
-
-        jLabel_valorarInfE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
-        jLabel_valorarInfE1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarInfE1MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarInfE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarInfE2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarInfE2MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarInfE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarInfE3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarInfE3MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarInfE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarInfE4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarInfE4MouseClicked(evt);
-            }
-        });
-
-        jLabel_valorarInfE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
-        jLabel_valorarInfE5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_valorarInfE5MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(toggleButton_haFetRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel15)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel_valorarInfE1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarInfE2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarInfE3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarInfE4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_valorarInfE5))
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(toggleButton_haFetRuta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel_valorarInfE2)
-                    .addComponent(jLabel_valorarInfE1)
-                    .addComponent(jLabel_valorarInfE3)
-                    .addComponent(jLabel_valorarInfE4)
-                    .addComponent(jLabel_valorarInfE5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 133, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -1127,19 +891,15 @@ public class panellCataleg extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(132, 132, 132)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1208,29 +968,12 @@ public class panellCataleg extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(jLabel6))
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addGap(1, 1, 1)
-                            .addComponent(jLabel5))
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel7)))
-                .addGap(54, 54, 54)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel5))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(61, 61, 61)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel_mostrarDificE1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_mostrarDificE2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_mostrarDificE3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_mostrarDificE4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel_mostrarDificE5))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel_mostrarSegE1)
                         .addGap(18, 18, 18)
@@ -1250,7 +993,25 @@ public class panellCataleg extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel_mostrarInfE4)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel_mostrarInfE5))
+                        .addComponent(jLabel_mostrarInfE5)))
+                .addGap(92, 92, 92)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel7)))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel_mostrarDificE1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel_mostrarDificE2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel_mostrarDificE3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel_mostrarDificE4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel_mostrarDificE5))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel_mostrarPaiE1)
                         .addGap(18, 18, 18)
@@ -1261,7 +1022,7 @@ public class panellCataleg extends javax.swing.JPanel {
                         .addComponent(jLabel_mostrarPaiE4)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel_mostrarPaiE5)))
-                .addGap(0, 273, Short.MAX_VALUE))
+                .addGap(0, 145, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1289,7 +1050,9 @@ public class panellCataleg extends javax.swing.JPanel {
                                 .addComponent(jLabel_mostrarSegE2)
                                 .addComponent(jLabel_mostrarSegE3)
                                 .addComponent(jLabel_mostrarSegE4)))))
-                .addGap(29, 29, 29)
+                .addGap(105, 105, 105))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_mostrarPaiE3)
                     .addComponent(jLabel_mostrarPaiE4)
@@ -1305,7 +1068,8 @@ public class panellCataleg extends javax.swing.JPanel {
                     .addComponent(jLabel_mostrarDificE4)
                     .addComponent(jLabel_mostrarDificE5)
                     .addComponent(jLabel_mostrarDificE1)
-                    .addComponent(jLabel_mostrarDificE2)))
+                    .addComponent(jLabel_mostrarDificE2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -1353,6 +1117,326 @@ public class panellCataleg extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel30.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel30.setText("NO");
+
+        toggleButton_haFetRuta.setForeground(new java.awt.Color(76, 140, 43));
+
+        jLabel31.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel31.setText("SÍ");
+
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel10.setText("Has realitzat aquesta ruta?");
+
+        jLabel15.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel15.setText("Valoració de l'usuari");
+
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel1.setText("Informació:");
+
+        jLabel_valorarInfE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_valorarInfE1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarInfE1MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarInfE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarInfE2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarInfE2MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarInfE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarInfE3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarInfE3MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarInfE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarInfE4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarInfE4MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarInfE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarInfE5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarInfE5MouseClicked(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel12.setText("Paisatge:");
+
+        jLabel_valorarPaiE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarPaiE4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarPaiE4MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarPaiE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarPaiE3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarPaiE3MouseClicked(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel13.setText("Dificultat:");
+
+        jLabel_valorarDificE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarDificE2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarDificE2MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarDificE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarDificE4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarDificE4MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarPaiE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarPaiE2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarPaiE2MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarDificE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarDificE5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarDificE5MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarDificE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_valorarDificE1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarDificE1MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarPaiE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarPaiE5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarPaiE5MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarPaiE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_valorarPaiE1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarPaiE1MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarDificE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarDificE3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarDificE3MouseClicked(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel11.setText("Seguiment:");
+
+        jLabel_valorarSegE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_valorarSegE1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarSegE1MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarSegE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarSegE2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarSegE2MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarSegE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarSegE3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarSegE3MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarSegE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarSegE4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarSegE4MouseClicked(evt);
+            }
+        });
+
+        jLabel_valorarSegE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarSegE5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_valorarSegE5MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(toggleButton_haFetRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel15)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(46, 46, 46)
+                                .addComponent(jLabel_valorarInfE1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarInfE2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarInfE3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarInfE4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarInfE5))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(47, 47, 47)
+                                .addComponent(jLabel_valorarSegE1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarSegE2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarSegE3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarSegE4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarSegE5)))
+                        .addGap(106, 106, 106)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12))
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel_valorarPaiE1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarPaiE2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarPaiE3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarPaiE4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarPaiE5))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel_valorarDificE1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarDificE2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarDificE3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarDificE4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel_valorarDificE5))))
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 848, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 72, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(toggleButton_haFetRuta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel_valorarInfE2)
+                            .addComponent(jLabel_valorarInfE1)
+                            .addComponent(jLabel_valorarInfE3)
+                            .addComponent(jLabel_valorarInfE4)
+                            .addComponent(jLabel_valorarInfE5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel_valorarSegE1)
+                            .addComponent(jLabel_valorarSegE2)
+                            .addComponent(jLabel_valorarSegE3)
+                            .addComponent(jLabel_valorarSegE4)
+                            .addComponent(jLabel_valorarSegE5)))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel8Layout.createSequentialGroup()
+                                    .addGap(7, 7, 7)
+                                    .addComponent(jLabel12))
+                                .addComponent(jLabel_valorarPaiE2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel_valorarPaiE3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel_valorarPaiE4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel_valorarPaiE5, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel_valorarPaiE1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel_valorarDificE1)
+                            .addComponent(jLabel_valorarDificE2)
+                            .addComponent(jLabel_valorarDificE3)
+                            .addComponent(jLabel_valorarDificE4)
+                            .addComponent(jLabel_valorarDificE5))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTextArea_escriureComentari.setColumns(20);
+        jTextArea_escriureComentari.setRows(5);
+        jTextArea_escriureComentari.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTextArea_escriureComentari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea_escriureComentariKeyReleased(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTextArea_escriureComentari);
+
+        jComboBox_seleccionarCompany.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+
+        jButton_desarValoracio.setBackground(new java.awt.Color(76, 140, 43));
+        jButton_desarValoracio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/desarCanvis.png"))); // NOI18N
+        jButton_desarValoracio.setBorder(null);
+        jButton_desarValoracio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_desarValoracioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_desarValoracioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_desarValoracioMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1361,17 +1445,28 @@ public class panellCataleg extends javax.swing.JPanel {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel14)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 1220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox_seleccionarCompany, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton_desarValoracio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(jLabel9)
+                                .addGap(512, 512, 512)
+                                .addComponent(jLabel14))
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 1526, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1383,11 +1478,24 @@ public class panellCataleg extends javax.swing.JPanel {
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton_desarValoracio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox_seleccionarCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1415,7 +1523,7 @@ public class panellCataleg extends javax.swing.JPanel {
                 .addComponent(jSeparator1)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(153, 153, 153)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1435,7 +1543,7 @@ public class panellCataleg extends javax.swing.JPanel {
                         .addComponent(jButton_cercaFiltre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton_netejaFiltre, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1640,6 +1748,34 @@ public class panellCataleg extends javax.swing.JPanel {
                 jLabel_valorarInfE3.setVisible(false);
                 jLabel_valorarInfE4.setVisible(false);
                 jLabel_valorarInfE5.setVisible(false);
+                
+                jTextArea_escriureComentari.setVisible(true);
+                jScrollPane3.setVisible(true);
+                jLabel10.setVisible(false);
+                jButton_desarValoracio.setVisible(true);
+                
+                jComboBox_seleccionarCompany.setVisible(false);
+                jLabel11.setVisible(false);
+                jLabel_valorarSegE1.setVisible(false);
+                jLabel_valorarSegE2.setVisible(false);
+                jLabel_valorarSegE3.setVisible(false);
+                jLabel_valorarSegE4.setVisible(false);
+                jLabel_valorarSegE5.setVisible(false);
+                jLabel12.setVisible(false);
+                jLabel_valorarPaiE1.setVisible(false);
+                jLabel_valorarPaiE2.setVisible(false);
+                jLabel_valorarPaiE3.setVisible(false);
+                jLabel_valorarPaiE4.setVisible(false);
+                jLabel_valorarPaiE5.setVisible(false);
+                jLabel13.setVisible(false);
+                jLabel_valorarDificE1.setVisible(false);
+                jLabel_valorarDificE2.setVisible(false);
+                jLabel_valorarDificE3.setVisible(false);
+                jLabel_valorarDificE4.setVisible(false);
+                jLabel_valorarDificE5.setVisible(false);
+                
+                
+                
 
             } else {
                 jLabel1.setVisible(true);
@@ -1653,6 +1789,10 @@ public class panellCataleg extends javax.swing.JPanel {
                 jLabel_valorarInfE3.setVisible(true);
                 jLabel_valorarInfE4.setVisible(true);
                 jLabel_valorarInfE5.setVisible(true);
+                jTextArea_escriureComentari.setVisible(true);
+                jScrollPane3.setVisible(true);
+                jLabel10.setVisible(true);
+                jButton_desarValoracio.setVisible(true);
             }
         } catch (GestorBDWikilocException ex) {
 
@@ -2338,6 +2478,43 @@ public class panellCataleg extends javax.swing.JPanel {
         jComboBox_seleccionarCompany.setSelectedIndex(-1);
         jComboBox_seleccionarCompany.setVisible(false);
         jButton_desarValoracio.setEnabled(false);
+        
+        
+
+        jLabel10.setVisible(false);
+        jLabel30.setVisible(false);
+        toggleButton_haFetRuta.setVisible(false);
+        jLabel31.setVisible(false);
+        jLabel15.setVisible(false);
+        jSeparator4.setVisible(false);
+        jTextArea_escriureComentari.setVisible(false);
+        jScrollPane3.setVisible(false);
+        jComboBox_seleccionarCompany.setVisible(false);
+        jButton_desarValoracio.setVisible(false);
+        jLabel1.setVisible(false);
+        jLabel_valorarInfE1.setVisible(false);
+        jLabel_valorarInfE2.setVisible(false);
+        jLabel_valorarInfE3.setVisible(false);
+        jLabel_valorarInfE4.setVisible(false);
+        jLabel_valorarInfE5.setVisible(false);
+        jLabel11.setVisible(false);
+        jLabel_valorarSegE1.setVisible(false);
+        jLabel_valorarSegE2.setVisible(false);
+        jLabel_valorarSegE3.setVisible(false);
+        jLabel_valorarSegE4.setVisible(false);
+        jLabel_valorarSegE5.setVisible(false);
+        jLabel12.setVisible(false);
+        jLabel_valorarPaiE1.setVisible(false);
+        jLabel_valorarPaiE2.setVisible(false);
+        jLabel_valorarPaiE3.setVisible(false);
+        jLabel_valorarPaiE4.setVisible(false);
+        jLabel_valorarPaiE5.setVisible(false);
+        jLabel13.setVisible(false);
+        jLabel_valorarDificE1.setVisible(false);
+        jLabel_valorarDificE2.setVisible(false);
+        jLabel_valorarDificE3.setVisible(false);
+        jLabel_valorarDificE4.setVisible(false);
+        jLabel_valorarDificE5.setVisible(false);
         
         toggleButton_haFetRuta.setSelected(false);
         feta = false;
