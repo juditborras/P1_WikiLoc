@@ -308,7 +308,7 @@ public class panellPerfil extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(76, 140, 43));
         jButton2.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/editarImgPerfil.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/desarCanvis.png"))); // NOI18N
         jButton2.setAlignmentY(0.0F);
         jButton2.setBorder(null);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
