@@ -115,6 +115,7 @@ public class panellCompartides extends javax.swing.JPanel {
         
         
         initComponents();  
+        jPanel_menu.setVisible(false);
         
         jLabel_missatge.setVisible(false);
         
@@ -2891,10 +2892,16 @@ public class panellCompartides extends javax.swing.JPanel {
             
         }
         
-        Double dist_filtre = Double.valueOf(-1);
-        if(jTextField_filtreDist.getText().trim().length()>0){
-            dist_filtre = Double.parseDouble(jTextField_filtreDist.getText().trim());
+        Double dist_filtre = null;
+        try {
+            dist_filtre = Double.valueOf(-1);
+            if (jTextField_filtreDist.getText().trim().length() > 0) {
+                dist_filtre = Double.parseDouble(jTextField_filtreDist.getText().trim());
+            }
+        } catch (Exception ex) {
+
         }
+
                 
         
         try {
