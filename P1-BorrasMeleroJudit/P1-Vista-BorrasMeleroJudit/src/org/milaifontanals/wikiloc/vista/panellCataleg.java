@@ -4,12 +4,14 @@
  */
 package org.milaifontanals.wikiloc.vista;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageFilter;
 import java.awt.image.ImageProducer;
@@ -700,6 +702,14 @@ public class panellCataleg extends javax.swing.JPanel {
             
             jTextPane1.setContentType("text/html");
             
+            jTextPane1.setPreferredSize(new Dimension(444, 194));
+            jTextPane1.setMinimumSize(new Dimension(444, 194));
+            jTextPane1.setMaximumSize(new Dimension(444, 194));
+            jScrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            jScrollPane4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+            
             for(Comentari c : llistaComentaris){
                 
                 if(c.getVinf()==1 || c.getVseg()==1 || c.getVpai()==1 || c.getDific()==1){
@@ -905,6 +915,11 @@ public class panellCataleg extends javax.swing.JPanel {
         jTextField_filtreDist.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jTextField_filtreDist.setForeground(new java.awt.Color(204, 204, 204));
         jTextField_filtreDist.setBorder(null);
+        jTextField_filtreDist.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_filtreDistKeyTyped(evt);
+            }
+        });
 
         jComboBox_filtreDific.setForeground(new java.awt.Color(204, 204, 204));
         jComboBox_filtreDific.setBorder(null);
@@ -1139,19 +1154,17 @@ public class panellCataleg extends javax.swing.JPanel {
                         .addGap(5, 5, 5)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_mostrarInfE5)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel_mostrarInfE1)
-                                .addComponent(jLabel_mostrarInfE2)
-                                .addComponent(jLabel_mostrarInfE3)
-                                .addComponent(jLabel_mostrarInfE4)))
+                            .addComponent(jLabel_mostrarInfE2)
+                            .addComponent(jLabel_mostrarInfE3)
+                            .addComponent(jLabel_mostrarInfE4)
+                            .addComponent(jLabel_mostrarInfE1))
                         .addGap(31, 31, 31)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_mostrarSegE5)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel_mostrarSegE1)
-                                .addComponent(jLabel_mostrarSegE2)
-                                .addComponent(jLabel_mostrarSegE3)
-                                .addComponent(jLabel_mostrarSegE4)))))
+                            .addComponent(jLabel_mostrarSegE2)
+                            .addComponent(jLabel_mostrarSegE3)
+                            .addComponent(jLabel_mostrarSegE4)
+                            .addComponent(jLabel_mostrarSegE1))))
                 .addGap(105, 105, 105))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
@@ -1159,9 +1172,8 @@ public class panellCataleg extends javax.swing.JPanel {
                     .addComponent(jLabel_mostrarPaiE3)
                     .addComponent(jLabel_mostrarPaiE4)
                     .addComponent(jLabel_mostrarPaiE5)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel_mostrarPaiE1)
-                        .addComponent(jLabel_mostrarPaiE2))
+                    .addComponent(jLabel_mostrarPaiE2)
+                    .addComponent(jLabel_mostrarPaiE1)
                     .addComponent(jLabel6))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1204,20 +1216,19 @@ public class panellCataleg extends javax.swing.JPanel {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_valorarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap(144, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_valorarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1494,7 +1505,6 @@ public class panellCataleg extends javax.swing.JPanel {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1680,14 +1690,15 @@ public class panellCataleg extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_netejaFiltre, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_cercaFiltre, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_filtreTitol, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_filtreDist, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox_filtreDific, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox_filtreCreador)
-                    .addComponent(jCheckBox_feta))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_netejaFiltre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_cercaFiltre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField_filtreTitol, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_filtreDist, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox_filtreDific, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox_filtreCreador)
+                        .addComponent(jCheckBox_feta)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1729,9 +1740,11 @@ public class panellCataleg extends javax.swing.JPanel {
             
         }
         
+        String rpl = jTextField_filtreDist.getText().trim();
         Double dist_filtre = Double.valueOf(-1);
         if(jTextField_filtreDist.getText().trim().length()>0){
-            dist_filtre = Double.parseDouble(jTextField_filtreDist.getText().trim());
+            rpl = rpl.replace(',', '.');
+            dist_filtre = Double.parseDouble(rpl);
         }
         
         
@@ -1906,7 +1919,7 @@ public class panellCataleg extends javax.swing.JPanel {
         
         
         jPanel4.setVisible(true);
-        
+      
         try {
             Fetes f = gestorBDWikilocJdbc.haFetRuta(ruta_seleccionada, usuari_loginat);
 
@@ -1948,8 +1961,6 @@ public class panellCataleg extends javax.swing.JPanel {
                 jLabel_valorarDificE4.setVisible(false);
                 jLabel_valorarDificE5.setVisible(false);
                 
-                
-                
 
             } else {
                 jLabel1.setVisible(true);
@@ -1967,11 +1978,18 @@ public class panellCataleg extends javax.swing.JPanel {
                 jScrollPane3.setVisible(true);
                 jLabel10.setVisible(true);
                 jButton_desarValoracio.setVisible(true);
+                
+
             }
         } catch (GestorBDWikilocException ex) {
 
         }
         
+//        jTextPane1.setPreferredSize(new Dimension(444, 194));
+//        jTextPane1.setMinimumSize(new Dimension(444, 194));
+//        jTextPane1.setMaximumSize(new Dimension(444, 194));
+//        jScrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//        jScrollPane4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
     }//GEN-LAST:event_jButton_valorarRutaMouseClicked
 
@@ -2646,6 +2664,12 @@ public class panellCataleg extends javax.swing.JPanel {
             
             jTextPane1.setContentType("text/html");
             
+            jTextPane1.setPreferredSize(new Dimension(444, 194));
+            jTextPane1.setMinimumSize(new Dimension(444, 194));
+            jTextPane1.setMaximumSize(new Dimension(444, 194));
+            jScrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            jScrollPane4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            
             for(Comentari c : llistaComentaris){
                 
                 if(c.getVinf()==1 || c.getVseg()==1 || c.getVpai()==1 || c.getDific()==1){
@@ -2831,6 +2855,15 @@ public class panellCataleg extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButton_desarValoracioMouseExited
+
+    private void jTextField_filtreDistKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_filtreDistKeyTyped
+        
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE) || c==',')) {
+            evt.consume();
+        }        
+        
+    }//GEN-LAST:event_jTextField_filtreDistKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
