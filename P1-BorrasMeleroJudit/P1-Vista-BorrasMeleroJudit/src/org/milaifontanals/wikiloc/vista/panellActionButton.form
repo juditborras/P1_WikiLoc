@@ -16,24 +16,26 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="actionButton_editar" min="-2" pref="48" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="actionButton_eliminar" min="-2" pref="48" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="actionButton_detalls" min="-2" pref="48" max="-2" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="actionButton_editar" min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="actionButton_eliminar" min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="actionButton_detalls" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,21 +44,21 @@
     <Component class="org.milaifontanals.wikiloc.vista.ActionButton" name="actionButton_editar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="G:\DAM\2on\Curs 2023-2024\M13-Projecte\1_WikiLoc\P1_WikiLoc\P1-BorrasMeleroJudit\P1-Vista-BorrasMeleroJudit\img\edit.png"/>
+          <Image iconType="3" name="/org/milaifontanals/wikiloc/components/editarRuta.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="org.milaifontanals.wikiloc.vista.ActionButton" name="actionButton_eliminar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="G:\DAM\2on\Curs 2023-2024\M13-Projecte\1_WikiLoc\P1_WikiLoc\P1-BorrasMeleroJudit\P1-Vista-BorrasMeleroJudit\img\delete.png"/>
+          <Image iconType="3" name="/org/milaifontanals/wikiloc/components/eliminarRuta.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="org.milaifontanals.wikiloc.vista.ActionButton" name="actionButton_detalls">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="G:\DAM\2on\Curs 2023-2024\M13-Projecte\1_WikiLoc\P1_WikiLoc\P1-BorrasMeleroJudit\P1-Vista-BorrasMeleroJudit\img\view.png"/>
+          <Image iconType="3" name="/org/milaifontanals/wikiloc/components/veureRuta.png"/>
         </Property>
       </Properties>
     </Component>

@@ -93,8 +93,8 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
         jLabel1.setText("GESTIÓ DE RUTES");
 
-        rSButtonMenuCompartides.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/colleccio.png"))); // NOI18N
-        rSButtonMenuCompartides.setText("Compartides");
+        rSButtonMenuCompartides.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/completada.png"))); // NOI18N
+        rSButtonMenuCompartides.setText("Creades");
         rSButtonMenuCompartides.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         rSButtonMenuCompartides.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         rSButtonMenuCompartides.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -165,7 +165,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        rSButtonMenuCompletades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/completada.png"))); // NOI18N
+        rSButtonMenuCompletades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/colleccio.png"))); // NOI18N
         rSButtonMenuCompletades.setText("Catàleg");
         rSButtonMenuCompletades.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         rSButtonMenuCompletades.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

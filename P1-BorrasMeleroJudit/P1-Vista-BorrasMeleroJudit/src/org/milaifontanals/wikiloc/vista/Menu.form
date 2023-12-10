@@ -203,9 +203,9 @@
                 <Component class="org.milaifontanals.wikiloc.rsbuttom.RSButtonMenuDesplegable" name="rSButtonMenuCompartides">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/org/milaifontanals/wikiloc/components/colleccio.png"/>
+                      <Image iconType="3" name="/org/milaifontanals/wikiloc/components/completada.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Compartides"/>
+                    <Property name="text" type="java.lang.String" value="Creades"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="18" style="1"/>
                     </Property>
@@ -262,7 +262,7 @@
             <Component class="org.milaifontanals.wikiloc.rsbuttom.RSButtonMenuDesplegable" name="rSButtonMenuCompletades">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/org/milaifontanals/wikiloc/components/completada.png"/>
+                  <Image iconType="3" name="/org/milaifontanals/wikiloc/components/colleccio.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cat&#xe0;leg"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
