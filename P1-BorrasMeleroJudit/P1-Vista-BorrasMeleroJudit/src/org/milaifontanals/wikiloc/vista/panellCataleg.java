@@ -29,8 +29,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIDefaults;
@@ -175,6 +177,7 @@ public class panellCataleg extends javax.swing.JPanel {
 
         jComboBox_seleccionarCompany.setUI(ColorArrowUI.createUI(jComboBox_seleccionarCompany));
         
+        
         jPanel_menu.setVisible(false);
         this.usuari_loginat = usuari_loginat;
         jPanel2.setVisible(false);
@@ -223,7 +226,7 @@ public class panellCataleg extends javax.swing.JPanel {
             jComboBox_seleccionarCompany.setSelectedIndex(-1);
             
             for(int i=0; i<llistaLogins.size(); i++){
-                System.out.println(u[i].getLogin().toString());
+                //System.out.println(u[i].getLogin().toString());
             }
 
         } catch (GestorBDWikilocException ex) {
@@ -243,7 +246,7 @@ public class panellCataleg extends javax.swing.JPanel {
             Object rowData[] = new Object[8];
             
             format = new SimpleDateFormat("dd/MM/yyyy");
-            System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
+            //System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
             
             
             String reempl;
@@ -294,7 +297,7 @@ public class panellCataleg extends javax.swing.JPanel {
                         
             
         } catch (GestorBDWikilocException ex) {
-            System.out.println("Error en carregar la taula de rutes fetes");
+            //System.out.println("Error en carregar la taula de rutes fetes");
         }
         
 
@@ -435,7 +438,7 @@ public class panellCataleg extends javax.swing.JPanel {
             @Override
             public void onSelected(boolean selected){
                 //super.onSelected(selected);
-                System.out.println(selected);
+                //System.out.println(selected);
                 
                 
                 if(selected){
@@ -690,35 +693,62 @@ public class panellCataleg extends javax.swing.JPanel {
             List<Comentari> llistaComentaris = gestorBDWikilocJdbc.obtenirLlistaComentaris(id);
             
             
-            System.out.println("SIZE LLISTA COMENTARIS "+llistaComentaris.size());
+            //System.out.println("SIZE LLISTA COMENTARIS "+llistaComentaris.size());
             String info_comentari = "";
+            int i1=1,i2=2,i3=3,i4=4,i5=5;
+            String i = "";
+            
+            jTextPane1.setContentType("text/html");
             
             for(Comentari c : llistaComentaris){
                 
-                info_comentari += "COMENTARI FET PER: " + c.getLoginUsuari().getLogin() +"\n";
-                info_comentari += "Contingut: " + c.getText() +"\n";
-                info_comentari += "v_inf: " + c.getVinf() +"\n";
-                info_comentari += "feta: " + c.getFeta() +"\n";
-                info_comentari += "v_seg: " + c.getVseg() +"\n";
-                info_comentari += "v_pai: " + c.getVpai() +"\n";
-                info_comentari += "dific: " + c.getDific() +"\n";
-                info_comentari += "mt: " + c.getMt() +"\n";
+                if(c.getVinf()==1 || c.getVseg()==1 || c.getVpai()==1 || c.getDific()==1){
+                    i = "★☆☆☆☆";
+                }else if(c.getVinf()==2 || c.getVseg()==2 || c.getVpai()==2 || c.getDific()==2){
+                    i = "★★☆☆☆";
+                }else if(c.getVinf()==3 || c.getVseg()==3 || c.getVpai()==3 || c.getDific()==3){
+                    i = "★★★☆☆";
+                }else if(c.getVinf()==4 || c.getVseg()==4 || c.getVpai()==4 || c.getDific()==4){
+                    i = "★★★★☆";
+                }else if(c.getVinf()==5 || c.getVseg()==5 || c.getVpai()==5 || c.getDific()==5){
+                    i = "★★★★★";
+                }                               
+                
+                
+                info_comentari += "<font size='20' face='Calibri'><b><font color='green'>" + c.getLoginUsuari().getLogin().toUpperCase() + "</font></b> ha comentat:</font><br>";
+                info_comentari += "<font size='12px' face='Calibri'><i>" + c.getText() +"</i></font><br><br>";
+                info_comentari += "<font face='Calibri'>Valoracions de l'usuari:</font><br>";
+                info_comentari += "<font face='Calibri'><ul><li>Informació: " + i +"</li>";
+                
+                
+                if(c.getFeta()){
+                    info_comentari += "<li>Completada: Sí</li>";
+                    info_comentari += "<li>Seguiment: " + i + "</li>\n";
+                    info_comentari += "<li>Paisatge: " + i + "</li>\n";
+                    info_comentari += "<li>Dificultat: " + i + "</li></ul></font>";
+                    info_comentari += "<font face='Calibri'>Data en què es va completar la ruta: " + format.format(c.getMt()) + "</font><br>";
+                }else{
+                    info_comentari += "<li>Completada: No</li><br>";
+                }
+                
                 
                 Companys company = gestorBDWikilocJdbc.obtenirCompany(c.getId());
                 if(company != null){
-                    info_comentari += "Company de ruta: " + company.getLoginUsuari().getLogin() +"\n";
+                    info_comentari += "<font face='Calibri'>Company de ruta: " + company.getLoginUsuari().getLogin().toUpperCase() +"</font><br>";
                 }
                 
-                info_comentari += "\n";
+                info_comentari += "<br>";
             }
-            System.out.println("INFO COMENTARI: "+info_comentari);
+            //System.out.println("INFO COMENTARI: "+info_comentari);            
             
-            jTextArea_comentarisTotals.setText(info_comentari);
+            jTextPane1.setText(info_comentari);
+
+            //jTextArea_comentarisTotals.setText(info_comentari);
             
             
             
         } catch (GestorBDWikilocException ex) {
-            System.out.println("ERROR DEL CATCH: "+ex.getMessage());
+            //System.out.println("ERROR DEL CATCH: "+ex.getMessage());
             Logger.getLogger(panellCataleg.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -775,9 +805,9 @@ public class panellCataleg extends javax.swing.JPanel {
         jLabel_mostrarDificE4 = new javax.swing.JLabel();
         jLabel_mostrarDificE5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea_comentarisTotals = new javax.swing.JTextArea();
         jButton_valorarRuta = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jPanel8 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         toggleButton_haFetRuta = new org.milaifontanals.wikiloc.toggle.ToggleButton();
@@ -882,6 +912,7 @@ public class panellCataleg extends javax.swing.JPanel {
         jButton_cercaFiltre.setBackground(new java.awt.Color(76, 140, 43));
         jButton_cercaFiltre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/cercar.png"))); // NOI18N
         jButton_cercaFiltre.setBorder(null);
+        jButton_cercaFiltre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_cercaFiltre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_cercaFiltreMouseClicked(evt);
@@ -897,6 +928,7 @@ public class panellCataleg extends javax.swing.JPanel {
         jButton_netejaFiltre.setBackground(new java.awt.Color(76, 140, 43));
         jButton_netejaFiltre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/netejar.png"))); // NOI18N
         jButton_netejaFiltre.setBorder(null);
+        jButton_netejaFiltre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_netejaFiltre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_netejaFiltreMouseClicked(evt);
@@ -950,7 +982,7 @@ public class panellCataleg extends javax.swing.JPanel {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 133, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -1144,18 +1176,10 @@ public class panellCataleg extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextArea_comentarisTotals.setEditable(false);
-        jTextArea_comentarisTotals.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea_comentarisTotals.setColumns(20);
-        jTextArea_comentarisTotals.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jTextArea_comentarisTotals.setForeground(new java.awt.Color(153, 153, 153));
-        jTextArea_comentarisTotals.setRows(5);
-        jTextArea_comentarisTotals.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jScrollPane2.setViewportView(jTextArea_comentarisTotals);
-
         jButton_valorarRuta.setBackground(new java.awt.Color(76, 140, 43));
         jButton_valorarRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/comentar.png"))); // NOI18N
         jButton_valorarRuta.setBorder(null);
+        jButton_valorarRuta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_valorarRuta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_valorarRutaMouseClicked(evt);
@@ -1168,13 +1192,20 @@ public class panellCataleg extends javax.swing.JPanel {
             }
         });
 
+        jTextPane1.setEditable(false);
+        jTextPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTextPane1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextPane1.setForeground(new java.awt.Color(153, 153, 153));
+        jTextPane1.setDisabledTextColor(new java.awt.Color(153, 153, 153));
+        jScrollPane4.setViewportView(jTextPane1);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_valorarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1182,10 +1213,11 @@ public class panellCataleg extends javax.swing.JPanel {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_valorarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap(144, Short.MAX_VALUE)
+                        .addComponent(jButton_valorarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4))
                 .addContainerGap())
         );
 
@@ -1210,6 +1242,7 @@ public class panellCataleg extends javax.swing.JPanel {
         jLabel1.setText("Informació:");
 
         jLabel_valorarInfE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_valorarInfE1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarInfE1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarInfE1MouseClicked(evt);
@@ -1217,6 +1250,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarInfE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarInfE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarInfE2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarInfE2MouseClicked(evt);
@@ -1224,6 +1258,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarInfE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarInfE3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarInfE3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarInfE3MouseClicked(evt);
@@ -1231,6 +1266,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarInfE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarInfE4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarInfE4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarInfE4MouseClicked(evt);
@@ -1238,6 +1274,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarInfE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarInfE5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarInfE5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarInfE5MouseClicked(evt);
@@ -1248,6 +1285,7 @@ public class panellCataleg extends javax.swing.JPanel {
         jLabel12.setText("Paisatge:");
 
         jLabel_valorarPaiE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarPaiE4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarPaiE4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarPaiE4MouseClicked(evt);
@@ -1255,6 +1293,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarPaiE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarPaiE3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarPaiE3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarPaiE3MouseClicked(evt);
@@ -1265,6 +1304,7 @@ public class panellCataleg extends javax.swing.JPanel {
         jLabel13.setText("Dificultat:");
 
         jLabel_valorarDificE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarDificE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarDificE2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarDificE2MouseClicked(evt);
@@ -1272,6 +1312,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarDificE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarDificE4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarDificE4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarDificE4MouseClicked(evt);
@@ -1279,6 +1320,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarPaiE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarPaiE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarPaiE2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarPaiE2MouseClicked(evt);
@@ -1286,6 +1328,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarDificE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarDificE5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarDificE5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarDificE5MouseClicked(evt);
@@ -1293,6 +1336,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarDificE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_valorarDificE1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarDificE1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarDificE1MouseClicked(evt);
@@ -1300,6 +1344,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarPaiE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarPaiE5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarPaiE5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarPaiE5MouseClicked(evt);
@@ -1307,6 +1352,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarPaiE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_valorarPaiE1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarPaiE1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarPaiE1MouseClicked(evt);
@@ -1314,6 +1360,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarDificE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarDificE3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarDificE3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarDificE3MouseClicked(evt);
@@ -1324,6 +1371,7 @@ public class panellCataleg extends javax.swing.JPanel {
         jLabel11.setText("Seguiment:");
 
         jLabel_valorarSegE1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_valorarSegE1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarSegE1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarSegE1MouseClicked(evt);
@@ -1331,6 +1379,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarSegE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarSegE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarSegE2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarSegE2MouseClicked(evt);
@@ -1338,6 +1387,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarSegE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarSegE3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarSegE3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarSegE3MouseClicked(evt);
@@ -1345,6 +1395,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarSegE4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarSegE4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarSegE4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarSegE4MouseClicked(evt);
@@ -1352,6 +1403,7 @@ public class panellCataleg extends javax.swing.JPanel {
         });
 
         jLabel_valorarSegE5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_valorarSegE5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_valorarSegE5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_valorarSegE5MouseClicked(evt);
@@ -1499,6 +1551,7 @@ public class panellCataleg extends javax.swing.JPanel {
         jButton_desarValoracio.setBackground(new java.awt.Color(76, 140, 43));
         jButton_desarValoracio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/desarCanvis.png"))); // NOI18N
         jButton_desarValoracio.setBorder(null);
+        jButton_desarValoracio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_desarValoracio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_desarValoracioMouseClicked(evt);
@@ -1763,7 +1816,7 @@ public class panellCataleg extends javax.swing.JPanel {
             
             
         } catch (GestorBDWikilocException ex) {
-            System.out.println("ERROR DE FILTRE: "+ex.getMessage());
+            //System.out.println("ERROR DE FILTRE: "+ex.getMessage());
         }
         
         
@@ -1792,7 +1845,7 @@ public class panellCataleg extends javax.swing.JPanel {
             Object rowData[] = new Object[8];
             
             format = new SimpleDateFormat("dd/MM/yyyy");
-            System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
+            //System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
 
             String reempl;
             int hours, minutes;        
@@ -1842,7 +1895,7 @@ public class panellCataleg extends javax.swing.JPanel {
                         
             
         } catch (GestorBDWikilocException ex) {
-            System.out.println("Error en carregar la taula de rutes fetes");
+            //System.out.println("Error en carregar la taula de rutes fetes");
         }        
 
         
@@ -2247,7 +2300,7 @@ public class panellCataleg extends javax.swing.JPanel {
             int comentari_inserit = gestorBDWikilocJdbc.afegirComentari(c, usuari_loginat.getLogin(), ruta_seleccionada.getId());
             
             if(comentari_inserit!=-1){
-                System.out.println("Comentari inserit correctament!");             
+                //System.out.println("Comentari inserit correctament!");             
                 
                 if(usuari_company!=null){
                     
@@ -2266,7 +2319,7 @@ public class panellCataleg extends javax.swing.JPanel {
                                         "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
                                         JOptionPane.INFORMATION_MESSAGE);
                             } else {
-                                System.out.println("El company no s'ha inserit");
+                                //System.out.println("El company no s'ha inserit");
                                 gestorBDWikilocJdbc.desferCanvis();
                                 JOptionPane.showConfirmDialog(null, "Error el company no s'ha inserit",
                                         "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
@@ -2276,7 +2329,7 @@ public class panellCataleg extends javax.swing.JPanel {
                             
 
                         } else {
-                            System.out.println("ERROR AL INSERIR EL COMPANY A FETES");
+                            //System.out.println("ERROR AL INSERIR EL COMPANY A FETES");
                             JOptionPane.showConfirmDialog(null, "Error a l'inserir el company a fetes",
                                     "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
                                     JOptionPane.INFORMATION_MESSAGE);
@@ -2284,7 +2337,7 @@ public class panellCataleg extends javax.swing.JPanel {
 
                     } else {
                         gestorBDWikilocJdbc.desferCanvis();
-                        System.out.println("ERROR AL INSERIR EL USUARI A FETES");
+                        //System.out.println("ERROR AL INSERIR EL USUARI A FETES");
                         JOptionPane.showConfirmDialog(null, "Error a l'inserir l'usuari a fetes",
                                 "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
@@ -2315,14 +2368,14 @@ public class panellCataleg extends javax.swing.JPanel {
 
                 
             }else{
-                System.out.println("El comentari no s'ha inserit");
+                //System.out.println("El comentari no s'ha inserit");
                 gestorBDWikilocJdbc.desferCanvis();
                 JOptionPane.showConfirmDialog(null, "Error el comentari no s'ha inserit",
                                 "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (GestorBDWikilocException ex) {
-            System.out.println("Error: "+ex.getMessage());
+            //System.out.println("Error: "+ex.getMessage());
             try {
                 gestorBDWikilocJdbc.desferCanvis();
             } catch (GestorBDWikilocException ex1) {
@@ -2344,7 +2397,7 @@ public class panellCataleg extends javax.swing.JPanel {
             Object rowData[] = new Object[8];
             
             format = new SimpleDateFormat("dd/MM/yyyy");
-            System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
+            //System.out.println("LLISTA RUTES FETES: "+llistaRutes.size());
 
             String reempl;
             int hours, minutes;        
@@ -2394,7 +2447,7 @@ public class panellCataleg extends javax.swing.JPanel {
                         
             
         } catch (GestorBDWikilocException ex) {
-            System.out.println("Error en carregar la taula de rutes fetes");
+            //System.out.println("Error en carregar la taula de rutes fetes");
         }
 
         jTextArea_escriureComentari.setText("");
@@ -2586,35 +2639,62 @@ public class panellCataleg extends javax.swing.JPanel {
             List<Comentari> llistaComentaris = gestorBDWikilocJdbc.obtenirLlistaComentaris(ruta_seleccionada.getId());
             
             
-            System.out.println("SIZE LLISTA COMENTARIS "+llistaComentaris.size());
+            //System.out.println("SIZE LLISTA COMENTARIS "+llistaComentaris.size());
             String info_comentari = "";
+            int i1=1,i2=2,i3=3,i4=4,i5=5;
+            String i = "";
+            
+            jTextPane1.setContentType("text/html");
             
             for(Comentari c : llistaComentaris){
                 
-                info_comentari += "COMENTARI FET PER: " + c.getLoginUsuari().getLogin() +"\n";
-                info_comentari += "Contingut: " + c.getText() +"\n";
-                info_comentari += "v_inf: " + c.getVinf() +"\n";
-                info_comentari += "feta: " + c.getFeta() +"\n";
-                info_comentari += "v_seg: " + c.getVseg() +"\n";
-                info_comentari += "v_pai: " + c.getVpai() +"\n";
-                info_comentari += "dific: " + c.getDific() +"\n";
-                info_comentari += "mt: " + c.getMt() +"\n";
+                if(c.getVinf()==1 || c.getVseg()==1 || c.getVpai()==1 || c.getDific()==1){
+                    i = "★☆☆☆☆";
+                }else if(c.getVinf()==2 || c.getVseg()==2 || c.getVpai()==2 || c.getDific()==2){
+                    i = "★★☆☆☆";
+                }else if(c.getVinf()==3 || c.getVseg()==3 || c.getVpai()==3 || c.getDific()==3){
+                    i = "★★★☆☆";
+                }else if(c.getVinf()==4 || c.getVseg()==4 || c.getVpai()==4 || c.getDific()==4){
+                    i = "★★★★☆";
+                }else if(c.getVinf()==5 || c.getVseg()==5 || c.getVpai()==5 || c.getDific()==5){
+                    i = "★★★★★";
+                }                               
+                
+                
+                info_comentari += "<font size='20' face='Calibri'><b><font color='green'>" + c.getLoginUsuari().getLogin().toUpperCase() + "</font></b> ha comentat:</font><br>";
+                info_comentari += "<font size='12px' face='Calibri'><i>" + c.getText() +"</i></font><br><br>";
+                info_comentari += "<font face='Calibri'>Valoracions de l'usuari:</font><br>";
+                info_comentari += "<font face='Calibri'><ul><li>Informació: " + i +"</li>";
+                
+                
+                if(c.getFeta()){
+                    info_comentari += "<li>Completada: Sí</li>";
+                    info_comentari += "<li>Seguiment: " + i + "</li>\n";
+                    info_comentari += "<li>Paisatge: " + i + "</li>\n";
+                    info_comentari += "<li>Dificultat: " + i + "</li></ul></font>";
+                    info_comentari += "<font face='Calibri'>Data en què es va completar la ruta: " + format.format(c.getMt()) + "</font><br>";
+                }else{
+                    info_comentari += "<li>Completada: No</li><br>";
+                }
+                
                 
                 Companys company = gestorBDWikilocJdbc.obtenirCompany(c.getId());
                 if(company != null){
-                    info_comentari += "Company de ruta: " + company.getLoginUsuari().getLogin() +"\n";
+                    info_comentari += "<font face='Calibri'>Company de ruta: " + company.getLoginUsuari().getLogin().toUpperCase() +"</font><br>";
                 }
                 
-                info_comentari += "\n";
+                info_comentari += "<br>";
             }
-            System.out.println("INFO COMENTARI: "+info_comentari);
+            //System.out.println("INFO COMENTARI: "+info_comentari);            
             
-            jTextArea_comentarisTotals.setText(info_comentari);
+            jTextPane1.setText(info_comentari);
+
+            //jTextArea_comentarisTotals.setText(info_comentari);
             
             
             
         } catch (GestorBDWikilocException ex) {
-            System.out.println("ERROR DEL CATCH: "+ex.getMessage());
+            //System.out.println("ERROR DEL CATCH: "+ex.getMessage());
             Logger.getLogger(panellCataleg.class.getName()).log(Level.SEVERE, null, ex);
         }
              
@@ -2826,17 +2906,17 @@ public class panellCataleg extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable_rutesTotals;
-    private javax.swing.JTextArea jTextArea_comentarisTotals;
     private javax.swing.JTextArea jTextArea_escriureComentari;
     private javax.swing.JTextField jTextField_filtreDist;
     private javax.swing.JTextField jTextField_filtreTitol;
+    private javax.swing.JTextPane jTextPane1;
     private org.milaifontanals.wikiloc.toggle.ToggleButton toggleButton_haFetRuta;
     // End of variables declaration//GEN-END:variables
 }
