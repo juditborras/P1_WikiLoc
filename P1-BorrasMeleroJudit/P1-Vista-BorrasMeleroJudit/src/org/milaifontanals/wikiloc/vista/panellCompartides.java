@@ -10,9 +10,15 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.awt.image.ImageProducer;
+import java.awt.image.RGBImageFilter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -31,6 +37,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -111,6 +118,52 @@ public class panellCompartides extends javax.swing.JPanel {
     ImageIcon fotoCercarHoover = new ImageIcon("img"+File.separator+"cercarHoover.png");
     ImageIcon fotoNetejar = new ImageIcon("img"+File.separator+"netejar.png");
     ImageIcon fotoNetejarHoover = new ImageIcon("img"+File.separator+"netejarHoover.png");
+    ImageIcon fotoDesarCanvis = new ImageIcon("img"+File.separator+"desarCanvis.png");
+    ImageIcon fotoDesarCanvisHoover = new ImageIcon("img"+File.separator+"desarCanvisHoover.png");
+    ImageIcon fotoHtml = new ImageIcon("img"+File.separator+"html.png");
+    ImageIcon fotoHtmlHoover = new ImageIcon("img"+File.separator+"htmlHoover.png");
+    ImageIcon fotoEliminarPunt = new ImageIcon("img"+File.separator+"eliminarPunt.png");
+    ImageIcon fotoEliminarPuntHoover = new ImageIcon("img"+File.separator+"eliminarPuntHoover.png");
+    ImageIcon fotoEliminarPunts = new ImageIcon("img"+File.separator+"eliminarPunts.png");
+    ImageIcon fotoEliminarPuntsHoover = new ImageIcon("img"+File.separator+"eliminarPuntsHoover.png");
+    ImageIcon fotoFletxaAmunt = new ImageIcon("img"+File.separator+"fletxaAmunt.png");
+    ImageIcon fotoFletxaAmuntHoover = new ImageIcon("img"+File.separator+"fletxaAmuntHoover.png");
+    ImageIcon fotoFletxaAvall = new ImageIcon("img"+File.separator+"fletxaAvall.png");
+    ImageIcon fotoFletxaAvallHoover = new ImageIcon("img"+File.separator+"fletxaAvallHoover.png");
+    ImageIcon fotoAfegirPunt = new ImageIcon("img"+File.separator+"afegirPunt.png");
+    ImageIcon fotoAfegirPuntHoover = new ImageIcon("img"+File.separator+"afegirPuntHoover.png");
+    ImageIcon fotoAfegirFotoPunt = new ImageIcon("img"+File.separator+"afegirFotoPunt.png");
+    ImageIcon fotoAfegirFotoPuntHoover = new ImageIcon("img"+File.separator+"afegirFotoPuntHoover.png");
+    
+        private static Image createDisabledIcon(Icon icon) {
+        Image image = ((ImageIcon) icon).getImage();
+        final int targetColor = 0x4C8C2B;
+
+        ImageFilter filter = new RGBImageFilter() {
+            @Override
+            public int filterRGB(int x, int y, int rgb) {
+                // Obtiene los componentes RGB del color objetivo
+                int targetRed = (targetColor >> 16) & 0xFF;
+                int targetGreen = (targetColor >> 8) & 0xFF;
+                int targetBlue = targetColor & 0xFF;
+
+                // Obtiene los componentes RGB del color actual
+                int currentRed = (rgb >> 16) & 0xFF;
+                int currentGreen = (rgb >> 8) & 0xFF;
+                int currentBlue = rgb & 0xFF;
+
+                // Combina los componentes y aplica el filtro
+                int filteredRed = (currentRed + targetRed) / 2;
+                int filteredGreen = (currentGreen + targetGreen) / 2;
+                int filteredBlue = (currentBlue + targetBlue) / 2;
+
+                return (rgb & 0xFF000000) | (filteredRed << 16) | (filteredGreen << 8) | filteredBlue;
+            }
+        };
+
+        ImageProducer ip = new FilteredImageSource(image.getSource(), filter);
+        return Toolkit.getDefaultToolkit().createImage(ip);
+    }
     
     public panellCompartides(){
         
@@ -123,6 +176,8 @@ public class panellCompartides extends javax.swing.JPanel {
         UIManager.put("TabbedPane.darkShadow", new ColorUIResource(new Color(255,255,255)));
         
         UIManager.put("ComboBox.selectionBackground", new ColorUIResource(new Color(255,255,255)));
+        
+        UIManager.put("List.selectionBackground", new ColorUIResource(new Color(255,174,0)));
         
         initComponents();  
         
@@ -152,7 +207,16 @@ public class panellCompartides extends javax.swing.JPanel {
         
         jComboBox_filtreDific.setSize(87, 80);
         jComboBox_filtreDific.setUI(panellCataleg.ColorArrowUI.createUI(jComboBox_filtreDific));
+        jComboBox_tempsH.setSize(141, 30);
+        jComboBox_tempsM.setSize(141, 30);
+        jComboBox_tempsH.setUI(panellCataleg.ColorArrowUI.createUI(jComboBox_tempsH));
+        jComboBox_tempsM.setUI(panellCataleg.ColorArrowUI.createUI(jComboBox_tempsM));
+        jComboBox_tipusPunt.setSize(257, 33);
+        jComboBox_tipusPunt.setUI(panellCataleg.ColorArrowUI.createUI(jComboBox_tipusPunt));
         
+        jButton_desarCanvisRuta.setDisabledIcon(new ImageIcon(createDisabledIcon(jButton_desarCanvisRuta.getIcon())));
+        jButton_desarCanvisPunts.setDisabledIcon(new ImageIcon(createDisabledIcon(jButton_desarCanvisPunts.getIcon())));
+
         jPanel_menu.setVisible(false);
         jLabel_missatge.setVisible(false);
       
@@ -174,14 +238,17 @@ public class panellCompartides extends javax.swing.JPanel {
         jTabbedPane2.setBackgroundAt(1, new Color(76,140,43));
         jTabbedPane2.setBackgroundAt(2, new Color(76,140,43));
         
-        JLabel lab0 = new JLabel("Detalls ruta");
-        lab0.setPreferredSize(new Dimension(200, 30));
+        JLabel lab0 = new JLabel("Detalls de la ruta");
+        lab0.setPreferredSize(new Dimension(230, 35));
+        lab0.setFont(new Font("Calibri", Font.BOLD, 20));
         jTabbedPane2.setTabComponentAt(0, lab0);  // tab index, jLabel
-        JLabel lab1 = new JLabel("Detalls punts de ruta");
-        lab1.setPreferredSize(new Dimension(200, 30));
+        JLabel lab1 = new JLabel("Detalls dels punts de ruta");
+        lab1.setPreferredSize(new Dimension(230, 35));
+        lab1.setFont(new Font("Calibri", Font.BOLD, 20));
         jTabbedPane2.setTabComponentAt(1, lab1); 
         JLabel lab2 = new JLabel("Estadístiques de la ruta");
-        lab2.setPreferredSize(new Dimension(200, 30));
+        lab2.setPreferredSize(new Dimension(230, 35));
+        lab2.setFont(new Font("Calibri", Font.BOLD, 20));
         jTabbedPane2.setTabComponentAt(2, lab2);
         
         UIManager.put("ComboBox.selectionBackground", new ColorUIResource(new Color(255,255,255)));
@@ -345,6 +412,20 @@ public class panellCompartides extends javax.swing.JPanel {
                 jButton_netejar.setVisible(false);
 
                 jButton_desarCanvisPunts.setVisible(false);
+                
+                jLabel21.setVisible(false);
+                jLabel22.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jLabel25.setVisible(false);
+                jLabel26.setVisible(false);
+                jLabel27.setVisible(false);
+                jSeparator7.setVisible(false);
+                jSeparator8.setVisible(false);
+                jSeparator9.setVisible(false);
+                jSeparator10.setVisible(false);
+                jSeparator11.setVisible(false);
+
                 
                 try {
                     System.out.println("ID DE LA RUTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: "+ruta_seleccionada.getId());
@@ -556,6 +637,19 @@ public class panellCompartides extends javax.swing.JPanel {
                 jButton_netejar.setVisible(false);
 
                 jButton_desarCanvisPunts.setVisible(false);
+                
+                jLabel21.setVisible(false);
+                jLabel22.setVisible(false);
+                jLabel23.setVisible(false);
+                jLabel24.setVisible(false);
+                jLabel25.setVisible(false);
+                jLabel26.setVisible(false);
+                jLabel27.setVisible(false);
+                jSeparator7.setVisible(false);
+                jSeparator8.setVisible(false);
+                jSeparator9.setVisible(false);
+                jSeparator10.setVisible(false);
+                jSeparator11.setVisible(false);
                 
                 try {
                     llistaPuntsRuta = gestorBDWikilocJdbc.obtenirLlistaPuntsRuta(id);
@@ -1033,24 +1127,39 @@ public class panellCompartides extends javax.swing.JPanel {
         jComboBox_tempsM = new javax.swing.JComboBox<>();
         jButton_desarCanvisRuta = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jTextField_nomPunt = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea_descPunt = new javax.swing.JTextArea();
-        jTextField_ordrePunt = new javax.swing.JTextField();
-        jLabel_fotoPunt = new javax.swing.JLabel();
-        jTextField_latPunt = new javax.swing.JTextField();
-        jTextField_lonPunt = new javax.swing.JTextField();
-        jTextField_altPunt = new javax.swing.JTextField();
-        jButton_desarCanvisPunts = new javax.swing.JButton();
-        jButton_netejar = new javax.swing.JButton();
-        jButton_afegir = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jButton_eliminar = new javax.swing.JButton();
-        jButton_pujar = new javax.swing.JButton();
-        jButton_baixar = new javax.swing.JButton();
-        jComboBox_tipusPunt = new javax.swing.JComboBox<>();
-        jButton_seleccionarFoto = new javax.swing.JButton();
+        jButton_netejar = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        jButton_afegir = new javax.swing.JButton();
+        jButton_pujar = new javax.swing.JButton();
+        jButton_baixar = new javax.swing.JButton();
+        jButton_desarCanvisPunts = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jTextField_ordrePunt = new javax.swing.JTextField();
+        jTextField_nomPunt = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea_descPunt = new javax.swing.JTextArea();
+        jLabel24 = new javax.swing.JLabel();
+        jTextField_latPunt = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jTextField_lonPunt = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        jTextField_altPunt = new javax.swing.JTextField();
+        jSeparator7 = new javax.swing.JSeparator();
+        jSeparator8 = new javax.swing.JSeparator();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        jSeparator11 = new javax.swing.JSeparator();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel_fotoPunt = new javax.swing.JLabel();
+        jButton_seleccionarFoto = new javax.swing.JButton();
+        jLabel27 = new javax.swing.JLabel();
+        jComboBox_tipusPunt = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -1284,6 +1393,7 @@ public class panellCompartides extends javax.swing.JPanel {
         jButton_textRuta.setBackground(new java.awt.Color(76, 140, 43));
         jButton_textRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/html.png"))); // NOI18N
         jButton_textRuta.setBorder(null);
+        jButton_textRuta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_textRuta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_textRutaMouseClicked(evt);
@@ -1302,6 +1412,7 @@ public class panellCompartides extends javax.swing.JPanel {
         });
 
         jLabel_dificEstrella1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_groga.png"))); // NOI18N
+        jLabel_dificEstrella1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_dificEstrella1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_dificEstrella1MouseClicked(evt);
@@ -1312,6 +1423,7 @@ public class panellCompartides extends javax.swing.JPanel {
         });
 
         jLabel_dificEstrella2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_dificEstrella2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_dificEstrella2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_dificEstrella2MouseClicked(evt);
@@ -1322,6 +1434,7 @@ public class panellCompartides extends javax.swing.JPanel {
         });
 
         jLabel_dificEstrella3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_dificEstrella3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_dificEstrella3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_dificEstrella3MouseClicked(evt);
@@ -1332,6 +1445,7 @@ public class panellCompartides extends javax.swing.JPanel {
         });
 
         jLabel_dificEstrella4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_dificEstrella4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_dificEstrella4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_dificEstrella4MouseClicked(evt);
@@ -1342,6 +1456,7 @@ public class panellCompartides extends javax.swing.JPanel {
         });
 
         jLabel_dificEstrella5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/estrella_blanca.png"))); // NOI18N
+        jLabel_dificEstrella5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_dificEstrella5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_dificEstrella5MouseClicked(evt);
@@ -1406,6 +1521,9 @@ public class panellCompartides extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_desnPKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_desnPKeyTyped(evt);
+            }
         });
 
         jSeparator5.setForeground(new java.awt.Color(76, 140, 43));
@@ -1417,10 +1535,16 @@ public class panellCompartides extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_desnNKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_desnNKeyTyped(evt);
+            }
         });
 
         jSeparator6.setForeground(new java.awt.Color(76, 140, 43));
 
+        jComboBox_tempsH.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jComboBox_tempsH.setForeground(new java.awt.Color(204, 204, 204));
+        jComboBox_tempsH.setBorder(null);
         jComboBox_tempsH.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox_tempsHItemStateChanged(evt);
@@ -1433,6 +1557,9 @@ public class panellCompartides extends javax.swing.JPanel {
         jLabel20.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel20.setText("Minuts:");
 
+        jComboBox_tempsM.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jComboBox_tempsM.setForeground(new java.awt.Color(204, 204, 204));
+        jComboBox_tempsM.setBorder(null);
         jComboBox_tempsM.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox_tempsMItemStateChanged(evt);
@@ -1442,6 +1569,7 @@ public class panellCompartides extends javax.swing.JPanel {
         jButton_desarCanvisRuta.setBackground(new java.awt.Color(76, 140, 43));
         jButton_desarCanvisRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/desarCanvis.png"))); // NOI18N
         jButton_desarCanvisRuta.setBorder(null);
+        jButton_desarCanvisRuta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_desarCanvisRuta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_desarCanvisRutaMouseClicked(evt);
@@ -1482,9 +1610,9 @@ public class panellCompartides extends javax.swing.JPanel {
                             .addComponent(jLabel19)
                             .addComponent(jLabel20))
                         .addGap(42, 42, 42)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox_tempsH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox_tempsM, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox_tempsM, 0, 141, Short.MAX_VALUE)
+                            .addComponent(jComboBox_tempsH, 0, 141, Short.MAX_VALUE)))
                     .addComponent(jButton_desarCanvisRuta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -1532,7 +1660,7 @@ public class panellCompartides extends javax.swing.JPanel {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1556,7 +1684,7 @@ public class panellCompartides extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1595,102 +1723,46 @@ public class panellCompartides extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField_nomPunt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_nomPuntKeyReleased(evt);
-            }
-        });
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextArea_descPunt.setColumns(20);
-        jTextArea_descPunt.setRows(5);
-        jTextArea_descPunt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextArea_descPuntKeyReleased(evt);
-            }
-        });
-        jScrollPane4.setViewportView(jTextArea_descPunt);
-
-        jTextField_ordrePunt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_ordrePuntKeyReleased(evt);
-            }
-        });
-
-        jLabel_fotoPunt.setText("fotooooooooo");
-
-        jTextField_latPunt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_latPuntKeyReleased(evt);
-            }
-        });
-
-        jTextField_lonPunt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_lonPuntKeyReleased(evt);
-            }
-        });
-
-        jTextField_altPunt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_altPuntKeyReleased(evt);
-            }
-        });
-
-        jButton_desarCanvisPunts.setText("desar");
-        jButton_desarCanvisPunts.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton_desarCanvisPuntsMouseClicked(evt);
-            }
-        });
-
-        jButton_netejar.setText("netejar llista");
-        jButton_netejar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton_netejarMouseClicked(evt);
-            }
-        });
-
-        jButton_afegir.setText("afegir element llista");
-        jButton_afegir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_afegirActionPerformed(evt);
-            }
-        });
-
-        jButton_eliminar.setText("eliminar element");
+        jButton_eliminar.setBackground(new java.awt.Color(76, 140, 43));
+        jButton_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/eliminarPunt.png"))); // NOI18N
+        jButton_eliminar.setToolTipText("Eliminar el punt de ruta seleccionat");
+        jButton_eliminar.setBorder(null);
+        jButton_eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_eliminarMouseClicked(evt);
             }
-        });
-
-        jButton_pujar.setText("pujar elem");
-        jButton_pujar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_pujarActionPerformed(evt);
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_eliminarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_eliminarMouseExited(evt);
             }
         });
 
-        jButton_baixar.setText("baixar elem");
-        jButton_baixar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_baixarActionPerformed(evt);
+        jButton_netejar.setBackground(new java.awt.Color(76, 140, 43));
+        jButton_netejar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/eliminarPunts.png"))); // NOI18N
+        jButton_netejar.setToolTipText("Eliminar tots els punts de ruta");
+        jButton_netejar.setBorder(null);
+        jButton_netejar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_netejar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_netejarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_netejarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_netejarMouseExited(evt);
             }
         });
 
-        jComboBox_tipusPunt.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox_tipusPuntItemStateChanged(evt);
-            }
-        });
-
-        jButton_seleccionarFoto.setText("seleccionar foto");
-        jButton_seleccionarFoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_seleccionarFotoActionPerformed(evt);
-            }
-        });
-
+        jList1.setBorder(null);
+        jList1.setFont(new java.awt.Font("Calibri", 2, 20)); // NOI18N
+        jList1.setForeground(new java.awt.Color(153, 153, 153));
+        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jList1MouseClicked(evt);
@@ -1703,89 +1775,386 @@ public class panellCompartides extends javax.swing.JPanel {
         });
         jScrollPane6.setViewportView(jList1);
 
+        jButton_afegir.setBackground(new java.awt.Color(76, 140, 43));
+        jButton_afegir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/afegirPunt.png"))); // NOI18N
+        jButton_afegir.setToolTipText("Afegir nou punt de ruta");
+        jButton_afegir.setBorder(null);
+        jButton_afegir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_afegir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_afegirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_afegirMouseExited(evt);
+            }
+        });
+        jButton_afegir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_afegirActionPerformed(evt);
+            }
+        });
+
+        jButton_pujar.setBackground(new java.awt.Color(76, 140, 43));
+        jButton_pujar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/fletxaAmunt.png"))); // NOI18N
+        jButton_pujar.setToolTipText("Canviar ascendentment l'ordre del punt de ruta");
+        jButton_pujar.setBorder(null);
+        jButton_pujar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_pujar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_pujarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_pujarMouseExited(evt);
+            }
+        });
+        jButton_pujar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_pujarActionPerformed(evt);
+            }
+        });
+
+        jButton_baixar.setBackground(new java.awt.Color(76, 140, 43));
+        jButton_baixar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/fletxaAvall.png"))); // NOI18N
+        jButton_baixar.setToolTipText("Canviar descendentment l'ordre del punt de ruta");
+        jButton_baixar.setBorder(null);
+        jButton_baixar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_baixar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_baixarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_baixarMouseExited(evt);
+            }
+        });
+        jButton_baixar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_baixarActionPerformed(evt);
+            }
+        });
+
+        jButton_desarCanvisPunts.setBackground(new java.awt.Color(76, 140, 43));
+        jButton_desarCanvisPunts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/desarCanvis.png"))); // NOI18N
+        jButton_desarCanvisPunts.setBorder(null);
+        jButton_desarCanvisPunts.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_desarCanvisPunts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_desarCanvisPuntsMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_desarCanvisPuntsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_desarCanvisPuntsMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton_netejar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_desarCanvisPunts, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_afegir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_pujar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_baixar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton_desarCanvisPunts, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_netejar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton_pujar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_baixar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_afegir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel21.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel21.setText("Número:");
+
+        jTextField_ordrePunt.setEditable(false);
+        jTextField_ordrePunt.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextField_ordrePunt.setForeground(new java.awt.Color(204, 204, 204));
+        jTextField_ordrePunt.setBorder(null);
+        jTextField_ordrePunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_ordrePuntKeyReleased(evt);
+            }
+        });
+
+        jTextField_nomPunt.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextField_nomPunt.setForeground(new java.awt.Color(204, 204, 204));
+        jTextField_nomPunt.setBorder(null);
+        jTextField_nomPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_nomPuntKeyReleased(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel22.setText("Nom:");
+
+        jLabel23.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel23.setText("Descripció:");
+
+        jTextArea_descPunt.setColumns(20);
+        jTextArea_descPunt.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextArea_descPunt.setForeground(new java.awt.Color(204, 204, 204));
+        jTextArea_descPunt.setRows(5);
+        jTextArea_descPunt.setBorder(null);
+        jTextArea_descPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea_descPuntKeyReleased(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTextArea_descPunt);
+
+        jLabel24.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel24.setText("Latitud:");
+
+        jTextField_latPunt.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextField_latPunt.setForeground(new java.awt.Color(204, 204, 204));
+        jTextField_latPunt.setBorder(null);
+        jTextField_latPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_latPuntKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_latPuntKeyTyped(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel25.setText("Longitud:");
+
+        jTextField_lonPunt.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextField_lonPunt.setForeground(new java.awt.Color(204, 204, 204));
+        jTextField_lonPunt.setBorder(null);
+        jTextField_lonPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_lonPuntKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_lonPuntKeyTyped(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel26.setText("Altitud:");
+
+        jTextField_altPunt.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextField_altPunt.setForeground(new java.awt.Color(204, 204, 204));
+        jTextField_altPunt.setBorder(null);
+        jTextField_altPunt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_altPuntKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_altPuntKeyTyped(evt);
+            }
+        });
+
+        jSeparator7.setForeground(new java.awt.Color(76, 140, 43));
+
+        jSeparator8.setForeground(new java.awt.Color(76, 140, 43));
+
+        jSeparator9.setForeground(new java.awt.Color(76, 140, 43));
+
+        jSeparator10.setForeground(new java.awt.Color(76, 140, 43));
+
+        jSeparator11.setForeground(new java.awt.Color(76, 140, 43));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel23))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(120, 120, 120))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jTextField_ordrePunt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel22)
+                                    .addGap(19, 19, 19)))
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jSeparator8)))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField_latPunt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator10)
+                            .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator11)
+                            .addComponent(jTextField_altPunt, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(jTextField_ordrePunt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel25)
+                    .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26)
+                    .addComponent(jTextField_altPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton_seleccionarFoto.setBackground(new java.awt.Color(76, 140, 43));
+        jButton_seleccionarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/afegirFotoPunt.png"))); // NOI18N
+        jButton_seleccionarFoto.setToolTipText("Carregar fotografía del punt de ruta");
+        jButton_seleccionarFoto.setBorder(null);
+        jButton_seleccionarFoto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_seleccionarFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_seleccionarFotoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_seleccionarFotoMouseExited(evt);
+            }
+        });
+        jButton_seleccionarFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_seleccionarFotoActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel27.setText("Tipus:");
+
+        jComboBox_tipusPunt.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jComboBox_tipusPunt.setForeground(new java.awt.Color(204, 204, 204));
+        jComboBox_tipusPunt.setBorder(null);
+        jComboBox_tipusPunt.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox_tipusPuntItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel27)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton_seleccionarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(168, 168, 168))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton_seleccionarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12))
+        );
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton_pujar)
-                            .addComponent(jButton_baixar)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jButton_eliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton_afegir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton_netejar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton_desarCanvisPunts)))
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField_ordrePunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTextField_altPunt, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
-                                .addComponent(jButton_seleccionarFoto)))
-                        .addGap(148, 148, 148)
-                        .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(229, 229, 229)
-                        .addComponent(jButton_pujar)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton_baixar))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel_fotoPunt, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jTextField_ordrePunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(jTextField_nomPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addComponent(jButton_seleccionarFoto))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(jTextField_latPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField_lonPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField_altPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox_tipusPunt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton_eliminar)
-                            .addComponent(jButton_afegir)
-                            .addComponent(jButton_netejar)
-                            .addComponent(jButton_desarCanvisPunts))))
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("tab2", jPanel7);
@@ -1882,7 +2251,7 @@ public class panellCompartides extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -2024,8 +2393,8 @@ public class panellCompartides extends javax.swing.JPanel {
             jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_compartidesCanviantLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel_compartidesCanviantLayout.setVerticalGroup(
             jPanel_compartidesCanviantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2046,7 +2415,7 @@ public class panellCompartides extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
                 .addComponent(jPanel_compartidesCanviant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -2493,6 +2862,19 @@ public class panellCompartides extends javax.swing.JPanel {
         jComboBox_tipusPunt.setVisible(true);
         jLabel_fotoPunt.setVisible(true);
         jButton_seleccionarFoto.setVisible(true);
+        
+        jLabel21.setVisible(true);
+        jLabel22.setVisible(true);
+        jLabel23.setVisible(true);
+        jLabel24.setVisible(true);
+        jLabel25.setVisible(true);
+        jLabel26.setVisible(true);
+        jLabel27.setVisible(true);
+        jSeparator7.setVisible(true);
+        jSeparator8.setVisible(true);
+        jSeparator9.setVisible(true);
+        jSeparator10.setVisible(true);
+        jSeparator11.setVisible(true);
 
         jButton_pujar.setVisible(true);
         jButton_baixar.setVisible(true);
@@ -2948,7 +3330,7 @@ public class panellCompartides extends javax.swing.JPanel {
         jButton_pujar.setVisible(false);
         jButton_baixar.setVisible(false);
         jButton_eliminar.setVisible(false);
-        jButton_afegir.setVisible(false);
+        jButton_afegir.setVisible(true);
         jButton_netejar.setVisible(false);
 
         jButton_desarCanvisPunts.setVisible(false);
@@ -3061,8 +3443,39 @@ public class panellCompartides extends javax.swing.JPanel {
                     jTextField_latPunt.setText("");
                     jTextField_lonPunt.setText("");
                     jTextField_altPunt.setText("");
-                    jLabel_fotoPunt.setIcon(null);//posar imatge però amb imatge de sense imatge per defecte!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    jLabel_fotoPunt.setIcon(fotoNulla);//posar imatge però amb imatge de sense imatge per defecte!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     jComboBox_tipusPunt.setSelectedIndex(-1);
+
+                    jTextField_ordrePunt.setVisible(false);
+                    jTextField_nomPunt.setVisible(false);
+                    jTextArea_descPunt.setVisible(false);
+                    jScrollPane4.setVisible(false);
+                    jTextField_latPunt.setVisible(false);
+                    jTextField_lonPunt.setVisible(false);
+                    jTextField_altPunt.setVisible(false);
+                    jComboBox_tipusPunt.setVisible(false);
+                    jLabel_fotoPunt.setVisible(false);
+                    jButton_seleccionarFoto.setVisible(false);
+
+                    jButton_pujar.setVisible(false);
+                    jButton_baixar.setVisible(false);
+                    jButton_eliminar.setVisible(false);
+                    jButton_afegir.setVisible(true);
+                    jButton_netejar.setVisible(false);
+
+
+                    jLabel21.setVisible(false);
+                    jLabel22.setVisible(false);
+                    jLabel23.setVisible(false);
+                    jLabel24.setVisible(false);
+                    jLabel25.setVisible(false);
+                    jLabel26.setVisible(false);
+                    jLabel27.setVisible(false);
+                    jSeparator7.setVisible(false);
+                    jSeparator8.setVisible(false);
+                    jSeparator9.setVisible(false);
+                    jSeparator10.setVisible(false);
+                    jSeparator11.setVisible(false);
 
                     jButton_desarCanvisPunts.setVisible(true);
                     
@@ -3083,7 +3496,7 @@ public class panellCompartides extends javax.swing.JPanel {
 
         int ordre_actual = punt_seleccionat.getOrdre();
         
-        int selectedIndex = punt_seleccionat.getOrdre() -1;
+        int selectedIndex = punt_seleccionat.getOrdre()-1;
 
         if (selectedIndex > 0) {
             
@@ -3332,6 +3745,20 @@ public class panellCompartides extends javax.swing.JPanel {
                 jTextField_lonPunt.setEditable(true);
                 jTextField_altPunt.setEditable(true);
                 jComboBox_tipusPunt.setEnabled(true);
+                
+                jLabel21.setVisible(true);
+                jLabel22.setVisible(true);
+                jLabel23.setVisible(true);
+                jLabel24.setVisible(true);
+                jLabel25.setVisible(true);
+                jLabel26.setVisible(true);
+                jLabel27.setVisible(true);
+                jSeparator7.setVisible(true);
+                jSeparator8.setVisible(true);
+                jSeparator9.setVisible(true);
+                jSeparator10.setVisible(true);
+                jSeparator11.setVisible(true);
+                jButton_afegir.setVisible(true);
 
                 jButton_desarCanvisPunts.setVisible(true);
                 jButton_desarCanvisPunts.setEnabled(false);
@@ -3348,6 +3775,19 @@ public class panellCompartides extends javax.swing.JPanel {
                 jComboBox_tipusPunt.setVisible(true);
                 jLabel_fotoPunt.setVisible(true);             
 
+                jLabel21.setVisible(true);
+                jLabel22.setVisible(true);
+                jLabel23.setVisible(true);
+                jLabel24.setVisible(true);
+                jLabel25.setVisible(true);
+                jLabel26.setVisible(true);
+                jLabel27.setVisible(true);
+                jSeparator7.setVisible(true);
+                jSeparator8.setVisible(true);
+                jSeparator9.setVisible(true);
+                jSeparator10.setVisible(true);
+                jSeparator11.setVisible(true);
+                jButton_afegir.setVisible(true);
                 
                 jTextField_ordrePunt.setEditable(false);
                 jTextField_nomPunt.setEditable(false);
@@ -3475,20 +3915,137 @@ public class panellCompartides extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField_filtreDistKeyTyped
 
     private void jButton_textRutaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_textRutaMouseEntered
-        // TODO add your handling code here:
+        jButton_textRuta.setIcon(fotoHtmlHoover);
+        jButton_textRuta.setBackground(new Color(255,163,0));
     }//GEN-LAST:event_jButton_textRutaMouseEntered
 
     private void jButton_textRutaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_textRutaMouseExited
-        // TODO add your handling code here:
+        jButton_textRuta.setIcon(fotoHtml);
+        jButton_textRuta.setBackground(new Color(76,140,43));
     }//GEN-LAST:event_jButton_textRutaMouseExited
 
     private void jButton_desarCanvisRutaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarCanvisRutaMouseEntered
-        // TODO add your handling code here:
+        if(jButton_desarCanvisRuta.isEnabled()){
+            jButton_desarCanvisRuta.setIcon(fotoDesarCanvisHoover);
+            jButton_desarCanvisRuta.setBackground(new Color(255, 163, 0));
+        }
     }//GEN-LAST:event_jButton_desarCanvisRutaMouseEntered
 
     private void jButton_desarCanvisRutaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarCanvisRutaMouseExited
-        // TODO add your handling code here:
+        if(jButton_desarCanvisRuta.isEnabled()){
+            jButton_desarCanvisRuta.setIcon(fotoDesarCanvis);
+            jButton_desarCanvisRuta.setBackground(new Color(76,140,43));
+        }
     }//GEN-LAST:event_jButton_desarCanvisRutaMouseExited
+
+    private void jTextField_desnPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_desnPKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        } 
+    }//GEN-LAST:event_jTextField_desnPKeyTyped
+
+    private void jTextField_desnNKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_desnNKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        } 
+    }//GEN-LAST:event_jTextField_desnNKeyTyped
+
+    private void jButton_desarCanvisPuntsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarCanvisPuntsMouseEntered
+        if(jButton_desarCanvisPunts.isEnabled()){
+            jButton_desarCanvisPunts.setIcon(fotoDesarCanvisHoover);
+            jButton_desarCanvisPunts.setBackground(new Color(255, 163, 0));
+        }
+    }//GEN-LAST:event_jButton_desarCanvisPuntsMouseEntered
+
+    private void jButton_desarCanvisPuntsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarCanvisPuntsMouseExited
+        if(jButton_desarCanvisPunts.isEnabled()){
+            jButton_desarCanvisPunts.setIcon(fotoDesarCanvis);
+            jButton_desarCanvisPunts.setBackground(new Color(76,140,43));
+        }
+    }//GEN-LAST:event_jButton_desarCanvisPuntsMouseExited
+
+    private void jButton_eliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_eliminarMouseEntered
+        jButton_eliminar.setIcon(fotoEliminarPuntHoover);
+        jButton_eliminar.setBackground(new Color(255,163,0));
+    }//GEN-LAST:event_jButton_eliminarMouseEntered
+
+    private void jButton_eliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_eliminarMouseExited
+        jButton_eliminar.setIcon(fotoEliminarPunt);
+        jButton_eliminar.setBackground(new Color(76,140,43));
+    }//GEN-LAST:event_jButton_eliminarMouseExited
+
+    private void jButton_netejarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_netejarMouseEntered
+        jButton_netejar.setIcon(fotoEliminarPuntsHoover);
+        jButton_netejar.setBackground(new Color(255,163,0));
+    }//GEN-LAST:event_jButton_netejarMouseEntered
+
+    private void jButton_netejarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_netejarMouseExited
+        jButton_netejar.setIcon(fotoEliminarPunts);
+        jButton_netejar.setBackground(new Color(76,140,43));
+    }//GEN-LAST:event_jButton_netejarMouseExited
+
+    private void jButton_pujarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_pujarMouseEntered
+        jButton_pujar.setIcon(fotoFletxaAmuntHoover);
+        jButton_pujar.setBackground(new Color(255,163,0));
+    }//GEN-LAST:event_jButton_pujarMouseEntered
+
+    private void jButton_pujarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_pujarMouseExited
+        jButton_pujar.setIcon(fotoFletxaAmunt);
+        jButton_pujar.setBackground(new Color(76,140,43));
+    }//GEN-LAST:event_jButton_pujarMouseExited
+
+    private void jButton_baixarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_baixarMouseEntered
+        jButton_baixar.setIcon(fotoFletxaAvallHoover);
+        jButton_baixar.setBackground(new Color(255,163,0));
+    }//GEN-LAST:event_jButton_baixarMouseEntered
+
+    private void jButton_baixarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_baixarMouseExited
+        jButton_baixar.setIcon(fotoFletxaAvall);
+        jButton_baixar.setBackground(new Color(76,140,43));
+    }//GEN-LAST:event_jButton_baixarMouseExited
+
+    private void jButton_afegirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_afegirMouseEntered
+        jButton_afegir.setIcon(fotoAfegirPuntHoover);
+        jButton_afegir.setBackground(new Color(255,163,0));
+    }//GEN-LAST:event_jButton_afegirMouseEntered
+
+    private void jButton_afegirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_afegirMouseExited
+        jButton_afegir.setIcon(fotoAfegirPunt);
+        jButton_afegir.setBackground(new Color(76,140,43));
+    }//GEN-LAST:event_jButton_afegirMouseExited
+
+    private void jButton_seleccionarFotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_seleccionarFotoMouseEntered
+        jButton_seleccionarFoto.setIcon(fotoAfegirFotoPuntHoover);
+        jButton_seleccionarFoto.setBackground(new Color(255,163,0));
+    }//GEN-LAST:event_jButton_seleccionarFotoMouseEntered
+
+    private void jButton_seleccionarFotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_seleccionarFotoMouseExited
+        jButton_seleccionarFoto.setIcon(fotoAfegirFotoPunt);
+        jButton_seleccionarFoto.setBackground(new Color(76,140,43));
+    }//GEN-LAST:event_jButton_seleccionarFotoMouseExited
+
+    private void jTextField_latPuntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_latPuntKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField_latPuntKeyTyped
+
+    private void jTextField_lonPuntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_lonPuntKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField_lonPuntKeyTyped
+
+    private void jTextField_altPuntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_altPuntKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField_altPuntKeyTyped
 
     public BufferedImage byteArrayToImage(byte[] bytes) {
         BufferedImage bufferedImage = null;
@@ -3594,6 +4151,13 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -3635,8 +4199,11 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel_compartidesCanviant;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -3644,11 +4211,16 @@ public class panellCompartides extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable_rutesCreadesUsuari;
     private javax.swing.JTextArea jTextArea1;
