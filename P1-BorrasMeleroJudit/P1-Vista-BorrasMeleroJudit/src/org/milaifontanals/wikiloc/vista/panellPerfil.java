@@ -224,11 +224,11 @@ public class panellPerfil extends javax.swing.JPanel {
         });
 
         jPasswordField_novaPwd.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jPasswordField_novaPwd.setForeground(new java.awt.Color(204, 204, 204));
+        jPasswordField_novaPwd.setForeground(new java.awt.Color(153, 153, 153));
         jPasswordField_novaPwd.setBorder(null);
 
         jPasswordField_repetirPwd.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jPasswordField_repetirPwd.setForeground(new java.awt.Color(204, 204, 204));
+        jPasswordField_repetirPwd.setForeground(new java.awt.Color(153, 153, 153));
         jPasswordField_repetirPwd.setBorder(null);
 
         jLabel_mostrarPwd2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/ull.png"))); // NOI18N
@@ -381,7 +381,7 @@ public class panellPerfil extends javax.swing.JPanel {
         jLabel5.setText("Nou correu electrònic:");
 
         jTextField_nouEmail.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jTextField_nouEmail.setForeground(new java.awt.Color(204, 204, 204));
+        jTextField_nouEmail.setForeground(new java.awt.Color(153, 153, 153));
         jTextField_nouEmail.setBorder(null);
 
         jSeparator5.setForeground(new java.awt.Color(76, 140, 43));

@@ -150,7 +150,7 @@ public class ProvesCapaOracleWikilocJDBC {
             }
         
             //Inserir comentari a ruta id = 1 no feta
-            if(gb.afegirComentari(new Comentari("text comentari",2,new Usuari("cgomez","pwd101010","cgomez@milaifontanals.org"),r_db),"cgomez",1)){
+            if(gb.afegirComentari(new Comentari("text comentari",2,new Usuari("cgomez","pwd101010","cgomez@milaifontanals.org"),r_db),"cgomez",1)>0){
                 System.out.println("Comentari afegit correctament");
             }else{
                 System.out.println("Error a l'afegir el comentari");

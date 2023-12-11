@@ -317,7 +317,7 @@ public class Menu extends javax.swing.JFrame {
         
         
         if(!jPanel_menu.isVisible()){
-            System.out.println("PRESS");
+            //System.out.println("PRESS");
             jPanel_menu.setVisible(true);
             Animacion.Animacion.mover_derecha(-260, 0, 2, 2, jPanel_menu);
             Animacion.Animacion.mover_izquierda(0, 0, 0, 0, jPanel_principal);

@@ -452,7 +452,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         } catch (Exception ex) {
-            System.out.println("error foto editada: "+ex.getMessage());
+            //System.out.println("error foto editada: "+ex.getMessage());
             return false;
         }
     }
@@ -474,7 +474,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         } catch (Exception ex) {
-            System.out.println("error email: "+ex.getMessage());
+            //System.out.println("error email: "+ex.getMessage());
             return false;
         }
     }
@@ -818,7 +818,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             java.sql.Date getimestmp = new java.sql.Date(d.getTime());
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
            
-            System.out.println("HORA DE ENTRADA: "+sdf.format(d));
+            //System.out.println("HORA DE ENTRADA: "+sdf.format(d));
 
             psAfegirFetes.setString(1, login);
             psAfegirFetes.setDate(2, getimestmp);
@@ -834,7 +834,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         }catch(Exception ex){
-            System.out.println("ERROR AFEGIR FETES!!!! "+ex.getMessage());
+            //System.out.println("ERROR AFEGIR FETES!!!! "+ex.getMessage());
             return false;
         }
     }
@@ -973,7 +973,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
             }else{
                 tipus = null;
-                System.out.println("tipus null");
+                //System.out.println("tipus null");
             }
 
             if(rsObtenirTipusPerId != null){
@@ -1052,9 +1052,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             rsObtenirTipusPunt = psObtenirTipusPunt.executeQuery();
 
             if(rsObtenirTipusPunt==null){
-                System.out.println("NULL");
+                //System.out.println("NULL");
             }else{
-                System.out.println("NO NULL");
+                //System.out.println("NO NULL");
             }
             rsObtenirTipusPunt.next();
             Tipus tipus = new Tipus(rsObtenirTipusPunt.getInt("id"),rsObtenirTipusPunt.getString("nom"),null);
@@ -1069,7 +1069,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                 rsObtenirTipusPunt.close();
             }
 */
-            System.out.println("TIPUS: "+tipus);
+            //System.out.println("TIPUS: "+tipus);
             return tipus;
 
         } catch (SQLException ex) {
@@ -1108,7 +1108,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         }catch(Exception ex){
-            System.out.println("ERRROR INSERT: "+ex.getMessage());
+            //System.out.println("ERRROR INSERT: "+ex.getMessage());
             return false;
         }
     }
@@ -1118,9 +1118,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
          try{
 
-             System.out.println("URL FOTO: "+url_foto);
-             System.out.println("ID RUTA: "+p.getIdRuta().getId());
-             System.out.println("ID TIPUS RUTA: "+p.getIdTipus().getId());
+             //System.out.println("URL FOTO: "+url_foto);
+             //System.out.println("ID RUTA: "+p.getIdRuta().getId());
+             //System.out.println("ID TIPUS RUTA: "+p.getIdTipus().getId());
 
             psEditarPuntRuta.setString(1, p.getNom());
             psEditarPuntRuta.setString(2, p.getDescPunt());
@@ -1144,7 +1144,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         }catch(Exception ex){
-             System.out.println("ERROR GESTORRRR: "+ex.getMessage());
+             //System.out.println("ERROR GESTORRRR: "+ex.getMessage());
             return false;
         }
     }
@@ -1157,9 +1157,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         try{
 
 
-             System.out.println("ID RUTA: "+p.getIdRuta().getId());
-             System.out.println("ID TIPUS RUTA: "+p.getIdTipus().getId());
-             System.out.println("NOM: "+p.getNom());
+             //System.out.println("ID RUTA: "+p.getIdRuta().getId());
+             //System.out.println("ID TIPUS RUTA: "+p.getIdTipus().getId());
+             //System.out.println("NOM: "+p.getNom());
 
             editarPuntRutaSenseFoto.setString(1, p.getNom());
             editarPuntRutaSenseFoto.setString(2, p.getDescPunt());
@@ -1177,11 +1177,11 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             if(registres_afectats != 1){
                 return false;
             }
-            System.out.println("TOT CORRECTE. EDITAR");
+            //System.out.println("TOT CORRECTE. EDITAR");
             return true;
 
         }catch(Exception ex){
-             System.out.println("ERROR GESTORRRR: "+ex.getMessage());
+             //System.out.println("ERROR GESTORRRR: "+ex.getMessage());
             return false;
         }
 
@@ -1194,7 +1194,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     public boolean eliminarPuntRuta(Integer num, Integer id) throws GestorBDWikilocException {
 
         try{
-            System.out.println("NUM; "+num+" RUTA: "+id);
+            //System.out.println("NUM; "+num+" RUTA: "+id);
             psEliminarPuntRuta.setInt(1, num);
             psEliminarPuntRuta.setInt(2, id);
 
@@ -1207,7 +1207,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         }catch(Exception ex){
-            System.out.println("ERROR BD: "+ex.getMessage());
+            //System.out.println("ERROR BD: "+ex.getMessage());
             return false;
         }
     }
@@ -1443,16 +1443,16 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
             try (ResultSet generatedKeys = psAfegirComentari.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    System.out.println("ENTRO ID CORRECTAMENT");
-                    System.out.println(generatedKeys.toString());
+                    //System.out.println("ENTRO ID CORRECTAMENT");
+                    //System.out.println(generatedKeys.toString());
                     long id_ruta = generatedKeys.getLong(1);
-                    System.out.println(id_ruta);
+                    //System.out.println(id_ruta);
                     
                     return (int)id_ruta;
                    
                 }
                 else {
-                    System.out.println("ERROR!! RELACIONAT AMB ID AUTONUMERIC");
+                    //System.out.println("ERROR!! RELACIONAT AMB ID AUTONUMERIC");
                     return -1;
                 }
             }
@@ -1461,7 +1461,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
 
         }catch(Exception ex){
-            System.out.println("ERROR: "+ex.getMessage());
+            //System.out.println("ERROR: "+ex.getMessage());
             return -1;
         }
     }
@@ -1792,7 +1792,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         }catch(Exception ex){
-            System.out.println("ERORR: ??? "+ex.getMessage());
+            //System.out.println("ERORR: ??? "+ex.getMessage());
             return false;
         }
     }
@@ -1845,21 +1845,21 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
             try (ResultSet generatedKeys = psAfegirRuta.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    System.out.println("ENTRO ID CORRECTAMENT");
-                    System.out.println(generatedKeys.toString());
+                    //System.out.println("ENTRO ID CORRECTAMENT");
+                    //System.out.println(generatedKeys.toString());
                     long id_ruta = generatedKeys.getLong(1);
-                    System.out.println(id_ruta);
+                    //System.out.println(id_ruta);
 
                     //Comptar que es facin tots els inserts dels punts correctament
                     int i = 0;
-                    System.out.println("ENTRO BUCLE");
+                    //System.out.println("ENTRO BUCLE");
                     //Afegir punts de ruta el id acabat de crear, introduir
                     for(Punt punt_ruta : punts_ruta){
                         punt_ruta.setIdRuta(new Ruta((int)id_ruta));
                         if(afegirPuntRuta(punt_ruta,punt_ruta.getTmpUrlFoto())){
                             i++;
                         }else{
-                            System.out.println("NO S'HA AFEGIT EL PUNT DE LA RUTA: punt_ruta: "+punt_ruta+" url_tmp foto: "+punt_ruta.getTmpUrlFoto());
+                            //System.out.println("NO S'HA AFEGIT EL PUNT DE LA RUTA: punt_ruta: "+punt_ruta+" url_tmp foto: "+punt_ruta.getTmpUrlFoto());
                             break;
                         }
                     }
@@ -1872,28 +1872,28 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                         //id_ruta
                         
                         if(afegirFetes(ruta.getLoginUsuari().getLogin(),(int)id_ruta)){
-                            System.out.println("TOT OK!!!!");
+                            //System.out.println("TOT OK!!!!");
                             confirmarCanvis();
                             return true;
                         }else{
-                            System.out.println("ERROR AMB FETES: "+ruta.getLoginUsuari().getLogin()+" : "+(int)id_ruta);
+                            //System.out.println("ERROR AMB FETES: "+ruta.getLoginUsuari().getLogin()+" : "+(int)id_ruta);
                             return false;
                         }
        
                     }else{
-                        System.out.println("ERROR!! ALGUN PUNT NO ESTA BE");
+                        //System.out.println("ERROR!! ALGUN PUNT NO ESTA BE");
                         return false;
                     }
 
                 }
                 else {
-                    System.out.println("ERROR!! RELACIONAT AMB ID AUTONUMERIC");
+                    //System.out.println("ERROR!! RELACIONAT AMB ID AUTONUMERIC");
                     return false;
                 }
             }
 
         }catch(Exception ex){
-            System.out.println("ERROR BASE DE DADES: "+ex.getMessage());
+            //System.out.println("ERROR BASE DE DADES: "+ex.getMessage());
             return false;
         }
 
@@ -1930,30 +1930,30 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
 
     @Override
     public List<Ruta> filtreRutaCreades(String titol, int dific, double dist, String login_usuari) throws GestorBDWikilocException {
-        System.out.println("FUNC: "+titol+" "+dific+" "+dist+" "+login_usuari);
+        //System.out.println("FUNC: "+titol+" "+dific+" "+dist+" "+login_usuari);
         List<Ruta> rutes = new ArrayList();
         //inst = "select * from ruta where (titol = -1 or upper(titol) like upper(?)) and (dific = -1 or dific = ?) and (dist = -1.0 or dist > ?)";
         try {
 
             ResultSet rsFiltreRuta = null;
-            System.out.println("TITOL:");
+            //System.out.println("TITOL:");
             psFiltreRutaCreades.setString(1, titol);
             psFiltreRutaCreades.setString(2, titol+"%");
-            System.out.println("DIFIC:");
+            //System.out.println("DIFIC:");
             psFiltreRutaCreades.setInt(3, dific);
             psFiltreRutaCreades.setInt(4, dific);
-            System.out.println("DIST:");
+            //System.out.println("DIST:");
             psFiltreRutaCreades.setDouble(5, dist);
-            System.out.println("LOGIN:");
+            //System.out.println("LOGIN:");
             psFiltreRutaCreades.setString(6, login_usuari);
 
 
             rsFiltreRuta = psFiltreRutaCreades.executeQuery();
 
             while(rsFiltreRuta.next()){
-                System.out.println("PRE USUARI");
+                //System.out.println("PRE USUARI");
                Usuari u = new Usuari(rsFiltreRuta.getString("login"),rsFiltreRuta.getString("pwd"),rsFiltreRuta.getString("email"));
-                System.out.println("POST USUARI");
+                //System.out.println("POST USUARI");
 
 
                 Ruta r = new Ruta(rsFiltreRuta.getInt("id"),
@@ -1966,7 +1966,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                                     rsFiltreRuta.getInt("desn_n"),
                                     rsFiltreRuta.getInt("dific"),
                                     u);
-                System.out.println("POST RUTA");
+                //System.out.println("POST RUTA");
 
                 rutes.add(r);
             }
@@ -2003,7 +2003,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             psFiltreTotalRutes.setString(8, creador);
             psFiltreTotalRutes.setString(9, usuari_fet);
             psFiltreTotalRutes.setString(10, usuari_fet);
-            System.out.println("OK");
+            //System.out.println("OK");
 
             /*
             "select r.* \n" +
@@ -2014,12 +2014,12 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
             
             rsFiltreTotalRutes = psFiltreTotalRutes.executeQuery();
-            System.out.println("OK2");
+            //System.out.println("OK2");
             while(rsFiltreTotalRutes.next()){
                 Usuari u = new Usuari(rsFiltreTotalRutes.getString("login"),rsFiltreTotalRutes.getString("pwd"),rsFiltreTotalRutes.getString("email"));
                 
                 
-                System.out.println("OK3");
+                //System.out.println("OK3");
                 Ruta r = new Ruta(rsFiltreTotalRutes.getInt("id"),
                                     rsFiltreTotalRutes.getString("titol"),
                                     rsFiltreTotalRutes.getString("desc_ruta"),
@@ -2030,7 +2030,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
                                     rsFiltreTotalRutes.getInt("desn_n"),
                                     rsFiltreTotalRutes.getInt("dific"),
                                     u);
-                System.out.println("OK4");
+                //System.out.println("OK4");
 
                 rutes.add(r);
             }
