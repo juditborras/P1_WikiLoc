@@ -59,7 +59,7 @@ public class panellAfegir extends javax.swing.JPanel {
                 jLabel4.setVisible(false);
                 jLabel3.setVisible(false);
                 
-                System.out.println("ITEM SELECTED: "+item.getIndex());
+                //System.out.println("ITEM SELECTED: "+item.getIndex());
                 switch(item.getIndex()){
                     case 0:
                              
@@ -74,9 +74,9 @@ public class panellAfegir extends javax.swing.JPanel {
                         
                         
                         
-                        System.out.println("NOVA RUTA V1: "+nova_ruta);
+                        //System.out.println("NOVA RUTA V1: "+nova_ruta);
                         if(llistaPunts!=null){
-                            System.out.println("LLISTA DE PUNTS: "+llistaPunts.size());
+                            //System.out.println("LLISTA DE PUNTS: "+llistaPunts.size());
                         }
                         break;
 
@@ -90,7 +90,7 @@ public class panellAfegir extends javax.swing.JPanel {
                         }
                          
                         if(llistaPunts!=null){
-                            System.out.println("LLISTA DE PUNTS: "+llistaPunts.size());
+                            //System.out.println("LLISTA DE PUNTS: "+llistaPunts.size());
                         }
                         
                         new CambiaPanel(jPanel_formulari,new panellAfegir_rutaPunts(breadcrumb1,nova_ruta,llistaPunts));
@@ -180,6 +180,10 @@ public class panellAfegir extends javax.swing.JPanel {
         add(jPanel_formulari, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 1310, 710));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        breadcrumb1.setColor1(new java.awt.Color(76, 140, 43));
+        breadcrumb1.setColor2(new java.awt.Color(255, 174, 0));
+        breadcrumb1.setColorSelected(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

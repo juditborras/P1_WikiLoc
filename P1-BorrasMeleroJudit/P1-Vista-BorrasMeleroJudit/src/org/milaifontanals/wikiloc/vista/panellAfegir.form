@@ -139,6 +139,17 @@
       </Layout>
       <SubComponents>
         <Container class="org.milaifontanals.wikiloc.breadcrumb.com.raven.component.Breadcrumb" name="breadcrumb1">
+          <Properties>
+            <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="2b" green="8c" red="4c" type="rgb"/>
+            </Property>
+            <Property name="color2" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="ae" red="ff" type="rgb"/>
+            </Property>
+            <Property name="colorSelected" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
             <Property name="alignment" type="int" value="0"/>
