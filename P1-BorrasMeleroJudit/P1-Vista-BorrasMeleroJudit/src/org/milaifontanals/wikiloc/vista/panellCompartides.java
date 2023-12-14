@@ -257,7 +257,7 @@ public class panellCompartides extends javax.swing.JPanel {
         
         this.usuari_loginat = usuari_loginat;
         
-        System.out.println(usuari_loginat);
+        //System.out.println(usuari_loginat);
         
         jPanel_compartidesCanviant.setVisible(false);
         jButton_desarCanvisRuta.setVisible(false);
@@ -365,8 +365,8 @@ public class panellCompartides extends javax.swing.JPanel {
                 editarPuntRuta = true;
                 
                 row_sel = row;
-                System.out.println("Edit row : " + row);
-                System.out.println(llistaRutesCreades.get(row)); 
+                //System.out.println("Edit row : " + row);
+                //System.out.println(llistaRutesCreades.get(row)); 
                 ruta_seleccionada = llistaRutesCreades.get(row);
                 
                 jPanel_menu.setVisible(false);
@@ -430,13 +430,13 @@ public class panellCompartides extends javax.swing.JPanel {
 
                 
                 try {
-                    System.out.println("ID DE LA RUTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: "+ruta_seleccionada.getId());
+                    //System.out.println("ID DE LA RUTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: "+ruta_seleccionada.getId());
                     llistaPuntsRuta = gestorBDWikilocJdbc.obtenirLlistaPuntsRuta(ruta_seleccionada.getId());
                     //System.out.println("================0LLISTA ED PUNTS RUTA===================================");
                     
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Punts de ruta: ");
+                    //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Punts de ruta: ");
                     for(Punt punt : llistaPuntsRuta){
-                        System.out.println(punt);
+                        //System.out.println(punt);
                     }
                     
 
@@ -464,7 +464,7 @@ public class panellCompartides extends javax.swing.JPanel {
 
 
                 } catch (GestorBDWikilocException ex) {
-                    System.out.println("ERROR LLISTA PUNTS DE RUTA: "+ex.getMessage());
+                    //System.out.println("ERROR LLISTA PUNTS DE RUTA: "+ex.getMessage());
                     Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
@@ -533,7 +533,7 @@ public class panellCompartides extends javax.swing.JPanel {
                     }
                     //System.out.println("COMBO TIPUS PUNTS ACTUALITZAT");
                 } catch (GestorBDWikilocException ex) {
-                    System.out.println("ERROR COMBO TIPUS PUNTS "+ex.getMessage());
+                    //System.out.println("ERROR COMBO TIPUS PUNTS "+ex.getMessage());
                     Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
@@ -546,14 +546,14 @@ public class panellCompartides extends javax.swing.JPanel {
                 
                 
                 
-                System.out.println("hola esborrem ruta" + id);
+                //System.out.println("hola esborrem ruta" + id);
                 
                 try {
                     
                     id = llistaRutesCreades.get(row).getId();
                     
                     int qtat_comentaris = gestorBDWikilocJdbc.qtatComentarisRuta(id);
-                    System.out.println("qtat_comentaris. "+qtat_comentaris);
+                    //System.out.println("qtat_comentaris. "+qtat_comentaris);
                     if(qtat_comentaris == 0){
                         
                         if (jTable_rutesCreadesUsuari.isEditing()) {
@@ -592,7 +592,7 @@ public class panellCompartides extends javax.swing.JPanel {
 
             @Override
             public void onView(int row) {
-                System.out.println("View row : " + row);
+                //System.out.println("View row : " + row);
                 
                 editarPuntRuta = false;
                 
@@ -675,19 +675,19 @@ public class panellCompartides extends javax.swing.JPanel {
                 try {
                     llistaTipusPunts = gestorBDWikilocJdbc.obtenirLlistaTipus();
 
-                    System.out.println("LEN: " + llistaTipusPunts.size());
+                    //System.out.println("LEN: " + llistaTipusPunts.size());
                     Tipus[] tip = new Tipus[llistaTipusPunts.size()];
                     tip = llistaTipusPunts.toArray(tip);
 
                     //jComboBox_tipusPunt = new JComboBox(tip);
-                    System.out.println("ITEM COUNT: " + jComboBox_tipusPunt.getItemCount());
+                    //System.out.println("ITEM COUNT: " + jComboBox_tipusPunt.getItemCount());
                     //jComboBox_tipusPunt.setSelectedIndex(-1);
 
                     jComboBox_tipusPunt.setModel(new DefaultComboBoxModel<>(llistaTipusPunts.toArray(new Tipus[0])));
                     jComboBox_tipusPunt.setSelectedIndex(-1);
 
                     for (int i = 0; i < llistaTipusPunts.size(); i++) {
-                        System.out.println(tip[i]);
+                        //System.out.println(tip[i]);
                     }
 
                 } catch (GestorBDWikilocException ex) {
@@ -736,7 +736,7 @@ public class panellCompartides extends javax.swing.JPanel {
         
         
 
-        System.out.println("temps hores:" + hours + " minuts:" + minutes);
+        //System.out.println("temps hores:" + hours + " minuts:" + minutes);
 
         jComboBox_tempsH.getModel().setSelectedItem(hours);
         jComboBox_tempsM.getModel().setSelectedItem(minutes);
@@ -807,13 +807,13 @@ public class panellCompartides extends javax.swing.JPanel {
             llistaTipusPunts = gestorBDWikilocJdbc.obtenirLlistaTipus();
          
             
-            System.out.println("LEN: "+llistaTipusPunts.size());
+            //System.out.println("LEN: "+llistaTipusPunts.size());
             Tipus[] tip = new Tipus[llistaTipusPunts.size()];
             tip = llistaTipusPunts.toArray(tip);
             
             
             //jComboBox_tipusPunt = new JComboBox(tip);
-            System.out.println("ITEM COUNT: "+jComboBox_tipusPunt.getItemCount());
+            //System.out.println("ITEM COUNT: "+jComboBox_tipusPunt.getItemCount());
             //jComboBox_tipusPunt.setSelectedIndex(-1);
             
             jComboBox_tipusPunt.setModel(new DefaultComboBoxModel<>(llistaTipusPunts.toArray(new Tipus[0])));
@@ -821,7 +821,7 @@ public class panellCompartides extends javax.swing.JPanel {
             
             
             for(int i=0; i<llistaTipusPunts.size(); i++){
-                System.out.println(tip[i]);
+                //System.out.println(tip[i]);
             }
           
         } catch (GestorBDWikilocException ex) {
