@@ -60,8 +60,9 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
             jScrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
             info_ruta += "<font face='Calibri' color='green'><b>Títol: </b>" + ruta.getTitol() + "</font><br><br>";
+            
             info_ruta += "<font face='Calibri'><b>Descripció en text pla: </b>" + ruta.getDescRuta() + "</font><br>";
-                                 
+                            
 
             reempl = ruta.getDist() + "";
             reempl = reempl.replace('.', ',');
@@ -97,17 +98,31 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
             jTextPane1.setText(info_ruta);
 
             String info_punts = "";
+            
+            jTextPane2.setContentType("text/html");
+            
+            jTextPane2.setPreferredSize(new Dimension(500, 300));
+            jTextPane2.setMinimumSize(new Dimension(500, 300));
+            jTextPane2.setMaximumSize(new Dimension(500, 300));
+            jScrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            jScrollPane4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
             for (Punt p : llistaPuntsRuta) {
 
-                info_punts += "PUNT " + p.getOrdre() + "\n";
-                info_punts += "Nom: " + p.getNom() + "\n";
-                info_punts += "Descripció: " + p.getDescPunt() + "\n";
-                info_punts += "Latitud: " + p.getLat() + "\n";
-                info_punts += "Longitud: " + p.getLon() + "\n";
-                info_punts += "Altitud: " + p.getAlt() + "\n";
-                info_punts += "Tipus de punt: " + p.getIdTipus().getNom() + "\n";
-                info_punts += "Imatge: " + p.getTmpFoto() + "\n\n\n";
+                info_punts += "<font face='Calibri' color='green'><b>PUNT </b>" + p.getOrdre() + "</font><br><br>";
+                
+                info_punts += "<font face='Calibri'><b>Nom: </b>" + p.getNom() + "</font><br>";
+                info_punts += "<font face='Calibri'><b>Descripció: </b>" + p.getDescPunt() + "</font><br>";
+                info_punts += "<font face='Calibri'><b>Latitud: </b>" + p.getLat() + "</font><br>";
+                info_punts += "<font face='Calibri'><b>Longitud: </b>" + p.getLon() + "</font><br>";
+                info_punts += "<font face='Calibri'><b>Altitud: </b>" + p.getAlt() + "</font><br>";
+                info_punts += "<font face='Calibri'><b>Tipus de punt: </b>" + p.getIdTipus().getNom() + "</font><br>";
+                if(p.getTmpFoto()==null){
+                    info_punts += "<font face='Calibri'><b>Imatge: </b> Sense imatge</font><br><br><br>";
+                }else{
+                    info_punts += "<font face='Calibri'><b>Imatge: </b>" + p.getTmpFoto() + "</font><br><br><br>";
+                }
+                
 
             }
 
@@ -178,6 +193,8 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
         jTextPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jTextPane2.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jTextPane2.setForeground(new java.awt.Color(153, 153, 153));
+        jTextPane2.setMaximumSize(new java.awt.Dimension(500, 300));
+        jTextPane2.setMinimumSize(new java.awt.Dimension(500, 300));
         jScrollPane4.setViewportView(jTextPane2);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
@@ -204,7 +221,7 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1390, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
+                        .addGap(150, 150, 150)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -227,11 +244,10 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82)
-                        .addComponent(jLabel3))
+                    .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -241,7 +257,7 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
                     .addComponent(jButton_desarBD, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
