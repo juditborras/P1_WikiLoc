@@ -4,10 +4,12 @@
  */
 package org.milaifontanals.wikiloc.vista;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JScrollPane;
 import org.milaifontanals.wikiloc.jdbc.GestorBDWikilocJdbc;
 import org.milaifontanals.wikiloc.model.Punt;
 import org.milaifontanals.wikiloc.model.Ruta;
@@ -44,17 +46,55 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
         try{
             
             String info_ruta = "";
+            int i1=1,i2=2,i3=3,i4=4,i5=5;
+            int hours, minutes;
+            String reempl;
+            String i = "";
+            
+            jTextPane1.setContentType("text/html");
+            
+            jTextPane1.setPreferredSize(new Dimension(500, 500));
+            jTextPane1.setMinimumSize(new Dimension(500, 500));
+            jTextPane1.setMaximumSize(new Dimension(500, 500));
+            jScrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            jScrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-            info_ruta += "Títol: " + ruta.getTitol() + "\n\n";
-            info_ruta += "Descripció: " + ruta.getDescRuta() + "\n";
-            info_ruta += "Descripció en fitxer HTML: " + ruta.getTextRuta() + "\n";
-            info_ruta += "Distància: " + ruta.getDist() + "\n";
-            info_ruta += "Temps: " + ruta.getTemps() + "\n";
-            info_ruta += "DesnP: " + ruta.getDesnP() + "\n";
-            info_ruta += "DesnN: " + ruta.getDesnN() + "\n";
-            info_ruta += "Dificultat: " + ruta.getDific() + "\n";
+            info_ruta += "<font face='Calibri' color='green'><b>Títol: </b>" + ruta.getTitol() + "</font><br><br>";
+            info_ruta += "<font face='Calibri'><b>Descripció en text pla: </b>" + ruta.getDescRuta() + "</font><br>";
+                                 
 
-            jTextArea_dadesRuta.setText(info_ruta);
+            reempl = ruta.getDist() + "";
+            reempl = reempl.replace('.', ',');
+            
+            info_ruta += "<font face='Calibri'><b>Distància: </b>" + reempl + " km</font><br>";
+            
+            hours = ruta.getTemps() / 60;
+            minutes = ruta.getTemps() % 60;
+            
+            info_ruta += "<font face='Calibri'><b>Temps: </b></font><br>";
+            info_ruta += "<font face='Calibri'>Hores: " + hours + "h</font><br>";
+            info_ruta += "<font face='Calibri'>Minuts: " + minutes + "m</font><br>";
+                               
+            info_ruta += "<font face='Calibri'><b>Desnivell positiu: </b>" + ruta.getDesnP() + " metres</font><br>";
+            info_ruta += "<font face='Calibri'><b>Desnivell negatiu: </b>" + ruta.getDesnN() + " metres</font><br>";
+             
+            if (ruta.getDific() == 1) {
+                i = "★☆☆☆☆";
+            } else if (ruta.getDific() == 2) {
+                i = "★★☆☆☆";
+            } else if (ruta.getDific() == 3) {
+                i = "★★★☆☆";
+            } else if (ruta.getDific() == 4) {
+                i = "★★★★☆";
+            } else if (ruta.getDific() == 5) {
+                i = "★★★★★";
+            }
+            
+            info_ruta += "<font face='Calibri'><b>Dificultat: </b>" + i + "</font><br>";
+
+            info_ruta += "<font face='Calibri'><b>Descripció en format HTML: </b>" + ruta.getTextRuta() + "</font><br>"; 
+            
+            jTextPane1.setText(info_ruta);
 
             String info_punts = "";
 
@@ -71,7 +111,7 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
 
             }
 
-            jTextArea_dadesPunts.setText(info_punts);           
+            jTextPane2.setText(info_punts);           
             
         }catch(Exception ex){
             
@@ -91,88 +131,128 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea_dadesRuta = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
         jButton_desarBD = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea_dadesPunts = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextPane2 = new javax.swing.JTextPane();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
-        jTextArea_dadesRuta.setEditable(false);
-        jTextArea_dadesRuta.setColumns(20);
-        jTextArea_dadesRuta.setRows(5);
-        jScrollPane1.setViewportView(jTextArea_dadesRuta);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("RESUM DADES A INSERIR");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton_desarBD.setText("desar a BD");
+        jButton_desarBD.setBackground(new java.awt.Color(76, 140, 43));
+        jButton_desarBD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/desarCanvis.png"))); // NOI18N
+        jButton_desarBD.setBorder(null);
+        jButton_desarBD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_desarBD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_desarBDMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_desarBDMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_desarBDMouseExited(evt);
+            }
         });
 
-        jTextArea_dadesPunts.setEditable(false);
-        jTextArea_dadesPunts.setColumns(20);
-        jTextArea_dadesPunts.setRows(5);
-        jScrollPane2.setViewportView(jTextArea_dadesPunts);
+        jLabel2.setFont(new java.awt.Font("Calibri", 3, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(76, 140, 43));
+        jLabel2.setText("Atenció: els canvis no es desaran si no completeu les dades requerides de la ruta i els punts de ruta seguint l'ordre de les pantalles!");
 
-        jLabel2.setText("Atenció: els canvis no es desaran si no completes les dades requerides de la ruta i els punts de ruta seguint l'ordre de les pantalles!");
+        jTextPane1.setEditable(false);
+        jTextPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTextPane1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextPane1.setForeground(new java.awt.Color(153, 153, 153));
+        jTextPane1.setMaximumSize(new java.awt.Dimension(500, 500));
+        jTextPane1.setMinimumSize(new java.awt.Dimension(500, 500));
+        jScrollPane3.setViewportView(jTextPane1);
+
+        jTextPane2.setEditable(false);
+        jTextPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTextPane2.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jTextPane2.setForeground(new java.awt.Color(153, 153, 153));
+        jScrollPane4.setViewportView(jTextPane2);
+
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel1.setText("Resum de les dades introduïdes");
+
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel3.setText("Dades de la ruta:");
+
+        jLabel4.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel4.setText("Dades dels punts de la ruta:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(454, 454, 454))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton_desarBD)
-                        .addGap(468, 468, 468))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(271, 271, 271)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(79, 79, 79)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton_desarBD, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane4)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_desarBD, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(jLabel2)
-                .addGap(37, 37, 37)
-                .addComponent(jButton_desarBD)
-                .addGap(47, 47, 47))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(323, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,7 +274,7 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
             if(i == llistaPuntsRuta.size()){
                 try {
                     if(gestorBDWikilocJdbc.afegirRutaAmbPunts(ruta, llistaPuntsRuta)){
-                        System.out.println("HAS AFEGIT CORRECTAMENT LA RUTA I ELS SEUS PUNTS");
+                        //System.out.println("HAS AFEGIT CORRECTAMENT LA RUTA I ELS SEUS PUNTS");
                         File f = new File("info_ruta.txt");
                         f.delete();
                         
@@ -203,17 +283,17 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
                         
                         
                     }else{
-                        System.out.println("NO HAS INTRODUIT LA RUTA BE");
+                        //System.out.println("NO HAS INTRODUIT LA RUTA BE");
                     }
                     
                 } catch (GestorBDWikilocException ex) {
-                    System.out.println("ERROR: "+ex.getMessage());
+                    //System.out.println("ERROR: "+ex.getMessage());
                 }
             }else{
-                System.out.println("NO HAS INTRODUIT TOTS ELS CAMPS OBLIGATORIS DELS PUNTS DE RUTA");
+                //System.out.println("NO HAS INTRODUIT TOTS ELS CAMPS OBLIGATORIS DELS PUNTS DE RUTA");
             }
         }else{
-            System.out.println("NO HAS INTRODUIT TOTS ELS CAMPS OBLIGATORIS DE LA RUTA");
+            //System.out.println("NO HAS INTRODUIT TOTS ELS CAMPS OBLIGATORIS DE LA RUTA");
         }
         
 
@@ -222,15 +302,26 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton_desarBDMouseClicked
 
+    private void jButton_desarBDMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarBDMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_desarBDMouseEntered
+
+    private void jButton_desarBDMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarBDMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_desarBDMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_desarBD;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea_dadesPunts;
-    private javax.swing.JTextArea jTextArea_dadesRuta;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPane2;
     // End of variables declaration//GEN-END:variables
 }
