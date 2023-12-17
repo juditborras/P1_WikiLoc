@@ -49,7 +49,7 @@ public class MonitoredInputStream extends FilterInputStream
     {
         if(monitor.isCopyAborted())
         {
-            System.err.println("copy aborted");
+            //System.err.println("copy aborted");
             throw new IOException("Copy aborted");
         }
     }

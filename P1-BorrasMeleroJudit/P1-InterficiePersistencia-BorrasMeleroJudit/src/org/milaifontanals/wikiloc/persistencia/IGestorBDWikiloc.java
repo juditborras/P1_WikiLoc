@@ -259,6 +259,16 @@ public interface IGestorBDWikiloc {
      */
     Fetes haFetRuta(Ruta ruta, Usuari usuari_loginat) throws GestorBDWikilocException;
     
+    
+    /**
+     * Eliminar fetes d'una ruta
+     *
+     * @param id Id de la ruta
+     * @return Si s'ha pogut eliminar
+     * @throws GestorBDWikilocException
+     */
+    boolean eliminarFetesRuta(Integer id) throws GestorBDWikilocException;
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="MÈTODES DE LA CLASSE TIPUS">

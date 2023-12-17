@@ -55,7 +55,7 @@ public class IniciarSessio extends javax.swing.JFrame {
         } catch (GestorBDWikilocException ex) {
 
             JOptionPane.showMessageDialog(this,
-                    "Error: " + ex.getMessage(),
+                    "No s'ha pogut connectar a la base de dades",
                     "Error - Inici sessió", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -90,7 +90,7 @@ public class IniciarSessio extends javax.swing.JFrame {
         jPanel_iniciarSessio.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_iniciarSessio.setLayout(new java.awt.GridBagLayout());
 
-        jLabel_logo.setIcon(new javax.swing.ImageIcon("G:\\DAM\\2on\\Curs 2023-2024\\M13-Projecte\\1_WikiLoc\\P1_WikiLoc\\P1-BorrasMeleroJudit\\P1-Vista-BorrasMeleroJudit\\img\\wikiloc_logo.png")); // NOI18N
+        jLabel_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/wikiloc_logo.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -304,7 +304,7 @@ public class IniciarSessio extends javax.swing.JFrame {
         } catch (GestorBDWikilocException ex) {
 
             JOptionPane.showMessageDialog(this,
-                "Error: " + ex.getMessage(),
+                "Error en iniciar sessió: " + ex.getMessage(),
                 "Error - Inici sessió", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton_iniciaSessioMouseClicked

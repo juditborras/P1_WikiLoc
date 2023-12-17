@@ -134,8 +134,8 @@ public class panellPerfil extends javax.swing.JPanel {
             
         } catch (GestorBDWikilocException ex) {
             //System.out.println("No s'han pogut obtenir les dades de l'usuari connectat");
-            JOptionPane.showConfirmDialog(null, "Error: "+ex.getMessage(),
-                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+            JOptionPane.showConfirmDialog(null, "Error a l'obtenir les dades de l'usuari: "+ex.getMessage(),
+                        "Obtenir dades usuari", JOptionPane.CLOSED_OPTION,
                         JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -704,7 +704,9 @@ public class panellPerfil extends javax.swing.JPanel {
             }         
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("fotoooooo: " + ex.getMessage());
+            JOptionPane.showConfirmDialog(null, "Error a l'editar la fotografia de l'usuari: "+ex.getMessage(),
+                        "Editar fotografia", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -724,7 +726,7 @@ public class panellPerfil extends javax.swing.JPanel {
                     gestorBDWikilocJdbc.confirmarCanvis();
 
                     JOptionPane.showConfirmDialog(null, "La contrassenya s'ha desat correctament",
-                            "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                            "Canviar contrasenya", JOptionPane.CLOSED_OPTION,
                             JOptionPane.INFORMATION_MESSAGE);
                     
                     jTextField_pwd.setText("");
@@ -763,7 +765,9 @@ public class panellPerfil extends javax.swing.JPanel {
 
                         //jPasswordField_pwd.setText(punts);
                     } catch (GestorBDWikilocException ex) {
-                        //System.out.println("No s'han pogut obtenir les dades de l'usuari connectat");
+                        JOptionPane.showConfirmDialog(null, "Error a l'obtenir les dades de l'usuari: "+ex.getMessage(),
+                        "Obtenir dades usuari", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.ERROR_MESSAGE);
                     }
                     
                     
@@ -771,7 +775,7 @@ public class panellPerfil extends javax.swing.JPanel {
                 } else {
 
                     JOptionPane.showConfirmDialog(null, "La contrassenya no s'ha pogut canviar",
-                            "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                            "Canviar contrasenya", JOptionPane.CLOSED_OPTION,
                             JOptionPane.INFORMATION_MESSAGE);
                 }
                 
@@ -779,7 +783,7 @@ public class panellPerfil extends javax.swing.JPanel {
             
             }else{
                 JOptionPane.showConfirmDialog(null, "Els camps de la nova contrasenya no coincideixen",
-                            "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                            "Canviar contrasenya", JOptionPane.CLOSED_OPTION,
                             JOptionPane.INFORMATION_MESSAGE);
                 
                 jPasswordField_novaPwd.setText("");
@@ -790,7 +794,9 @@ public class panellPerfil extends javax.swing.JPanel {
 
 
         } catch (GestorBDWikilocException ex) {
-            Logger.getLogger(panellPerfil.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showConfirmDialog(null, "Error a l'obtenir les dades de l'usuari: "+ex.getMessage(),
+                        "Obtenir dades usuari", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -808,7 +814,7 @@ public class panellPerfil extends javax.swing.JPanel {
                 gestorBDWikilocJdbc.confirmarCanvis();
 
                 JOptionPane.showConfirmDialog(null, "L'email s'ha desat correctament",
-                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        "Wikiloc", JOptionPane.CLOSED_OPTION,
                         JOptionPane.INFORMATION_MESSAGE);
                 
                 jTextField_nouEmail.setText("");
@@ -843,21 +849,25 @@ public class panellPerfil extends javax.swing.JPanel {
                     
                     //jPasswordField_pwd.setText(punts);
                 } catch (GestorBDWikilocException ex) {
-                    //System.out.println("No s'han pogut obtenir les dades de l'usuari connectat");
+                    JOptionPane.showConfirmDialog(null, "Error a l'obtenir les dades de l'usuari: "+ex.getMessage(),
+                        "Error - Obtenir dades usuari", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.ERROR_MESSAGE);
                 }
                 
                 
             } else {
 
                 JOptionPane.showConfirmDialog(null, "L'email no s'ha pogut canviar",
-                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
-                        JOptionPane.INFORMATION_MESSAGE);
+                        "Error - Canvi email", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.ERROR_MESSAGE);
             }
             
             jPanel3.setVisible(false);
 
         } catch (GestorBDWikilocException ex) {
-            Logger.getLogger(panellPerfil.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showConfirmDialog(null, "Error a l'editar l'usuari: "+ex.getMessage(),
+                        "Editar usuari", JOptionPane.CLOSED_OPTION,
+                        JOptionPane.ERROR_MESSAGE);
         }
         
         

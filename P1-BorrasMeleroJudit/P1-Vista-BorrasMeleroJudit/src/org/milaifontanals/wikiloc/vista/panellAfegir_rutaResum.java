@@ -4,11 +4,14 @@
  */
 package org.milaifontanals.wikiloc.vista;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import org.milaifontanals.wikiloc.jdbc.GestorBDWikilocJdbc;
 import org.milaifontanals.wikiloc.model.Punt;
@@ -29,6 +32,8 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
     List<Punt> llistaPuntsRuta;
     Ruta ruta;
     private GestorBDWikilocJdbc gestorBDWikilocJdbc;
+    ImageIcon fotoDesarCanvis = new ImageIcon("img"+File.separator+"desarCanvis.png");
+    ImageIcon fotoDesarCanvisHoover = new ImageIcon("img"+File.separator+"desarCanvisHoover.png");
     
     public panellAfegir_rutaResum(Usuari usuari_loginat, Ruta nova_ruta, List<Punt> punts_p) {
         initComponents();
@@ -122,6 +127,7 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
                 }else{
                     info_punts += "<font face='Calibri'><b>Imatge: </b>" + p.getTmpFoto() + "</font><br><br><br>";
                 }
+                
                 
 
             }
@@ -291,6 +297,11 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
                 try {
                     if(gestorBDWikilocJdbc.afegirRutaAmbPunts(ruta, llistaPuntsRuta)){
                         //System.out.println("HAS AFEGIT CORRECTAMENT LA RUTA I ELS SEUS PUNTS");
+                        
+                        JOptionPane.showMessageDialog(null,
+                            "La ruta i els seus punts s'han afegit correctament",
+                            "Afegir ruta", JOptionPane.INFORMATION_MESSAGE);
+                        
                         File f = new File("info_ruta.txt");
                         f.delete();
                         
@@ -299,17 +310,25 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
                         
                         
                     }else{
-                        //System.out.println("NO HAS INTRODUIT LA RUTA BE");
+                        JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha afegir la ruta i els seus punts",
+                            "Error - Afegir ruta", JOptionPane.ERROR_MESSAGE);
                     }
                     
                 } catch (GestorBDWikilocException ex) {
-                    //System.out.println("ERROR: "+ex.getMessage());
+                    JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha afegit la ruta i els seus punts: "+ex.getMessage() ,
+                            "Error - Afegir ruta", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
-                //System.out.println("NO HAS INTRODUIT TOTS ELS CAMPS OBLIGATORIS DELS PUNTS DE RUTA");
+                JOptionPane.showMessageDialog(null,
+                            "No has introduït tots els camps obligatoris dels punts de ruta",
+                            "Error - No has introduït els camps obligatoris", JOptionPane.INFORMATION_MESSAGE);
             }
         }else{
-            //System.out.println("NO HAS INTRODUIT TOTS ELS CAMPS OBLIGATORIS DE LA RUTA");
+            JOptionPane.showMessageDialog(null,
+                            "No has introduït tots els camps obligatoris dels punts de ruta",
+                            "Error - No has introduït els camps obligatoris", JOptionPane.INFORMATION_MESSAGE);
         }
         
 
@@ -319,11 +338,13 @@ public class panellAfegir_rutaResum extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_desarBDMouseClicked
 
     private void jButton_desarBDMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarBDMouseEntered
-        // TODO add your handling code here:
+        jButton_desarBD.setIcon(fotoDesarCanvisHoover);
+        jButton_desarBD.setBackground(new Color(255, 163, 0));
     }//GEN-LAST:event_jButton_desarBDMouseEntered
 
     private void jButton_desarBDMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_desarBDMouseExited
-        // TODO add your handling code here:
+        jButton_desarBD.setIcon(fotoDesarCanvis);
+        jButton_desarBD.setBackground(new Color(76, 140, 43));
     }//GEN-LAST:event_jButton_desarBDMouseExited
 
 

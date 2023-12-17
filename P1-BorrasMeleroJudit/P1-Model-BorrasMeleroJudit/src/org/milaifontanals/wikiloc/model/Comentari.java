@@ -100,8 +100,8 @@ public class Comentari {
     }
 
     public void setVseg(Integer vSeg) {
-        System.out.println("vsegggggg: "+ vSeg);
-        System.out.println("fetaaaaa: "+this.feta);
+        //System.out.println("vsegggggg: "+ vSeg);
+        //System.out.println("fetaaaaa: "+this.feta);
         if(vSeg == null || vSeg < 1 || vSeg > 5){
             throw new WikilocModelException("La valoració del seguiment és un camp obligatori en cas que s'hagi realitzat la ruta i els seus valors se situen entre l'1 i el 5");
         }        

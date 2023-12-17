@@ -494,7 +494,7 @@ public class Menu extends javax.swing.JFrame {
         //new CambiaPanel(jPanel_principal,new panellSortir());
         
         int opcio = JOptionPane.showConfirmDialog(null, "Estàs segur de tancar la sessió?",
-                "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                "Tancar sessió", JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);
         
         if(this.rSButtonMenuSortir.isSelected()){

@@ -252,7 +252,7 @@ public class CompoundUndoManager implements UndoableEditListener
                 } 
                 catch (CannotUndoException ex) 
                 {
-                    System.out.println("Unable to undo: " + ex);
+                    //System.out.println("Unable to undo: " + ex);
                     ex.printStackTrace();
                 }
                 
@@ -293,7 +293,7 @@ public class CompoundUndoManager implements UndoableEditListener
                 } 
                 catch (CannotUndoException ex) 
                 {
-                    System.out.println("Unable to redo: " + ex);
+                    //System.out.println("Unable to redo: " + ex);
                     ex.printStackTrace();
                 }
                 

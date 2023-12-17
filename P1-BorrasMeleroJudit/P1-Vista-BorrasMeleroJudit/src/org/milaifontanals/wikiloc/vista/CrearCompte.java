@@ -160,7 +160,7 @@ public class CrearCompte extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(45, 10, 0, 0);
         jPanel_iniciarSessio.add(jLabel_iniciaSessio, gridBagConstraints);
 
-        jLabel_logo.setIcon(new javax.swing.ImageIcon("G:\\DAM\\2on\\Curs 2023-2024\\M13-Projecte\\1_WikiLoc\\P1_WikiLoc\\P1-BorrasMeleroJudit\\P1-Vista-BorrasMeleroJudit\\img\\wikiloc_logo.png")); // NOI18N
+        jLabel_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/wikiloc/components/wikiloc_logo.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -360,7 +360,10 @@ public class CrearCompte extends javax.swing.JFrame {
             }else{
                 
                 gestorBDWikilocJdbc.confirmarCanvis();
-                
+                JOptionPane.showMessageDialog(this,
+                            "Usuari creat correctament",
+                            "Wikiloc",
+                            JOptionPane.INFORMATION_MESSAGE);
                 this.setVisible(false);
 
 
@@ -379,7 +382,9 @@ public class CrearCompte extends javax.swing.JFrame {
             
             
         } catch (GestorBDWikilocException ex) {
-            Logger.getLogger(CrearCompte.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,
+                    "Error: No s'ha pogut crear l'usuari: "+ex.getMessage() ,
+                    "Error - Alta usuari", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton_registratMouseClicked
 

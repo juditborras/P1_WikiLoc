@@ -59,9 +59,9 @@ public class SourceCodeEditor extends SyntaxTextPane
             Object o = null;
             o = this.getClass().getResource("syntax.properties");
             if(o==null){
-                System.out.println("NULL");
+                //System.out.println("NULL");
             }else{
-                System.out.println("NO NULL: "+o.toString());
+                //System.out.println("NO NULL: "+o.toString());
             }
             
             in = getClass().getResource("syntax.properties").openStream();

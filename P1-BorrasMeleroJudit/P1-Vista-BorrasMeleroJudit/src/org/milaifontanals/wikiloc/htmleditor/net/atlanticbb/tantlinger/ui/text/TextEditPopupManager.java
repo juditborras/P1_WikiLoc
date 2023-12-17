@@ -304,7 +304,7 @@ public class TextEditPopupManager
             }
             catch (Exception ex)
             {
-                System.out.println("Cannot Redo");
+                //System.out.println("Cannot Redo");
             }
         }
     }
@@ -332,7 +332,7 @@ public class TextEditPopupManager
             }
             catch (Exception ex)
             {
-                System.out.println("Cannot Undo");
+                //System.out.println("Cannot Undo");
             }
         }
     }

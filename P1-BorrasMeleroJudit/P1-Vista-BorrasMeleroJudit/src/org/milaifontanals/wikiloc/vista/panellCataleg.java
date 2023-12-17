@@ -227,12 +227,10 @@ public class panellCataleg extends javax.swing.JPanel {
             jComboBox_seleccionarCompany.insertItemAt(null, 0);
             jComboBox_seleccionarCompany.setSelectedIndex(-1);
             
-            for(int i=0; i<llistaLogins.size(); i++){
-                //System.out.println(u[i].getLogin().toString());
-            }
-
         } catch (GestorBDWikilocException ex) {
-            
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut obtenir la llista d'usuaris: "+ex.getMessage() ,
+                            "Error - Obtenir llista usuaris", JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -299,7 +297,9 @@ public class panellCataleg extends javax.swing.JPanel {
                         
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("Error en carregar la taula de rutes fetes");
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut els les rutes: "+ex.getMessage() ,
+                            "Error - Obtenir rutes", JOptionPane.ERROR_MESSAGE);
         }
         
 
@@ -404,7 +404,9 @@ public class panellCataleg extends javax.swing.JPanel {
                         feta = false;
                     }
                 } catch (GestorBDWikilocException ex) {
-                   
+                   JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut les dades de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir dades de la ruta", JOptionPane.ERROR_MESSAGE);
                 }
                 
                 
@@ -758,8 +760,9 @@ public class panellCataleg extends javax.swing.JPanel {
             
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("ERROR DEL CATCH: "+ex.getMessage());
-            Logger.getLogger(panellCataleg.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut les dades de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir dades de la ruta", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -1829,7 +1832,9 @@ public class panellCataleg extends javax.swing.JPanel {
             
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("ERROR DE FILTRE: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut filtrar les rutes: "+ex.getMessage() ,
+                            "Error - Filtrar rutes", JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -1908,7 +1913,9 @@ public class panellCataleg extends javax.swing.JPanel {
                         
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("Error en carregar la taula de rutes fetes");
+           JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut netejar els filtres: "+ex.getMessage() ,
+                            "Error - Netejar filtres", JOptionPane.ERROR_MESSAGE);
         }        
 
         
@@ -1982,7 +1989,9 @@ public class panellCataleg extends javax.swing.JPanel {
 
             }
         } catch (GestorBDWikilocException ex) {
-
+            JOptionPane.showMessageDialog(null,
+                                        "Error: No s'ha pogut obtenir les dades de la ruta: "+ex.getMessage() ,
+                                        "Error - Obtenir dades de la ruta", JOptionPane.ERROR_MESSAGE);
         }
         
 //        jTextPane1.setPreferredSize(new Dimension(444, 194));
@@ -2334,13 +2343,13 @@ public class panellCataleg extends javax.swing.JPanel {
                                 gestorBDWikilocJdbc.confirmarCanvis();
 
                                 JOptionPane.showConfirmDialog(null, "Comentari inserit correctament",
-                                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                        "Wikiloc", JOptionPane.CLOSED_OPTION,
                                         JOptionPane.INFORMATION_MESSAGE);
                             } else {
                                 //System.out.println("El company no s'ha inserit");
                                 gestorBDWikilocJdbc.desferCanvis();
                                 JOptionPane.showConfirmDialog(null, "Error el company no s'ha inserit",
-                                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                        "Error afegint company", JOptionPane.CLOSED_OPTION,
                                         JOptionPane.INFORMATION_MESSAGE);
                             }
                             
@@ -2349,7 +2358,7 @@ public class panellCataleg extends javax.swing.JPanel {
                         } else {
                             //System.out.println("ERROR AL INSERIR EL COMPANY A FETES");
                             JOptionPane.showConfirmDialog(null, "Error a l'inserir el company a fetes",
-                                    "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                    "Error - Company ruta", JOptionPane.CLOSED_OPTION,
                                     JOptionPane.INFORMATION_MESSAGE);
                         }
 
@@ -2357,7 +2366,7 @@ public class panellCataleg extends javax.swing.JPanel {
                         gestorBDWikilocJdbc.desferCanvis();
                         //System.out.println("ERROR AL INSERIR EL USUARI A FETES");
                         JOptionPane.showConfirmDialog(null, "Error a l'inserir l'usuari a fetes",
-                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                "Error - Fetes", JOptionPane.CLOSED_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
                     
@@ -2371,14 +2380,14 @@ public class panellCataleg extends javax.swing.JPanel {
                             gestorBDWikilocJdbc.confirmarCanvis();
 
                             JOptionPane.showConfirmDialog(null, "Comentari inserit correctament",
-                                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                        "Wikiloc", JOptionPane.CLOSED_OPTION,
                                         JOptionPane.INFORMATION_MESSAGE);
                         }
                     }else{
                         gestorBDWikilocJdbc.confirmarCanvis();
 
                         JOptionPane.showConfirmDialog(null, "Comentari inserit correctament",
-                                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                        "Wikiloc", JOptionPane.CLOSED_OPTION,
                                         JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
@@ -2389,7 +2398,7 @@ public class panellCataleg extends javax.swing.JPanel {
                 //System.out.println("El comentari no s'ha inserit");
                 gestorBDWikilocJdbc.desferCanvis();
                 JOptionPane.showConfirmDialog(null, "Error el comentari no s'ha inserit",
-                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                "Error - Comentari", JOptionPane.CLOSED_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (GestorBDWikilocException ex) {
@@ -2465,7 +2474,9 @@ public class panellCataleg extends javax.swing.JPanel {
                         
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("Error en carregar la taula de rutes fetes");
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut obtenir les rutes: "+ex.getMessage() ,
+                            "Error - Rutes", JOptionPane.ERROR_MESSAGE);
         }
 
         jTextArea_escriureComentari.setText("");
@@ -2718,8 +2729,9 @@ public class panellCataleg extends javax.swing.JPanel {
             
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("ERROR DEL CATCH: "+ex.getMessage());
-            Logger.getLogger(panellCataleg.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut obtenir les dades de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir dades de la ruta", JOptionPane.ERROR_MESSAGE);
         }
              
         

@@ -7,42 +7,20 @@ INSERT INTO USUARI (LOGIN,PWD,EMAIL) VALUES ('dsegura', 'pwd2522', 'dsegura@mila
 --1 dels usuaris hagi pujat 2 rutes
 INSERT INTO RUTA (TITOL,DESC_RUTA,TEXT_RUTA,DIST,TEMPS,DESN_P,DESN_N,DIFIC,LOGIN_USUARI) VALUES 
                         ('Els Esgavellats',
-                        'Una curiosa ruta que parteix d’aquest pàrquing, situat a Vilanova del Camí. El primer tram transcorre per una pista de terra 
-                        sense dificultat, seguint les marques grogues i blanques. Més endavant entrarem a les escletxes i seguirem més marques 
-                        blanques (trobarem punts als arbres). En principi no hi ha dificultat, però s’ha d’anar molt alerta amb gossos i/o nens/es 
-                        petits, sobretot en el tram de les escales.',
-                        'Una curiosa ruta que parteix d’aquest pàrquing, situat a Vilanova del Camí. El primer tram transcorre per una pista de terra 
-                        sense dificultat, seguint les marques grogues i blanques. Més endavant entrarem a les escletxes i seguirem més marques 
-                        blanques (trobarem punts als arbres). En principi no hi ha dificultat, però s’ha d’anar molt alerta amb gossos i/o nens/es 
-                        petits, sobretot en el tram de les escales.',
+                        'Una curiosa ruta que parteix d’aquest pàrquing, situat a Vilanova del Camí. El primer tram transcorre per una pista de terra sense dificultat, seguint les marques grogues i blanques. Més endavant entrarem a les escletxes i seguirem més marques blanques (trobarem punts als arbres). En principi no hi ha dificultat, però s’ha d’anar molt alerta amb gossos i/o nens/es petits, sobretot en el tram de les escales.',
+                        'Una curiosa ruta que parteix d’aquest pàrquing, situat a Vilanova del Camí. El primer tram transcorre per una pista de terra sense dificultat, seguint les marques grogues i blanques. Més endavant entrarem a les escletxes i seguirem més marques blanques (trobarem punts als arbres). En principi no hi ha dificultat, però s’ha d’anar molt alerta amb gossos i/o nens/es petits, sobretot en el tram de les escales.',
                         6.08, 129, 261, 261, 2, 'eborras');                     
 INSERT INTO RUTA (TITOL,DESC_RUTA,TEXT_RUTA,DIST,TEMPS,DESN_P,DESN_N,DIFIC,LOGIN_USUARI) VALUES 
                         ('Mirador de Montserrat',
-                        'Sortim de la llar d’infants la Rosella i agafem el camí que hi ha a la dreta el qual ens portarà al carrer Parlament de 
-                        Catalunya, el seguim a l’esquerre i continuem tot recte fins a travessar la carretera i trobar-nos amb un carril bici asfaltat
-                        en vermell que hem de continuar fins a arribar al mirador de Montserrat.',
-                        'Sortim de la llar d’infants la Rosella i agafem el camí que hi ha a la dreta el qual ens portarà al carrer Parlament de 
-                        Catalunya, el seguim a l’esquerre i continuem tot recte fins a travessar la carretera i trobar-nos amb un carril bici asfaltat
-                        en vermell que hem de continuar fins a arribar al mirador de Montserrat.',
+                        'Sortim de la llar d’infants la Rosella i agafem el camí que hi ha a la dreta el qual ens portarà al carrer Parlament de Catalunya, el seguim a l’esquerre i continuem tot recte fins a travessar la carretera i trobar-nos amb un carril bici asfaltat en vermell que hem de continuar fins a arribar al mirador de Montserrat.',
+                        'Sortim de la llar d’infants la Rosella i agafem el camí que hi ha a la dreta el qual ens portarà al carrer Parlament de Catalunya, el seguim a l’esquerre i continuem tot recte fins a travessar la carretera i trobar-nos amb un carril bici asfaltat en vermell que hem de continuar fins a arribar al mirador de Montserrat.',
                         1.9, 45, 38, 0, 1, 'eborras');
 
 --1 dels usuaris hagi pujat 1 ruta
 INSERT INTO RUTA (TITOL,DESC_RUTA,TEXT_RUTA,DIST,TEMPS,DESN_P,DESN_N,DIFIC,LOGIN_USUARI) VALUES 
                         ('Igualada-Carme',
-                        'Carme és un municipi de la comarca de l''Anoia, situat a la província de Barcelona, comunitat autònoma de Catalunya, Espanya.
-                        Concretament, el poble es troba al bell mig d''una vall, que està composta per una banda per la serra d''Orpinell (751 m) i de
-                        l''altra per la de Collbàs (544 m). El poble es troba ancorat al fons de la vall, al mig del bosc i subtilment apartat de les 
-                        grans poblacions. La capital de la comarca de l''Anoia, Igualada, es troba exactament a deu quilòmetres del mateix poble, 
-                        mentre que altres municipis com la Pobla de Claramunt o Capellades es troben escassament a uns cinc quilòmetres de la vila. 
-                        Actualment el poble compta aproximadament amb uns 800 habitants, però en temporades de vacances aquesta xifra es pot veure 
-                        lleugerament augmentada',
-                        'Carme és un municipi de la comarca de l''Anoia, situat a la província de Barcelona, comunitat autònoma de Catalunya, Espanya.
-                        Concretament, el poble es troba al bell mig d''una vall, que està composta per una banda per la serra d''Orpinell (751 m) i de
-                        l''altra per la de Collbàs (544 m). El poble es troba ancorat al fons de la vall, al mig del bosc i subtilment apartat de les 
-                        grans poblacions. La capital de la comarca de l''Anoia, Igualada, es troba exactament a deu quilòmetres del mateix poble, 
-                        mentre que altres municipis com la Pobla de Claramunt o Capellades es troben escassament a uns cinc quilòmetres de la vila. 
-                        Actualment el poble compta aproximadament amb uns 800 habitants, però en temporades de vacances aquesta xifra es pot veure 
-                        lleugerament augmentada',
+                        'Carme és un municipi de la comarca de l''Anoia, situat a la província de Barcelona, comunitat autònoma de Catalunya, Espanya. Concretament, el poble es troba al bell mig d''una vall, que està composta per una banda per la serra d''Orpinell (751 m) i de l''altra per la de Collbàs (544 m). El poble es troba ancorat al fons de la vall, al mig del bosc i subtilment apartat de les grans poblacions. La capital de la comarca de l''Anoia, Igualada, es troba exactament a deu quilòmetres del mateix poble, mentre que altres municipis com la Pobla de Claramunt o Capellades es troben escassament a uns cinc quilòmetres de la vila. Actualment el poble compta aproximadament amb uns 800 habitants, però en temporades de vacances aquesta xifra es pot veure lleugerament augmentada',
+                        'Carme és un municipi de la comarca de l''Anoia, situat a la província de Barcelona, comunitat autònoma de Catalunya, Espanya. Concretament, el poble es troba al bell mig d''una vall, que està composta per una banda per la serra d''Orpinell (751 m) i de l''altra per la de Collbàs (544 m). El poble es troba ancorat al fons de la vall, al mig del bosc i subtilment apartat de les grans poblacions. La capital de la comarca de l''Anoia, Igualada, es troba exactament a deu quilòmetres del mateix poble, mentre que altres municipis com la Pobla de Claramunt o Capellades es troben escassament a uns cinc quilòmetres de la vila. Actualment el poble compta aproximadament amb uns 800 habitants, però en temporades de vacances aquesta xifra es pot veure lleugerament augmentada',
                         39.58, 340, 773, 773, 5, 'jborras2');
 
 INSERT INTO FETES VALUES ('eborras', TO_DATE('2023-08-28 11:10','yyyy/mm/dd hh24:mi'),1);
@@ -53,24 +31,25 @@ INSERT INTO FETES VALUES ('dsegura', TO_DATE('2023-09-23 09:35','yyyy/mm/dd hh24
 
 
 --Introduir 10 tipus de punts (per exemple cim, llac, riu, cascada, font, cova, trencall, càmping, aparcament, metro, autobús,...)
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Waypoint','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Aparcament','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Autobús','15882');
 INSERT INTO TIPUS (NOM,ICONA) VALUES ('Avituallament','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Bicicletes','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Cascada','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Cim','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Cova','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Escales','15882');
 INSERT INTO TIPUS (NOM,ICONA) VALUES ('Font','15882');
 INSERT INTO TIPUS (NOM,ICONA) VALUES ('Intersecció','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Aparcament','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Vall','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Cim','15882');
 INSERT INTO TIPUS (NOM,ICONA) VALUES ('Llac','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Riu','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Cascada','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Cova','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Metro','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Autobús','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Escales','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Poliesportiu','15882');
 INSERT INTO TIPUS (NOM,ICONA) VALUES ('Llar d''infants','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Metro','15882');
 INSERT INTO TIPUS (NOM,ICONA) VALUES ('Mirador','15882');
-INSERT INTO TIPUS (NOM,ICONA) VALUES ('Bicicletes','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Poliesportiu','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Riu','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Vall','15882');
+INSERT INTO TIPUS (NOM,ICONA) VALUES ('Waypoint','15882');
+
 
 --Cada ruta ha de tenir, com a mínim, 5 punts de diversos tipus
 --Ruta 1

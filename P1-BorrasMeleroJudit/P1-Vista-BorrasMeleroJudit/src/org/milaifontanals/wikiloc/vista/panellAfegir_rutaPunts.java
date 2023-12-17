@@ -216,12 +216,11 @@ public class panellAfegir_rutaPunts extends javax.swing.JPanel {
             
             //jComboBox_tipusPunt.setModel(new DefaultComboBoxModel<>(llistaTipusPunts.toArray(new Tipus[0])));
 
-            for (int i = 0; i < llistaTipusPunts.size(); i++) {
-                //System.out.println(tip[i]);
-            }
 
         } catch (GestorBDWikilocException ex) {
-            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut els tipus de punts de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir tipus de punts de la ruta", JOptionPane.ERROR_MESSAGE);
         }
         
         //System.out.println("NOVA RUTA: "+nova_ruta);
@@ -1153,7 +1152,7 @@ public class panellAfegir_rutaPunts extends javax.swing.JPanel {
     private void jButton_eliminarPuntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_eliminarPuntMouseClicked
         
         int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur d'esborrar el punt de ruta?",
-                           "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                           "Eliminar punt", JOptionPane.YES_NO_OPTION,
                            JOptionPane.INFORMATION_MESSAGE);
         
         
@@ -1196,7 +1195,7 @@ public class panellAfegir_rutaPunts extends javax.swing.JPanel {
     private void jButton_netejarPuntsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_netejarPuntsMouseClicked
         
         int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur d'eliminar TOTS els punts de ruta associats a la ruta?",
-                            "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                            "Eliminar punts de ruta", JOptionPane.YES_NO_OPTION,
                             JOptionPane.INFORMATION_MESSAGE);
 
         if (resposta == 0) {

@@ -52,7 +52,7 @@
         <Component class="javax.swing.JLabel" name="jLabel_logo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="G:\DAM\2on\Curs 2023-2024\M13-Projecte\1_WikiLoc\P1_WikiLoc\P1-BorrasMeleroJudit\P1-Vista-BorrasMeleroJudit\img\wikiloc_logo.png"/>
+              <Image iconType="3" name="/org/milaifontanals/wikiloc/components/wikiloc_logo.png"/>
             </Property>
           </Properties>
           <Constraints>

@@ -56,6 +56,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     private static PreparedStatement psObtenirLlistaFetes;
     private static PreparedStatement psObtenirLlistaFetesUsuari;
     private static PreparedStatement psHaFetRuta;
+    private static PreparedStatement psEliminarFetes;
 
     private static PreparedStatement psObtenirTipusPerId;
     private static PreparedStatement psObtenirLlistaTipus;
@@ -285,6 +286,9 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             
             inst = "select * from usuari";
             psObtenirUsuaris = conn.prepareStatement(inst);
+            
+            inst = "delete from fetes where id_ruta = ?";
+            psEliminarFetes = conn.prepareStatement(inst);
             
             //inst = "";
             //psPotBorrarRuta = conn.prepareStatement(inst);
@@ -582,6 +586,18 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
     public boolean eliminarRuta(Integer id) throws GestorBDWikilocException {
 
         try{
+            
+            
+            List<Fetes> fetes = this.obtenirLlistaFetes(id);
+            for(Fetes f : fetes){
+                this.eliminarFetesRuta(f.getIdRuta().getId());
+            }
+            
+            List<Punt> punts = this.obtenirLlistaPuntsRuta(id);
+            
+            for(Punt p: punts){
+                this.eliminarPuntRuta(p.getNum(), id);
+            }
 
             psEliminarRuta.setInt(1, id);
 
@@ -594,6 +610,7 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
             return true;
 
         }catch(Exception ex){
+            System.out.println("error"+ex.getMessage());
             return false;
         }
 
@@ -2076,6 +2093,26 @@ public class GestorBDWikilocJdbc implements IGestorBDWikiloc{
         
         return usuaris;
         
+    }
+
+    @Override
+    public boolean eliminarFetesRuta(Integer id) throws GestorBDWikilocException {
+        try{
+            //System.out.println("NUM; "+num+" RUTA: "+id);
+            psEliminarFetes.setInt(1, id);
+
+            int registres_afectats = psEliminarFetes.executeUpdate();
+
+            if(registres_afectats != 1){
+                return false;
+            }
+
+            return true;
+
+        }catch(Exception ex){
+            //System.out.println("ERROR BD: "+ex.getMessage());
+            return false;
+        }
     }
 
 

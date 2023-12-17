@@ -345,13 +345,15 @@ public class panellCompartides extends javax.swing.JPanel {
             }
 
 
-            for (int i = 1; i <= 60; i++) {
+            for (int i = 1; i <= 59; i++) {
                 jComboBox_tempsM.addItem(i + "");
             }
             
             
         } catch (GestorBDWikilocException ex) {
-            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,
+                    "Error: No s'ha pogut obtenir les rutes: "+ex.getMessage() ,
+                    "Error - Obtenir rutes", JOptionPane.ERROR_MESSAGE);
         }
         
 
@@ -465,7 +467,9 @@ public class panellCompartides extends javax.swing.JPanel {
 
                 } catch (GestorBDWikilocException ex) {
                     //System.out.println("ERROR LLISTA PUNTS DE RUTA: "+ex.getMessage());
-                    Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,
+                    "Error: No s'ha pogut obtenir les dades de la ruta seleccionada: "+ex.getMessage() ,
+                    "Error - Obtenir ruta", JOptionPane.ERROR_MESSAGE);
                 }
                 
                 /*
@@ -534,7 +538,9 @@ public class panellCompartides extends javax.swing.JPanel {
                     //System.out.println("COMBO TIPUS PUNTS ACTUALITZAT");
                 } catch (GestorBDWikilocException ex) {
                     //System.out.println("ERROR COMBO TIPUS PUNTS "+ex.getMessage());
-                    Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,
+                    "Error: No s'ha pogut obtenir els tipus de punts: "+ex.getMessage() ,
+                    "Error - Obtenir el tipus de punts de ruta", JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
@@ -560,12 +566,27 @@ public class panellCompartides extends javax.swing.JPanel {
                             jTable_rutesCreadesUsuari.getCellEditor().stopCellEditing();
                         }
                         
-                        DefaultTableModel model = (DefaultTableModel) jTable_rutesCreadesUsuari.getModel();
-                        model.removeRow(row);
-                                                
-                        
-                        jPanel_compartidesCanviant.setVisible(false);
-                        
+                        int option = JOptionPane.showConfirmDialog(null, "Segur que voleu eliminar la ruta seleccionada?",
+                                "Eliminar ruta", JOptionPane.YES_NO_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                        if (option == 0) {
+
+                            if (gestorBDWikilocJdbc.eliminarRuta(id)) {
+                                gestorBDWikilocJdbc.confirmarCanvis();
+                                
+                                DefaultTableModel model = (DefaultTableModel) jTable_rutesCreadesUsuari.getModel();
+                                model.removeRow(row);
+
+                                jPanel_compartidesCanviant.setVisible(false);
+                            } else {
+                                JOptionPane.showMessageDialog(null,
+                                        "Error: No s'ha pogut eliminar la ruta seleccionada ",
+                                        "Error - Eliminar ruta", JOptionPane.ERROR_MESSAGE);
+                            }
+                            
+                        }
+                       
                     }else{
                         
                         JOptionPane.showConfirmDialog(null, "No es pot esborrar una ruta si aquesta té comentaris",
@@ -584,7 +605,9 @@ public class panellCompartides extends javax.swing.JPanel {
                     
                                        
                 } catch (GestorBDWikilocException ex) {
-                    Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut eliminar la ruta seleccionada: "+ex.getMessage() ,
+                            "Error - Eliminar ruta", JOptionPane.ERROR_MESSAGE);
                 }
                 
                 
@@ -669,7 +692,9 @@ public class panellCompartides extends javax.swing.JPanel {
                     //System.out.println(jList_puntsRuta.getModel().toString());
 
                 } catch (GestorBDWikilocException ex) {
-                    Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut obtenir els punts de la ruta seleccionada: "+ex.getMessage() ,
+                            "Error - Obtenir punts de ruta", JOptionPane.ERROR_MESSAGE);
                 }
                 
                 try {
@@ -691,7 +716,9 @@ public class panellCompartides extends javax.swing.JPanel {
                     }
 
                 } catch (GestorBDWikilocException ex) {
-                    Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut els tipus de punts de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir tipus de punts de la ruta", JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
@@ -799,7 +826,9 @@ public class panellCompartides extends javax.swing.JPanel {
             
           
         } catch (GestorBDWikilocException ex) {
-            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut obtenir els punts de la ruta seleccionada: "+ex.getMessage() ,
+                            "Error - Obtenir punts de ruta", JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -825,7 +854,9 @@ public class panellCompartides extends javax.swing.JPanel {
             }
           
         } catch (GestorBDWikilocException ex) {
-            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut els tipus de punts de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir tipus de punts de la ruta", JOptionPane.ERROR_MESSAGE);
         }        
         
 
@@ -1081,7 +1112,9 @@ public class panellCompartides extends javax.swing.JPanel {
             jTextPane1.setText(info_comentari);
             
         } catch (GestorBDWikilocException ex) {
-            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha obtenir els comentaris de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir comentaris de la ruta", JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -2621,14 +2654,14 @@ public class panellCompartides extends javax.swing.JPanel {
             }else{
                 
                 int resposta =JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
-                "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                "Desar canvis ruta", JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);
                 
                 if(resposta == 0){
                     gestorBDWikilocJdbc.confirmarCanvis();
 
                     JOptionPane.showConfirmDialog(null, "Els canvis s'han desat correctament",
-                    "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                    "Wikiloc", JOptionPane.CLOSED_OPTION,
                     JOptionPane.INFORMATION_MESSAGE);
                     
                     gestorBDWikilocJdbc = new GestorBDWikilocJdbc();
@@ -2691,7 +2724,9 @@ public class panellCompartides extends javax.swing.JPanel {
             
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("ERROR: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha editar la ruta: "+ex.getMessage() ,
+                            "Error - Editar ruta", JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -2877,8 +2912,9 @@ public class panellCompartides extends javax.swing.JPanel {
             //System.out.println(jList1.getModel().toString());
 
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR "+ ex.getMessage());
-            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut obtenir els punts de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir punts de ruta", JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -3177,14 +3213,14 @@ public class panellCompartides extends javax.swing.JPanel {
 
                 if (puntAfegit) {
                     int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
-                            "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                            "Afegir punt de la ruta", JOptionPane.YES_NO_OPTION,
                             JOptionPane.INFORMATION_MESSAGE);
 
                     if (resposta == 0) {
                         gestorBDWikilocJdbc.confirmarCanvis();
 
                         JOptionPane.showConfirmDialog(null, "Els canvis s'han desat correctament",
-                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                "Wikiloc", JOptionPane.CLOSED_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
 
                         try {
@@ -3206,7 +3242,9 @@ public class panellCompartides extends javax.swing.JPanel {
                             //System.out.println(jList_puntsRuta.getModel().toString());
 
                         } catch (GestorBDWikilocException ex) {
-                            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut els punts de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir punts de ruta", JOptionPane.ERROR_MESSAGE);
                         }
 
                         try {
@@ -3223,21 +3261,25 @@ public class panellCompartides extends javax.swing.JPanel {
                             jComboBox_tipusPunt.setModel(new DefaultComboBoxModel<>(llistaTipusPunts.toArray(new Tipus[0])));
                             jComboBox_tipusPunt.setSelectedIndex(-1);
 
-                            for (int i = 0; i < llistaTipusPunts.size(); i++) {
-                                //System.out.println(tip[i]);
-                            }
+                            
 
                         } catch (GestorBDWikilocException ex) {
-                            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut els tipus de punts de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir tipus de punts de la ruta", JOptionPane.ERROR_MESSAGE);
                         }
 
                     }
                 } else {
-                    //System.out.println("POSAR PANTALLA ERROR");//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut afegir el punt de ruta" ,
+                            "Error - Afegir punt de ruta", JOptionPane.ERROR_MESSAGE);
                 }
 
             } catch (GestorBDWikilocException ex) {
-                //System.out.println("ERROR: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut afegir el punt de ruta: "+ex.getMessage() ,
+                            "Error - Afegir punt de ruta", JOptionPane.ERROR_MESSAGE);
             }
             
             
@@ -3257,7 +3299,7 @@ public class panellCompartides extends javax.swing.JPanel {
 
                 if (puntEditat) {
                     int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
-                            "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                            "Desar canvis", JOptionPane.YES_NO_OPTION,
                             JOptionPane.INFORMATION_MESSAGE);
 
                     if (resposta == 0) {
@@ -3267,7 +3309,7 @@ public class panellCompartides extends javax.swing.JPanel {
                         gestorBDWikilocJdbc.confirmarCanvis();
 
                         JOptionPane.showConfirmDialog(null, "Els canvis s'han desat correctament",
-                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                "Wikiloc", JOptionPane.CLOSED_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
 
                         try {
@@ -3285,7 +3327,9 @@ public class panellCompartides extends javax.swing.JPanel {
                             //System.out.println(jList_puntsRuta.getModel().toString());
 
                         } catch (GestorBDWikilocException ex) {
-                            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut els punts de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir punts de la ruta", JOptionPane.ERROR_MESSAGE);
                         }
 
                         try {
@@ -3301,22 +3345,25 @@ public class panellCompartides extends javax.swing.JPanel {
 
                             jComboBox_tipusPunt.setModel(new DefaultComboBoxModel<>(llistaTipusPunts.toArray(new Tipus[0])));
                             jComboBox_tipusPunt.setSelectedIndex(-1);
-
-                            for (int i = 0; i < llistaTipusPunts.size(); i++) {
-                                //System.out.println(tip[i]);
-                            }
+                         
 
                         } catch (GestorBDWikilocException ex) {
-                            Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut els tipus de punts de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir tipus de punts de la ruta", JOptionPane.ERROR_MESSAGE);
                         }
 
                     }
                 } else {
-                    //System.out.println("POSAR PANTALLA ERROR");//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                   JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut editar el punt de ruta",
+                            "Error - Editar punt de ruta", JOptionPane.ERROR_MESSAGE);
                 }
 
             } catch (GestorBDWikilocException ex) {
-                //System.out.println("ERROR: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut editar el punt de ruta: "+ex.getMessage() ,
+                            "Error - Editar punt de ruta", JOptionPane.ERROR_MESSAGE);
             }
             
             
@@ -3329,7 +3376,7 @@ public class panellCompartides extends javax.swing.JPanel {
                 if(ordreEditat){
 
                     int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
-                            "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                            "Editar ordre", JOptionPane.YES_NO_OPTION,
                             JOptionPane.INFORMATION_MESSAGE);
 
                     if (resposta == 0) {
@@ -3337,7 +3384,7 @@ public class panellCompartides extends javax.swing.JPanel {
                         gestorBDWikilocJdbc.confirmarCanvis();
 
                         JOptionPane.showConfirmDialog(null, "Els canvis s'han desat correctament",
-                                "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                                "Wikiloc", JOptionPane.CLOSED_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
@@ -3345,7 +3392,9 @@ public class panellCompartides extends javax.swing.JPanel {
 
                 
             }catch(GestorBDWikilocException ex){
-                //System.out.println("ERROR: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut canviar l'ordre els punts de ruta: "+ex.getMessage() ,
+                            "Error - Canvi ordre punts ruta", JOptionPane.ERROR_MESSAGE);
             }
             
             
@@ -3393,7 +3442,7 @@ public class panellCompartides extends javax.swing.JPanel {
         //eliminarPuntRutaTots(id);
         
         int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur d'eliminar TOTS els punts de ruta associats a la ruta?",
-                            "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                            "Eliminar punts de ruta", JOptionPane.YES_NO_OPTION,
                             JOptionPane.INFORMATION_MESSAGE);
 
         if (resposta == 0) {
@@ -3403,14 +3452,14 @@ public class panellCompartides extends javax.swing.JPanel {
                     gestorBDWikilocJdbc.confirmarCanvis();
                     
                     JOptionPane.showConfirmDialog(null, "Els canvis s'han realitzat correctament",
-                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        "Wikiloc", JOptionPane.CLOSED_OPTION,
                         JOptionPane.INFORMATION_MESSAGE);
                     dlm.clear();
                 }
                 
             } catch (GestorBDWikilocException ex) {
-                JOptionPane.showConfirmDialog(null, "Error: "+ex.getMessage(),
-                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                JOptionPane.showConfirmDialog(null, "No s'ha pogut eliminar tots els punts de ruta associats de la ruta: "+ex.getMessage(),
+                        "Eliminar punts de la ruta", JOptionPane.CLOSED_OPTION,
                         JOptionPane.ERROR_MESSAGE);
             }
         
@@ -3423,7 +3472,7 @@ public class panellCompartides extends javax.swing.JPanel {
         
         
         int resposta = JOptionPane.showConfirmDialog(null, "Estàs segur d'esborrar el punt de ruta?",
-                           "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
+                           "Eliminar punt de ruta", JOptionPane.YES_NO_OPTION,
                            JOptionPane.INFORMATION_MESSAGE);
         
         
@@ -3435,7 +3484,7 @@ public class panellCompartides extends javax.swing.JPanel {
                     gestorBDWikilocJdbc.confirmarCanvis();
 
                     JOptionPane.showConfirmDialog(null, "El punt de ruta s'ha esborrat correctament",
-                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                        "Wikiloc", JOptionPane.CLOSED_OPTION,
                         JOptionPane.INFORMATION_MESSAGE);
                     
                     dlm.removeElement(punt_seleccionat);
@@ -3461,7 +3510,9 @@ public class panellCompartides extends javax.swing.JPanel {
                         //System.out.println(jList1.getModel().toString());
 
                     } catch (GestorBDWikilocException ex) {
-                        Logger.getLogger(panellCompartides.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut obtenir els punts de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir punts de la ruta", JOptionPane.ERROR_MESSAGE);
                     }
                     
                     
@@ -3513,8 +3564,8 @@ public class panellCompartides extends javax.swing.JPanel {
                 }
                 
             } catch (GestorBDWikilocException ex) {
-                JOptionPane.showConfirmDialog(null, "Error: "+ex.getMessage(),
-                        "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
+                JOptionPane.showConfirmDialog(null, "No s'ha pogut eliminar el punt de la ruta: "+ex.getMessage(),
+                        "Error a eliminar el punt de la ruta", JOptionPane.CLOSED_OPTION,
                         JOptionPane.ERROR_MESSAGE);
             }
         
@@ -3668,7 +3719,9 @@ public class panellCompartides extends javax.swing.JPanel {
             
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("ERROR: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut filtrar : "+ex.getMessage() ,
+                            "Error - Filtrar rutes", JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -3735,7 +3788,9 @@ public class panellCompartides extends javax.swing.JPanel {
             
             
         } catch (GestorBDWikilocException ex) {
-            //System.out.println("ERROR: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut netejar els filtres: "+ex.getMessage() ,
+                            "Error - Netejar filtres", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_jButton_netejarFiltreMouseClicked
@@ -3879,8 +3934,9 @@ public class panellCompartides extends javax.swing.JPanel {
 
                 
             } catch (GestorBDWikilocException ex) {
-                //System.out.println("catch: error");
-                //System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(null,
+                            "Error: No s'ha pogut els tipus de punt de la ruta: "+ex.getMessage() ,
+                            "Error - Obtenir tipus de punt de la ruta", JOptionPane.ERROR_MESSAGE);
             }
             
             

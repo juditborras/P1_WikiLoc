@@ -107,7 +107,7 @@ public class Demo {
                 editor.wysEditor.setText(html_s);
                 myReader.close();
             } catch (FileNotFoundException ex) {
-                System.out.println("error: "+ex.getMessage());
+                //System.out.println("error: "+ex.getMessage());
             }
         }
         
@@ -117,16 +117,16 @@ public class Demo {
             @Override
             public void windowClosing(WindowEvent e) {
                 
-                System.out.println("TEXT-HTML: "+text_html+" FI HTML");
+                //System.out.println("TEXT-HTML: "+text_html+" FI HTML");
                 
                 
-                System.out.println("EL TEXT HTML QUE HI HA: "+editor.wysEditor.getText());
+                //System.out.println("EL TEXT HTML QUE HI HA: "+editor.wysEditor.getText());
                 
                 
                 int resposta =JOptionPane.showConfirmDialog(null, "Estàs segur de desar els canvis?",
                 "YES_NO_OPTION", JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);
-                System.out.println("LEN: "+editor.wysEditor.getText().length()+" "+editor.wysEditor.getText());
+                //System.out.println("LEN: "+editor.wysEditor.getText().length()+" "+editor.wysEditor.getText());
                 if(resposta == 0){
                     if(editor.wysEditor.getText().length()==58){
                         JOptionPane.showConfirmDialog(null, "No es pot deixar buit",
@@ -136,17 +136,17 @@ public class Demo {
                         try {
                             if(gestorBDWikilocJdbc.editarTextHtmlRuta(id_ruta, editor.wysEditor.getText())){
                                 gestorBDWikilocJdbc.confirmarCanvis();
-                                System.out.println("ID RUTA: "+id_ruta);
-                                System.out.println("TEXT HTML: "+text_html);
+                                //System.out.println("ID RUTA: "+id_ruta);
+                                //System.out.println("TEXT HTML: "+text_html);
                                 
                                 JOptionPane.showConfirmDialog(null, "Els canvis s'han desat correctament",
                                         "CLOSED_OPTION", JOptionPane.CLOSED_OPTION,
                                         JOptionPane.INFORMATION_MESSAGE);
                             }else{
-                                System.out.println("elseeeeeee");
+                                //System.out.println("elseeeeeee");
                             }
                         } catch (GestorBDWikilocException ex) {
-                            System.out.println(ex.getMessage());
+                            //System.out.println(ex.getMessage());
                         }
                     }
                     if (modeAlta) {
@@ -160,7 +160,7 @@ public class Demo {
                             fw.write(editor.wysEditor.getText());
                             fw.close();
                         } catch (IOException ex) {
-                            System.out.println("ERROR: " + ex.getMessage());
+                            //System.out.println("ERROR: " + ex.getMessage());
                         }
                     }
 
@@ -180,7 +180,7 @@ public class Demo {
     
 
     public void printHtml() {
-        System.out.println(editor.getText());
+        //System.out.println(editor.getText());
     }
     
     
