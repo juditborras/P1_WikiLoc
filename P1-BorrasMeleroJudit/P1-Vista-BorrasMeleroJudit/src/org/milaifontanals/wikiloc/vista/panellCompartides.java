@@ -745,6 +745,8 @@ public class panellCompartides extends javax.swing.JPanel {
         jTextField_titol.setText(llistaRutesCreades.get(row).getTitol());
         titol = llistaRutesCreades.get(row).getTitol();
         
+        jTextArea_descRuta.setLineWrap(true);
+        jTextArea_descRuta.setWrapStyleWord(true);
         jTextArea_descRuta.setText(llistaRutesCreades.get(row).getDescRuta());
         desc = llistaRutesCreades.get(row).getDescRuta();
         
@@ -3907,6 +3909,8 @@ public class panellCompartides extends javax.swing.JPanel {
             
             jTextField_ordrePunt.setText(punt_seleccionat.getOrdre().toString());
             jTextField_nomPunt.setText(punt_seleccionat.getNom());
+            jTextArea_descPunt.setLineWrap(true);
+            jTextArea_descPunt.setWrapStyleWord(true);
             jTextArea_descPunt.setText(punt_seleccionat.getDescPunt());
             
 
